@@ -15,9 +15,7 @@ public class Heapsort {
             array[i] = tmp;
             heapify(array, i, 0);
         }
-        for (int i = 0; i < len; ++i)
-            System.out.print(array[i] + " ");
-        System.out.println();
+
     }
 
     public static void heapify(int array[], int len, int i) {
