@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'jacoco'
 }
-
 group = 'ru.nsu.anisimov'
 version = '1.0-SNAPSHOT'
 
