@@ -1,10 +1,12 @@
 package ru.nsu.anisimov;
 
-import java.util.Scanner;
 
 public class Heapsort {
 
     public static void heapsort(int array[]) {
+
+//        long startTime = System.nanoTime();
+
         int len = array.length;
         for (int i = len / 2 - 1; i >= 0; --i) {
             heapify(array, len, i);
@@ -16,6 +18,9 @@ public class Heapsort {
             heapify(array, i, 0);
         }
 
+//        long endTime = System.nanoTime();
+//        long totalTime = endTime - startTime;
+//        System.out.println("Program took " + totalTime + " ns");
     }
 
     public static void heapify(int array[], int len, int i) {

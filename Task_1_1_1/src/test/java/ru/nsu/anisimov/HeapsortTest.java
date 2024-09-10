@@ -22,6 +22,27 @@ class HeapsortTest {
         int[] test4Array = new int[]{1, 1, 1};
         Heapsort.heapsort(test4Array);
         assertArrayEquals(new int[]{1, 1, 1}, test4Array);
+
+        int[] test5Array = new int[]{1};
+        Heapsort.heapsort(test5Array);
+        assertArrayEquals(new int[]{1}, test5Array);
+
+        int[] test6Array = new int[]{50, 10, 49, 3, 4, 7, 20};
+        Heapsort.heapsort(test6Array);
+        assertArrayEquals(new int[]{3, 4, 7, 10, 20, 49, 50}, test6Array);
+
+        int[] test7Array = new int[]{};
+        Heapsort.heapsort(test7Array);
+        assertArrayEquals(new int[]{}, test7Array);
+
+        int[] test8Array = new int[]{99999992, 0, 0, 2, 23432};
+        Heapsort.heapsort(test8Array);
+        assertArrayEquals(new int[]{0, 0, 2, 23432, 99999992}, test8Array);
+
+        int[] test9Array = new int[]{1, 0, 1, 0, 0, 1, 0};
+        Heapsort.heapsort(test9Array);
+        assertArrayEquals(new int[]{0, 0, 0, 0, 1, 1, 1}, test9Array);
+
     }
 
 }
