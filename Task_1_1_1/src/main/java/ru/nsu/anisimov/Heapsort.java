@@ -1,26 +1,33 @@
 package ru.nsu.anisimov;
 
+import java.awt.*;
 
+/**
+ * Convert the array into a max heap using heapify, Then one by one delete the root node of the Max-heap and replace it with the last node and heapify.
+ *
+ * @author kirill
+ * @version 1.0
+ */
 public class Heapsort {
 
     public static void heapsort(int array[]) {
-
-//        long startTime = System.nanoTime();
-
         int len = array.length;
+        /**
+         * Builds a max heap from using the input array.
+         *
+         */
         for (int i = len / 2 - 1; i >= 0; --i) {
             heapify(array, len, i);
         }
+        /**
+         * The sorted array is obtained by reversing the order of the elements in the input array.
+         */
         for (int i = len - 1; i >= 0; --i) {
             int tmp = array[0];
             array[0] = array[i];
             array[i] = tmp;
             heapify(array, i, 0);
         }
-
-//        long endTime = System.nanoTime();
-//        long totalTime = endTime - startTime;
-//        System.out.println("Program took " + totalTime + " ns");
     }
 
     public static void heapify(int array[], int len, int i) {
@@ -43,5 +50,10 @@ public class Heapsort {
     }
 
     public static void main(String[] args) {
+//        long startTime = System.nanoTime();
+//        heapsort(new int[] {});
+//        long endTime = System.nanoTime();
+//        long totalTime = endTime - startTime;
+//        System.out.println("Program took " + totalTime + " ns");
     }
 }
