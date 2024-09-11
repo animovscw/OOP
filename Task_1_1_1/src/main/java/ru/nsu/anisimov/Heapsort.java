@@ -1,6 +1,5 @@
 package ru.nsu.anisimov;
 
-import java.awt.*;
 
 /**
  * Convert the array into a max heap using heapify, Then one by one delete the root node of the Max-heap and replace it with the last node and heapify.
@@ -12,16 +11,9 @@ public class Heapsort {
 
     public static void heapsort(int array[]) {
         int len = array.length;
-        /**
-         * Builds a max heap from using the input array.
-         *
-         */
         for (int i = len / 2 - 1; i >= 0; --i) {
             heapify(array, len, i);
         }
-        /**
-         * The sorted array is obtained by reversing the order of the elements in the input array.
-         */
         for (int i = len - 1; i >= 0; --i) {
             int tmp = array[0];
             array[0] = array[i];
