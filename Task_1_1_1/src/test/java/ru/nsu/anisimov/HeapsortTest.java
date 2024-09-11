@@ -1,4 +1,5 @@
 package ru.nsu.anisimov;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -6,64 +7,78 @@ import org.junit.jupiter.api.Test;
 class HeapsortTest {
     @Test
     void firstTest() {
-        int[] test1Array = new int[]{3, 1, 2};
-        Heapsort.heapsort(test1Array);
-        assertArrayEquals(new int[]{1, 2, 3}, test1Array);
+        int[] Array = new int[]{3, 1, 2};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{1, 2, 3}, Array);
     }
 
     @Test
     void secondTest() {
-        int[] test2Array = new int[]{4, 10, 3, 5, 1};
-        Heapsort.heapsort(test2Array);
-        assertArrayEquals(new int[]{1, 3, 4, 5, 10}, test2Array);
+        int[] Array = new int[]{4, 10, 3, 5, 1};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{1, 3, 4, 5, 10}, Array);
     }
 
     @Test
     void thirdTest() {
-        int[] test3Array = new int[]{2, 3, 4, 5};
-        Heapsort.heapsort(test3Array);
-        assertArrayEquals(new int[]{2, 3, 4, 5}, test3Array);
+        int[] Array = new int[]{2, 3, 4, 5};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{2, 3, 4, 5}, Array);
     }
 
     @Test
     void fourthTest() {
-        int[] test4Array = new int[]{1, 1};
-        Heapsort.heapsort(test4Array);
-        assertArrayEquals(new int[]{1, 1}, test4Array);
+        int[] Array = new int[]{1, 1};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{1, 1}, Array);
     }
 
     @Test
     void fifthTest() {
-        int[] test5Array = new int[]{1};
-        Heapsort.heapsort(test5Array);
-        assertArrayEquals(new int[]{1}, test5Array);
+        int[] Array = new int[]{1};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{1}, Array);
     }
 
     @Test
     void sixthTest() {
-        int[] test6Array = new int[]{50, 10, 49, 3, 4, 7, 20, 0};
-        Heapsort.heapsort(test6Array);
-        assertArrayEquals(new int[]{0, 3, 4, 7, 10, 20, 49, 50}, test6Array);
+        int[] Array = new int[]{50, 10, 49, 3, 4, 7, 20, 0};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{0, 3, 4, 7, 10, 20, 49, 50}, Array);
     }
 
     @Test
     void seventhTest() {
-        int[] test7Array = new int[]{};
-        Heapsort.heapsort(test7Array);
-        assertArrayEquals(new int[]{}, test7Array);
+        int[] Array = new int[]{};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{}, Array);
     }
 
     @Test
     void eighthTest() {
-        int[] test8Array = new int[]{99999992, 0, 0, 2, 23432, 1};
-        Heapsort.heapsort(test8Array);
-        assertArrayEquals(new int[]{0, 0, 1, 2, 23432, 99999992}, test8Array);
+        int[] Array = new int[]{99999992, 0, 0, 2, 23432, 1};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{0, 0, 1, 2, 23432, 99999992}, Array);
     }
 
     @Test
     void ninthTest() {
-        int[] test9Array = new int[]{1, 0, 1, 0, 0, 1, 0};
-        Heapsort.heapsort(test9Array);
-        assertArrayEquals(new int[]{0, 0, 0, 0, 1, 1, 1}, test9Array);
+        int[] Array = new int[]{1, 0, 1, 0, 0, 1, 0};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{0, 0, 0, 0, 1, 1, 1}, Array);
+    }
+
+    @Test
+    void tenthTest() {
+        int[] Array = new int[]{73, 65, 65, 49, 97, 41, 24, 18, 81};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{18, 24, 41, 49, 65, 65, 73, 81, 97}, Array);
+    }
+
+    @Test
+    void eleventhTest() {
+        int[] Array = new int[]{46, 88, 20, 88, 10, 89, 59, 80, 86, 23};
+        Heapsort.heapsort(Array);
+        assertArrayEquals(new int[]{10, 20, 23, 46, 59, 80, 86, 88, 88, 89}, Array);
     }
 }
