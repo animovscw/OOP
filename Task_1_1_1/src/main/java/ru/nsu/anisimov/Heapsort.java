@@ -2,13 +2,14 @@ package ru.nsu.anisimov;
 
 
 /**
- * Convert the array into a max heap using heapify, Then one by one delete the root node of the Max-heap and replace it with the last node and heapify.
+ * Convert the array into a max heap using heapify,
+ * Then one by one delete the root node of the Max-heap
+ * and replace it with the last node and heapify.
  *
  * @author kirill
  * @version 1.0
  */
 public class Heapsort {
-
     public static void heapsort(int array[]) {
         int len = array.length;
         for (int i = len / 2 - 1; i >= 0; --i) {
