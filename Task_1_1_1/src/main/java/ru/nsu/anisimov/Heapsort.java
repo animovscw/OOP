@@ -10,7 +10,10 @@ package ru.nsu.anisimov;
  * @version 1.0
  */
 public class Heapsort {
-    public static void heapsort (int[] array) {
+    /**
+     * @param array that contain the input numbers and after the algorithm output the sorted array
+     */
+    public static void heapsort(int[] array) {
         int len = array.length;
         for (int i = len / 2 - 1; i >= 0; --i) {
             heapify(array, len, i);
@@ -23,6 +26,11 @@ public class Heapsort {
         }
     }
 
+    /**
+     * @param array array which is used to represent the tree
+     * @param len   the array length
+     * @param i     index
+     */
     public static void heapify(int[] array, int len, int i) {
         int parent = i;
         int left = 2 * i + 1;
