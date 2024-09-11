@@ -12,7 +12,7 @@ public class Heapsort {
     /**
      * Firstly, the function builds max-heap, then it is sorting the array in ascending order.
      *
-     * @param array Parameter contain the input numbers and after the algorithm output the sorted array
+     * @param array Contain the input numbers and after output the sorted array
      */
     public static void heapsort(int[] array) {
         int len = array.length;
