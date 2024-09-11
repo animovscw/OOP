@@ -7,11 +7,12 @@ package ru.nsu.anisimov;
  * and replace it with the last node and heapify.
  *
  * @author kirill
- * @version 1.0
  */
 public class Heapsort {
     /**
-     * @param array that contain the input numbers and after the algorithm output the sorted array
+     * Firstly, the function builds max-heap, then it is sorting the array in ascending order.
+     *
+     * @param array Parameter contain the input numbers and after the algorithm output the sorted array
      */
     public static void heapsort(int[] array) {
         int len = array.length;
@@ -27,9 +28,11 @@ public class Heapsort {
     }
 
     /**
-     * @param array array which is used to represent the tree
-     * @param len   the array length
-     * @param i     index
+     * Restoring heap properties.
+     *
+     * @param array Array which is used to represent the tree
+     * @param len   The array length
+     * @param i     Index
      */
     public static void heapify(int[] array, int len, int i) {
         int parent = i;
