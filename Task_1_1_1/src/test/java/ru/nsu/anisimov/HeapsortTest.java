@@ -1,8 +1,7 @@
 package ru.nsu.anisimov;
+import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class HeapsortTest {
     @Test
@@ -68,34 +67,4 @@ class HeapsortTest {
         assertArrayEquals(new int[]{0, 0, 0, 0, 1, 1, 1}, test9Array);
     }
 
-//    @Test
-//    void tenthTest() {
-//        int[] test10Array = new int[]{46, 47, 42, 36, 90, 46, 19, 64, 37, 59, 41,
-//                2, 71, 74, 51, 9, 21, 80, 67, 69, 72, 66, 4, 8, 5, 77, 26, 41, 15, 80, 8, 7, 56, 60,
-//                43, 78, 33, 77, 56, 41, 70, 18, 42, 37, 1, 94, 53, 47, 41, 84};
-//        Heapsort.heapsort(test10Array);
-//        assertArrayEquals(new int[]{1, 2, 4, 5, 7, 8, 8, 9, 15, 18, 19,
-//                21, 26, 33, 36, 37, 37, 41, 41, 41, 41, 42, 42, 43, 46, 46, 47, 47, 51, 53, 56,
-//                56, 59, 60, 64, 66, 67, 69, 70, 71, 72, 74, 77, 77, 78, 80, 80, 84, 90, 94}, test10Array);
-//    }
-//
-//    @Test
-//    void eleventhTest() {
-//        int[] test11Array = new int[]{18136, 38008, 51142, 82335, 79658, 24934, 14921, 76384, 97380, 62524,
-//                86715, 68879, 93557, 79885, 14022, 27584, 42933, 89908, 48611, 32949};
-//        Heapsort.heapsort(test11Array);
-//        assertArrayEquals(new int[]{14022, 14921, 18136, 24934, 27584, 32949, 38008, 42933, 48611, 51142,
-//                62524, 68879, 76384, 79658, 79885, 82335, 86715, 89908, 93557, 97380}, test11Array);
-//    }
-//
-//    @Test
-//    void twelfthTest() {
-//        int[] test12Array = new int[]{810, 230, 1138, 489, 631, 184, 894, 532, 466, 93, 193, 1075, 1226, 28,
-//                86, 192, 706, 1139, 1190, 517, 998, 328, 776, 819, 329, 175, 163, 63, 226, 870, 985, 656, 653, 967,
-//                201, 848, 534, 245, 1032, 396, 783};
-//        Heapsort.heapsort(test12Array);
-//        assertArrayEquals(new int[]{28, 63, 86, 93, 163, 175, 184, 192, 193, 201, 226, 230, 245, 328, 329, 396,
-//                466, 489, 517, 532, 534, 631, 653, 656, 706, 776, 783, 810, 819, 848, 870, 894, 967, 985, 998,
-//                1032, 1075, 1138, 1139, 1190, 1226}, test12Array);
-//    }
 }
