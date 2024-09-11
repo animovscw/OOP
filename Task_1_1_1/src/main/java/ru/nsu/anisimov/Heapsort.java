@@ -10,7 +10,7 @@ package ru.nsu.anisimov;
  * @version 1.0
  */
 public class Heapsort {
-    public static void heapsort(int array[]) {
+    public static void heapsort (int[] array) {
         int len = array.length;
         for (int i = len / 2 - 1; i >= 0; --i) {
             heapify(array, len, i);
@@ -23,7 +23,7 @@ public class Heapsort {
         }
     }
 
-    public static void heapify(int array[], int len, int i) {
+    public static void heapify(int[] array, int len, int i) {
         int parent = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
@@ -43,10 +43,5 @@ public class Heapsort {
     }
 
     public static void main(String[] args) {
-//        long startTime = System.nanoTime();
-//        heapsort(new int[] {});
-//        long endTime = System.nanoTime();
-//        long totalTime = endTime - startTime;
-//        System.out.println("Program took " + totalTime + " ns");
     }
 }
