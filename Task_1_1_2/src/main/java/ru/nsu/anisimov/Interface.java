@@ -1,8 +1,7 @@
 package ru.nsu.anisimov;
 
-public class ConsoleBlackjack {
+public class Interface {
     public static void main(String[] args) {
 
-        System.out.println("Hello world!");
     }
 }
