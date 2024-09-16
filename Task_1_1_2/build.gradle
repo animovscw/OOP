@@ -6,6 +6,12 @@ plugins {
 group = 'ru.nsu.anisimov'
 version = '1.0-SNAPSHOT'
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -22,11 +28,5 @@ test {
 jacocoTestReport {
     reports {
         xml.required = true
-    }
-}
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
     }
 }
