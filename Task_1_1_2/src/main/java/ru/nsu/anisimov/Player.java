@@ -2,39 +2,24 @@ package ru.nsu.anisimov;
 
 import java.util.ArrayList;
 
-import ru.nsu.anisimov.Card;
-import ru.nsu.anisimov.Rank;
-
 public class Player {
-    final ArrayList<Card> cards;
-    int sum;
-    int countAces;
-    int firstAce = -1;
+    public boolean isCardHidden = false;
+    int points = 0;
+    ArrayList<Card> hand = new ArrayList<Card>();
+    ArrayList<Integer> listOfAces = new ArrayList<Integer>();
 
-    public Player() {
-        cards = new ArrayList<>();
-        sum = 0;
-        countAces = 0;
-    }
-
-    public void addCard(Card card) {
-        cards.add(card);
-
-        sum += card.getValue();
-        if (card.getRank() == Rank.ACE) {
-            ++countAces;
-            if (countAces > 1) {
-                sum -= 10;
-                card.checkSum();
-            }
-
-            if (firstAce == -1) {
-                firstAce = cards.size() - 1;
-            }
+    public void getCard(Deck deck) {
+        hand.add(deck.deck.getFirst());
+        if (hand.getLast().rank.equals("Туз")) {
+            listOfAces.add(hand.size() - 1);
         }
-        if (firstAce != -1 && cards.get(firstAce).getValue() != 1 && sum > 21) {
-            sum-=10;
-            cards.get(firstAce).checkSum();
+        points += hand.getLast().value;
+        deck.removeCard();
+        if (points > 21 && !listOfAces.isEmpty()) {
+            points -= 10;
+            for (Integer index : listOfAces) {
+                hand.get(index).value = 1;
+            }
         }
     }
 }

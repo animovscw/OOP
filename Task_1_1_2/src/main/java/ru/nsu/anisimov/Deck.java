@@ -4,29 +4,37 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Deck {
-    final ArrayList<Card> cards;
+    ArrayList<Card> deck;
 
     public Deck() {
-        cards = new ArrayList<>();
-        Rank[] ranks = new Rank[]{
-            Rank.TWO, Rank.THREE, Rank.FOUR, Rank.FIVE, Rank.SIX,
-            Rank.SEVEN, Rank.EIGHT, Rank.NINE, Rank.TEN, Rank.JACK,
-            Rank.QUEEN, Rank.KING, Rank.ACE
+        deck = new ArrayList<>();
+        String[] suits = new String[] {
+            "Червы", "Пики", "Бубны", "Трефы"
         };
-        Suit[] suits = new Suit[]{Suit.HEART, Suit.DIAMOND, Suit.CLUB, Suit.SPADE};
-        for (Suit suit : suits) {
-            for (Rank rank : ranks) {
-                cards.add(new Card(suit, rank));
+        String[] ranks = new String[] {
+            "Двойка", "Тройка", "Четвёрка", "Пятёрка", "Шестёрка",
+            "Семёрка", "Восьмёрка", "Девятка", "Десятка",
+            "Валет", "Дама", "Король", "Туз"
+        };
+        int[] values = new int[] {
+                2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11
+        };
+        int index;
+        for (String suit : suits) {
+            index = 0;
+            for (String rank : ranks) {
+                deck.add(new Card(rank, suit, values[index]));
+                ++index;
             }
         }
         shuffle();
     }
 
     private void shuffle() {
-        Collections.shuffle(cards);
+        Collections.shuffle(deck);
     }
 
-    public Card takeCard() {
-        return cards.removeFirst();
+    public void removeCard() {
+        deck.removeFirst();
     }
 }
