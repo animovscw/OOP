@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Player {
     public boolean isCardHidden = false;
-    int points = 0;
+    int sum = 0;
     ArrayList<Card> hand = new ArrayList<Card>();
     ArrayList<Integer> listOfAces = new ArrayList<Integer>();
 
@@ -13,13 +13,13 @@ public class Player {
         if (hand.getLast().rank.equals("Туз")) {
             listOfAces.add(hand.size() - 1);
         }
-        points += hand.getLast().value;
+        sum += hand.getLast().value;
         deck.removeCard();
-        if (points > 21 && !listOfAces.isEmpty()) {
-            points -= 10;
+        if (sum > 21 && !listOfAces.isEmpty()) {
             for (Integer index : listOfAces) {
                 hand.get(index).value = 1;
             }
+            sum -= 10;
         }
     }
 }
