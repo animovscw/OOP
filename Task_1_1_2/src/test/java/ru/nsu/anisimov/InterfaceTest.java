@@ -68,8 +68,8 @@ class InterfaceTest {
     void checkWinTest() {
         Player player = new Player();
         Player dealer = new Player();
-        player.points = 21;
-        dealer.points = 21;
+        player.sum = 21;
+        dealer.sum = 21;
         int rounds = Interface.countPlayerWins;
         Interface.checkForTheWin(player, dealer);
         Assertions.assertTrue(Interface.countPlayerWins == rounds);

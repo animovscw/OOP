@@ -34,16 +34,16 @@ public class Interface {
     }
 
     static void checkForTheWin(Player player, Player dealer) {
-        if (dealer.points > 21) {
+        if (dealer.sum > 21) {
             playerWin();
-        } else if (player.points <= 21) {
-            if (player.points > dealer.points) {
+        } else if (player.sum <= 21) {
+            if (player.sum > dealer.sum) {
                 playerWin();
             }
-            if (player.points < dealer.points) {
+            if (player.sum < dealer.sum) {
                 playerLoose();
             }
-            if (player.points == dealer.points) {
+            if (player.sum == dealer.sum) {
                 System.out.print("Ничья! ");
                 System.out.printf("Счёт %d:%d ",
                         countPlayerWins, countDealerWins);
@@ -72,7 +72,7 @@ public class Interface {
                         player.hand.get(index).value);
             }
         }
-        System.out.printf(" -> %d\n", player.points);
+        System.out.printf(" -> %d\n", player.sum);
         System.out.print("Карты дилера: [");
         for (int index = 0; index < dealer.hand.size(); ++index) {
             if (dealer.hand.get(index).isCardHidden) {
@@ -93,14 +93,14 @@ public class Interface {
             }
         }
         if (!dealer.isCardHidden) {
-            System.out.printf(" -> %d\n", dealer.points);
+            System.out.printf(" -> %d\n", dealer.sum);
         } else {
             System.out.println();
         }
     }
 
     static boolean Blackjack(Player player) {
-        return player.hand.size() == 2 && player.points == 21;
+        return player.hand.size() == 2 && player.sum == 21;
     }
 
     public static void main(String[] args) {
@@ -127,7 +127,7 @@ public class Interface {
             }
             System.out.print("Ваш ход\n-------\n");
             while (true) {
-                if (player.points > 21) {
+                if (player.sum > 21) {
                     playerLoose();
                     break;
                 }
@@ -150,7 +150,7 @@ public class Interface {
 //                    } while (actionCommand != 1 && actionCommand != 0);
 //                }
             }
-            if (player.points > 21) {
+            if (player.sum > 21) {
                 continue;
             }
             System.out.println("Ход дилера\n-------");
@@ -166,7 +166,7 @@ public class Interface {
                 playerLoose();
                 continue;
             }
-            while (dealer.points <= 17) {
+            while (dealer.sum <= 17) {
                 dealer.getCard(deck);
                 System.out.printf("Дилер открыл карту %s %s (%d)\n",
                         dealer.hand.getLast().rank,
