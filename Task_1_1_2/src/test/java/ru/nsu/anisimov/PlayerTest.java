@@ -3,7 +3,6 @@ package ru.nsu.anisimov;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 
 class PlayerTest {
     @Test
