@@ -1,6 +1,5 @@
 package ru.nsu.anisimov;
 
-import java.io.Console;
 import java.util.Scanner;
 
 
@@ -12,7 +11,6 @@ public class Interface {
     }
 
     public static void main(String[] args) {
-        Console console = System.console();
 
         int result;
         int action;
@@ -35,24 +33,6 @@ public class Interface {
                             + " чтобы остановиться");
                     Scanner command = new Scanner(System.in);
                     action = command.nextInt();
-//                    if (console == null) {
-//                        if (blackjack.getPLayerSum() < 17) {
-//                            action = 1;
-//                        } else {
-//                            action = 0;
-//                        }
-//                    } else {
-//                        String command = System.console().readLine();
-//                        if (command == null) {
-//                            if (blackjack.getPLayerSum() < 17) {
-//                                action = 1;
-//                            } else {
-//                                action = 0;
-//                            }
-//                        } else {
-//                            action = Integer.parseInt(command);
-//                        }
-//                    }
                     System.out.println();
                     switch (action) {
                         case 1:
@@ -76,7 +56,8 @@ public class Interface {
                             Ход Дилера
                             -------
                             """);
-                    System.out.println("Дилер открывает закрытую карту " + blackjack.getLastCard(false));
+                    System.out.println("Дилер открывает закрытую карту "
+                            + blackjack.getLastCard(false));
                     showCards(blackjack.getPlayerHand(), blackjack.getDealerHand());
                     while (blackjack.getDealerSum() < 17) {
                         blackjack.action(1);

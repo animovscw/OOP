@@ -144,10 +144,6 @@ public class Game {
         return countDealerWins;
     }
 
-    public int getPLayerSum() {
-        return player.getSum();
-    }
-
     public int getDealerSum() {
         return dealer.getSum();
     }
