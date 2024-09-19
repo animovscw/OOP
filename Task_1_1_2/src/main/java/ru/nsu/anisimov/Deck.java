@@ -4,27 +4,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Deck {
-    ArrayList<Card> deck;
+    private final ArrayList<Card> deck;
 
     public Deck() {
         deck = new ArrayList<>();
-        String[] suits = new String[] {
-            "Червы", "Пики", "Бубны", "Трефы"
+        Rank[] ranks = new Rank[]{
+            Rank.TWO, Rank.THREE, Rank.FOUR, Rank.FIVE, Rank.SIX,
+            Rank.SEVEN, Rank.EIGHT, Rank.NINE, Rank.TEN, Rank.JACK,
+            Rank.QUEEN, Rank.KING, Rank.ACE
         };
-        String[] ranks = new String[] {
-            "Двойка", "Тройка", "Четвёрка", "Пятёрка", "Шестёрка",
-            "Семёрка", "Восьмёрка", "Девятка", "Десятка",
-            "Валет", "Дама", "Король", "Туз"
+        Suit[] suits = new Suit[]{
+            Suit.HEART, Suit.DIAMOND, Suit.CLUB, Suit.SPADE
         };
-        int[] values = new int[] {
-                2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11
-        };
-        int index;
-        for (String suit : suits) {
-            index = 0;
-            for (String rank : ranks) {
-                deck.add(new Card(rank, suit, values[index]));
-                ++index;
+        for (Suit suit : suits) {
+            for (Rank rank : ranks) {
+                deck.add(new Card(suit, rank));
             }
         }
         shuffle();
@@ -34,7 +28,7 @@ public class Deck {
         Collections.shuffle(deck);
     }
 
-    public void removeCard() {
-        deck.removeFirst();
+    public Card getCard() {
+        return deck.removeFirst();
     }
 }

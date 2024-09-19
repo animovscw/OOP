@@ -1,180 +1,119 @@
 package ru.nsu.anisimov;
 
+import java.io.Console;
 import java.util.Scanner;
 
+
 public class Interface {
-    static int round = 1; //store the current round
-    static int countPlayerWins = 0; //amount of rounds won by player
-    static int countDealerWins = 0; //amount of rounds won by dealer
 
-    static void playerWin() {
-        ++countPlayerWins;
-        System.out.print("Вы выиграли раунд! ");
-        System.out.printf("Счёт %d:%d ",
-                countPlayerWins, countDealerWins);
-        if (countPlayerWins > countDealerWins) {
-            System.out.println("в вашу пользу.");
-        } else if (countPlayerWins < countDealerWins) {
-            System.out.println("в пользу дилера.");
-        }
-        ++round;
-    }
-
-    static void playerLoose() {
-        ++countDealerWins;
-        System.out.print("Вы проиграли раунд! ");
-        System.out.printf("Счёт %d:%d ",
-                countPlayerWins, countDealerWins);
-        if (countPlayerWins > countDealerWins) {
-            System.out.println("в вашу пользу.");
-        } else if (countPlayerWins < countDealerWins) {
-            System.out.println("в пользу дилера.");
-        }
-        ++round;
-    }
-
-    static void checkForTheWin(Player player, Player dealer) {
-        if (dealer.sum > 21) {
-            playerWin();
-        } else if (player.sum <= 21) {
-            if (player.sum > dealer.sum) {
-                playerWin();
-            }
-            if (player.sum < dealer.sum) {
-                playerLoose();
-            }
-            if (player.sum == dealer.sum) {
-                System.out.print("Ничья! ");
-                System.out.printf("Счёт %d:%d ",
-                        countPlayerWins, countDealerWins);
-                if (countPlayerWins > countDealerWins) {
-                    System.out.println("в вашу пользу.");
-                } else if (countPlayerWins < countDealerWins) {
-                    System.out.println("в пользу дилера.");
-                }
-            }
-        }
-    }
-
-    static void showCards(Player player, Player dealer) {
-        System.out.print("Ваши карты: [");
-        for (int index = 0; index < player.hand.size(); ++index) {
-            if (index == player.hand.size() - 1) {
-                System.out.printf("%s %s (%d)]",
-                        player.hand.get(index).suit,
-                        player.hand.get(index).rank,
-                        player.hand.get(index).value);
-
-            } else {
-                System.out.printf("%s %s (%d), ",
-                        player.hand.get(index).suit,
-                        player.hand.get(index).rank,
-                        player.hand.get(index).value);
-            }
-        }
-        System.out.printf(" -> %d\n", player.sum);
-        System.out.print("Карты дилера: [");
-        for (int index = 0; index < dealer.hand.size(); ++index) {
-            if (dealer.hand.get(index).isCardHidden) {
-                System.out.print("<закрытая карта>]");
-                break;
-            }
-            if (index == dealer.hand.size() - 1) {
-                System.out.printf("%s %s (%d)]",
-                        dealer.hand.get(index).suit,
-                        dealer.hand.get(index).rank,
-                        dealer.hand.get(index).value);
-
-            } else {
-                System.out.printf("%s %s (%d), ",
-                        dealer.hand.get(index).suit,
-                        dealer.hand.get(index).rank,
-                        dealer.hand.get(index).value);
-            }
-        }
-        if (!dealer.isCardHidden) {
-            System.out.printf(" -> %d\n", dealer.sum);
-        } else {
-            System.out.println();
-        }
-    }
-
-    static boolean Blackjack(Player player) {
-        return player.hand.size() == 2 && player.sum == 21;
+    public static void showCards(String player, String dealer) {
+        System.out.println("\tВаши карты: " + player);
+        System.out.println("\tКарты дилера: " + dealer);
     }
 
     public static void main(String[] args) {
+        Console console = System.console();
+
+        int result;
+        int action;
+        Game blackjack = new Game();
         System.out.println("Добро пожаловать в Блэкджек!");
-        Scanner scan = new Scanner(System.in);
-        while (countPlayerWins < 3 && countDealerWins < 3) {
-            Deck deck = new Deck();
-            Player player = new Player();
-            Player dealer = new Player();
-            int actionCommand;
-            player.getCard(deck);
-            player.getCard(deck);
+        while (blackjack.getCountPlayerWins() < 3 && blackjack.getCountDealerWins() < 3) {
+            blackjack.newRound();
+            System.out.println("Раунд " + blackjack.getRound());
+            System.out.println("Дилер раздал карты");
+            showCards(blackjack.getPlayerHand(), blackjack.getDealerHand());
+            System.out.println();
 
-            dealer.getCard(deck);
-            dealer.getCard(deck);
-
-            dealer.isCardHidden = true;
-            dealer.hand.getLast().isCardHidden = true;
-            System.out.printf("Раунд %d\nДилер раздал карты\n", round);
-            showCards(player, dealer);
-            if (Blackjack(player)) {
-                playerWin();
-                continue;
-            }
-            System.out.print("Ваш ход\n-------\n");
-            while (true) {
-                if (player.sum > 21) {
-                    playerLoose();
-                    break;
+            if (!blackjack.isEndOfRound()) {
+                System.out.print("""
+                        Ваш ход
+                        -------
+                        """);
+                while (!blackjack.playerBlackjack() && blackjack.isPlayerActed()) {
+                    System.out.println("Введите “1”, чтобы взять карту, и “0”,"
+                            + " чтобы остановиться");
+                    Scanner command = new Scanner(System.in);
+                    action = command.nextInt();
+//                    if (console == null) {
+//                        if (blackjack.getPLayerSum() < 17) {
+//                            action = 1;
+//                        } else {
+//                            action = 0;
+//                        }
+//                    } else {
+//                        String command = System.console().readLine();
+//                        if (command == null) {
+//                            if (blackjack.getPLayerSum() < 17) {
+//                                action = 1;
+//                            } else {
+//                                action = 0;
+//                            }
+//                        } else {
+//                            action = Integer.parseInt(command);
+//                        }
+//                    }
+                    System.out.println();
+                    switch (action) {
+                        case 1:
+                            blackjack.action(action);
+                            if (!blackjack.playerBlackjack()) {
+                                blackjack.playerHasOverdone();
+                            }
+                            System.out.println("Вы открыли карту "
+                                    + blackjack.getLastCard(true));
+                            showCards(blackjack.getPlayerHand(), blackjack.getDealerHand());
+                            break;
+                        case 0:
+                            blackjack.action(action);
+                            break;
+                        default:
+                            return;
+                    }
                 }
-                System.out.print("Введите “1”, чтобы взять карту, и “0”, чтобы остановиться\n");
-                actionCommand = scan.nextInt();
-                if (actionCommand == 1) {
-                    player.getCard(deck);
-                    System.out.printf("Вы открыли карту %s %s (%d)\n",
-                            player.hand.getLast().rank,
-                            player.hand.getLast().suit,
-                            player.hand.getLast().value);
-                    showCards(player, dealer);
-                } else if (actionCommand == 0) {
-                    break;
+                if (!blackjack.isEndOfRound()) {
+                    System.out.print("""
+                            Ход Дилера
+                            -------
+                            """);
+                    System.out.println("Дилер открывает закрытую карту " + blackjack.getLastCard(false));
+                    showCards(blackjack.getPlayerHand(), blackjack.getDealerHand());
+                    while (blackjack.getDealerSum() < 17) {
+                        blackjack.action(1);
+                        if (!blackjack.dealerBlackjack()) {
+                            blackjack.dealerHasOverdone();
+                        }
+                        System.out.println("Дилер открыл карту "
+                                + blackjack.getLastCard(false));
+                        showCards(blackjack.getPlayerHand(), blackjack.getDealerHand());
+                        System.out.println();
+                    }
+                    blackjack.action(0);
                 }
-//                else {
-//                    do {
-//                        System.out.print("Введите “1”, чтобы взять карту, и “0”, чтобы остановиться\n");
-//                        actionCommand = scan.nextInt();
-//                    } while (actionCommand != 1 && actionCommand != 0);
-//                }
-            }
-            if (player.sum > 21) {
-                continue;
-            }
-            System.out.println("Ход дилера\n-------");
-            dealer.hand.getLast().isCardHidden = false;
-            dealer.isCardHidden = false;
-            System.out.printf("Дилер открывает закрытую карту %s %s (%d)\n",
-                    dealer.hand.getLast().rank,
-                    dealer.hand.getLast().suit,
-                    dealer.hand.getLast().value);
 
-            showCards(player, dealer);
-            if (Blackjack(dealer)) {
-                playerLoose();
-                continue;
+                if (blackjack.isEndOfRound()) {
+                    result = blackjack.checkForTheWin();
+                    if (result == 1) {
+                        System.out.print("Вы выиграли раунд! ");
+                    } else if (result == -1) {
+                        System.out.print("Дилер выиграл раунд! ");
+                    } else {
+                        System.out.print("Ничья! ");
+                    }
+
+                    System.out.print("Счет " + blackjack.getCountPlayerWins()
+                            + ":" + blackjack.getCountDealerWins() + " ");
+                    if (blackjack.getCountPlayerWins() > blackjack.getCountDealerWins()) {
+                        System.out.println("в вашу пользу.");
+                    } else if (blackjack.getCountPlayerWins() < blackjack.getCountDealerWins()) {
+                        System.out.println("в пользу дилера.");
+                    } else {
+                        System.out.println("равный.");
+                    }
+                    System.out.println();
+
+                }
             }
-            while (dealer.sum <= 17) {
-                dealer.getCard(deck);
-                System.out.printf("Дилер открыл карту %s %s (%d)\n",
-                        dealer.hand.getLast().rank,
-                        dealer.hand.getLast().suit,
-                        dealer.hand.getLast().value);
-                showCards(player, dealer);
-            }
-            checkForTheWin(player, dealer);
         }
     }
 }
