@@ -5,18 +5,34 @@ import org.junit.jupiter.api.Test;
 
 class CardTest {
     @Test
-    void trueRecogniseCard() {
-        Card card = new Card("Король", "Бубны", 10);
-        Assertions.assertTrue(card.rank.equals("Король"));
-        Assertions.assertTrue(card.suit.equals("Бубны"));
-        Assertions.assertTrue(card.value == 10);
+    void correctRecognitionOFHighRankCard() {
+        Card card = new Card(Suit.DIAMOND, Rank.KING);
+        Assertions.assertTrue(card.getRank().equals(Rank.KING));
+        Assertions.assertTrue(card.getSuit().equals(Suit.DIAMOND));
+        Assertions.assertTrue(card.getValue() == 10);
     }
 
     @Test
-    void wrongRecogniseCard() {
-        Card card = new Card("Король", "Пики", 10);
-        Assertions.assertFalse(!card.rank.equals("Король"));
-        Assertions.assertFalse(card.isCardHidden);
-        Assertions.assertFalse(card.value != 10);
+    void correctRecognitionOFLowRankCard() {
+        Card card = new Card(Suit.SPADE, Rank.FIVE);
+        Assertions.assertTrue(card.getRank().equals(Rank.FIVE));
+        Assertions.assertTrue(card.getSuit().equals(Suit.SPADE));
+        Assertions.assertTrue(card.getValue() == 5);
+    }
+
+    @Test
+    void wrongRecognitionOFHighRankCard() {
+        Card card = new Card(Suit.HEART, Rank.ACE);
+        Assertions.assertFalse(card.getRank().equals(Rank.QUEEN));
+        Assertions.assertFalse(card.getSuit().equals(Suit.DIAMOND));
+        Assertions.assertFalse(card.getValue() == 10);
+    }
+
+    @Test
+    void wrongRecognitionOFLowRankCard() {
+        Card card = new Card(Suit.CLUB, Rank.TWO);
+        Assertions.assertFalse(card.getRank().equals(Rank.THREE));
+        Assertions.assertFalse(card.getSuit().equals(Suit.HEART));
+        Assertions.assertFalse(card.getValue() == 4);
     }
 }

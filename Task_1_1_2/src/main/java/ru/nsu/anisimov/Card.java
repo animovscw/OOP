@@ -21,6 +21,10 @@ public class Card {
         return rank;
     }
 
+    public Suit getSuit() {
+        return suit;
+    }
+
     public boolean isOpen() {
         return isCardOpen;
     }

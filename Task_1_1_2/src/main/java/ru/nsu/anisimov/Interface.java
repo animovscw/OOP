@@ -2,7 +2,6 @@ package ru.nsu.anisimov;
 
 import java.util.Scanner;
 
-
 public class Interface {
 
     public static void showCards(String player, String dealer) {
