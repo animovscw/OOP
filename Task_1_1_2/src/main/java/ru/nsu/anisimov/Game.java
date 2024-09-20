@@ -9,8 +9,8 @@ public class Game {
     private boolean playerActed;
 
     private Deck deck;
-    private Player player;
-    private Player dealer;
+    Player player;
+    Player dealer;
 
     public void newRound() {
         deck = new Deck();

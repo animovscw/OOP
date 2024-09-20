@@ -67,4 +67,8 @@ public class Player {
     public void openLastCard() {
         hand.getLast().open();
     }
+
+    public int getCardCount() {
+        return hand.size();
+    }
 }

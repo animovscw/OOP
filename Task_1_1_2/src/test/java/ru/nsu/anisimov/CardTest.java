@@ -7,32 +7,32 @@ class CardTest {
     @Test
     void correctRecognitionOfHighRankCard() {
         Card card = new Card(Suit.DIAMOND, Rank.KING);
-        Assertions.assertTrue(card.getRank().equals(Rank.KING));
-        Assertions.assertTrue(card.getSuit().equals(Suit.DIAMOND));
-        Assertions.assertTrue(card.getValue() == 10);
+        Assertions.assertEquals(card.getRank(), Rank.KING);
+        Assertions.assertEquals(card.getSuit(), Suit.DIAMOND);
+        Assertions.assertEquals(10, card.getValue());
     }
 
     @Test
     void correctRecognitionOfLowRankCard() {
         Card card = new Card(Suit.SPADE, Rank.FIVE);
-        Assertions.assertTrue(card.getRank().equals(Rank.FIVE));
-        Assertions.assertTrue(card.getSuit().equals(Suit.SPADE));
-        Assertions.assertTrue(card.getValue() == 5);
+        Assertions.assertEquals(card.getRank(), Rank.FIVE);
+        Assertions.assertEquals(card.getSuit(), Suit.SPADE);
+        Assertions.assertEquals(5, card.getValue());
     }
 
     @Test
     void wrongRecognitionOfHighRankCard() {
         Card card = new Card(Suit.HEART, Rank.ACE);
-        Assertions.assertFalse(card.getRank().equals(Rank.QUEEN));
-        Assertions.assertFalse(card.getSuit().equals(Suit.DIAMOND));
-        Assertions.assertFalse(card.getValue() == 10);
+        Assertions.assertNotEquals(card.getRank(), Rank.QUEEN);
+        Assertions.assertNotEquals(card.getSuit(), Suit.DIAMOND);
+        Assertions.assertNotEquals(10, card.getValue());
     }
 
     @Test
     void wrongRecognitionOfLowRankCard() {
         Card card = new Card(Suit.CLUB, Rank.TWO);
-        Assertions.assertFalse(card.getRank().equals(Rank.THREE));
-        Assertions.assertFalse(card.getSuit().equals(Suit.HEART));
-        Assertions.assertFalse(card.getValue() == 4);
+        Assertions.assertNotEquals(card.getRank(), Rank.THREE);
+        Assertions.assertNotEquals(card.getSuit(), Suit.HEART);
+        Assertions.assertNotEquals(4, card.getValue());
     }
 }
