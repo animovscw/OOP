@@ -10,8 +10,7 @@ class GameTest {
     @BeforeEach
     void setup() {
         game = new Game();
-        game.player = new Player();
-        game.dealer = new Player();
+
     }
 
     @Test
@@ -20,7 +19,7 @@ class GameTest {
 
         Assertions.assertTrue(game.isPlayerActed());
         Assertions.assertFalse(game.isEndOfRound());
-        Assertions.assertEquals(1, game.getRound());
+        Assertions.assertEquals(3, game.getRound());
         Assertions.assertFalse(game.getPlayerHand().isEmpty());
         Assertions.assertFalse(game.getDealerHand().isEmpty());
     }
@@ -51,6 +50,9 @@ class GameTest {
 
     @Test
     void testPlayerBlackjack() {
+        game.player = new Player();
+        game.dealer = new Player();
+
         game.player.addCard(new Card(Suit.HEART, Rank.ACE));
         game.player.addCard(new Card(Suit.HEART, Rank.KING));
 
@@ -60,6 +62,9 @@ class GameTest {
 
     @Test
     void testDealerBlackjack() {
+        game.player = new Player();
+        game.dealer = new Player();
+
         game.dealer.addCard(new Card(Suit.SPADE, Rank.ACE));
         game.dealer.addCard(new Card(Suit.CLUB, Rank.ACE));
         game.dealer.addCard(new Card(Suit.CLUB, Rank.NINE));
@@ -70,6 +75,9 @@ class GameTest {
 
     @Test
     void testPlayerHasOverdone() {
+        game.player = new Player();
+        game.dealer = new Player();
+
         game.player.addCard(new Card(Suit.HEART, Rank.ACE));
         game.player.addCard(new Card(Suit.HEART, Rank.KING));
         game.player.addCard(new Card(Suit.DIAMOND, Rank.KING));
@@ -80,6 +88,9 @@ class GameTest {
 
     @Test
     void testDealerHasOverdone() {
+        game.player = new Player();
+        game.dealer = new Player();
+
         game.dealer.addCard(new Card(Suit.HEART, Rank.ACE));
         game.dealer.addCard(new Card(Suit.CLUB, Rank.TEN));
         game.dealer.addCard(new Card(Suit.DIAMOND, Rank.QUEEN));
@@ -90,6 +101,9 @@ class GameTest {
 
     @Test
     void testWhoHasBiggerSum_PlayerWins() {
+        game.player = new Player();
+        game.dealer = new Player();
+
         game.player.addCard(new Card(Suit.SPADE, Rank.NINE));
         game.player.addCard(new Card(Suit.HEART, Rank.QUEEN));
 
@@ -101,6 +115,9 @@ class GameTest {
 
     @Test
     void testWhoHasBiggerSum_DealerWins() {
+        game.player = new Player();
+        game.dealer = new Player();
+
         game.player.addCard(new Card(Suit.SPADE, Rank.NINE));
         game.player.addCard(new Card(Suit.HEART, Rank.TWO));
 
@@ -112,6 +129,9 @@ class GameTest {
 
     @Test
     void testWhoHasBiggerSum_Draw() {
+        game.player = new Player();
+        game.dealer = new Player();
+
         game.player.addCard(new Card(Suit.SPADE, Rank.FIVE));
         game.player.addCard(new Card(Suit.HEART, Rank.FIVE));
 
