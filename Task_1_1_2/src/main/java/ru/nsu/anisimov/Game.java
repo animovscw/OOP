@@ -1,7 +1,7 @@
 package ru.nsu.anisimov;
 
 public class Game {
-    private int round = 0;
+    static int round = 0;
     static int countPlayerWins = 0;
     static int countDealerWins = 0;
 

@@ -91,7 +91,6 @@ public class Interface {
                         System.out.println("равный.");
                     }
                     System.out.println();
-
                 }
             }
         }

@@ -3,7 +3,6 @@ package ru.nsu.anisimov;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 class PlayerTest {
     @Test
     void getCardTest() {
