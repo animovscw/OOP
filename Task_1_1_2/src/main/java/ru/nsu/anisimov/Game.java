@@ -61,7 +61,6 @@ public class Game {
         }
         if (playerHasOverdone()) {
             ++countDealerWins;
-            return -1;
         }
         if (dealerBlackjack()) {
             ++countDealerWins;
