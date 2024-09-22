@@ -60,7 +60,7 @@ class InterfaceTest {
 
     @Test
     void inputTest() {
-        String input = "0\n0\n0\n0\n0\n";
+        String input = "0\n0\n";
         String output = run(input);
         Assertions.assertTrue(true);
     }
