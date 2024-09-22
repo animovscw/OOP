@@ -46,7 +46,7 @@ class InterfaceTest {
     }
 
     private String run() {
-        ByteArrayInputStream in = new ByteArrayInputStream("0\n0\n0\n0\n-1\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("0\n1\n0\n0\n-1\n".getBytes());
         System.setIn(in);
         final ByteArrayOutputStream myOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(myOut));
@@ -61,6 +61,7 @@ class InterfaceTest {
     @Test
     void inputTest() {
         String output = run();
+        Assertions.assertTrue(true);
         Assertions.assertTrue(output.contains("Раунд 1"));
         Assertions.assertTrue(output.contains("Ваш ход"));
         Assertions.assertTrue(output.contains("Дилер раздал карты"));
