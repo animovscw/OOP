@@ -33,7 +33,7 @@ public class Deck {
             }
         }
 
-        // Shuffle the deck
+        // Shuffle the deck.
         shuffle();
     }
 
@@ -48,7 +48,7 @@ public class Deck {
     /**
      * Removes and returns the top card from th deck.
      *
-     * @return the top card from the deck
+     * @return the top card from the deck.
      */
     public Card getCard() {
         return deck.removeFirst();

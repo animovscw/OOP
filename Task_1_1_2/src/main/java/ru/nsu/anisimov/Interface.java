@@ -3,7 +3,7 @@ package ru.nsu.anisimov;
 import java.util.Scanner;
 
 /**
- * Main class, it contains commands to play the game.
+ * Main class, it represents commands to play the game.
  */
 public class Interface {
 

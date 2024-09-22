@@ -94,7 +94,7 @@ public enum Rank {
     /**
      * Returns the value of the rank, which is used for score calculation.
      *
-     * @return the value of the rank
+     * @return the value of the rank.
      */
     public int getValue() {
         return rankValue;
@@ -103,7 +103,7 @@ public enum Rank {
     /**
      * Returns the name of the rank.
      *
-     * @return the name of the rank
+     * @return the name of the rank.
      */
     @Override
     public String toString() {

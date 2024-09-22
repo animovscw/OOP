@@ -43,7 +43,7 @@ public enum Suit {
     /**
      * Returns the name of the suit.
      *
-     * @return the Russian name of the suit
+     * @return the Russian name of the suit.
      */
     @Override
     public String toString() {
