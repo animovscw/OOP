@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,6 @@ class InterfaceTest {
     @Test
     void testShowCards() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
         System.setOut(new PrintStream(outputStream));
 
         Game game = new Game();
@@ -30,11 +30,9 @@ class InterfaceTest {
         game.dealer.openCard(1);
 
         Interface.showCards(game.getPlayerHand(), game.getDealerHand());
-
+        PrintStream originalOut = System.out;
         String output = outputStream.toString();
-
         System.setOut(originalOut);
-
         String expectedOutput = """
                 \tВаши карты: [Туз Червы (11), Двойка Червы (2)] => 13
                 \tКарты дилера: [Туз Пики (11), Туз Трефы (1)] => 12
