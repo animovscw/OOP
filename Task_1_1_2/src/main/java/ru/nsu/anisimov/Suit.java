@@ -17,7 +17,7 @@ public enum Suit {
     DIAMOND("Бубны"),
 
     /**
-     * The suit of Clubs
+     * The suit of Clubs.
      */
     CLUB("Трефы"),
 

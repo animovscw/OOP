@@ -1,14 +1,19 @@
 package ru.nsu.anisimov;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class GameTest {
     private Game game;
 
+    @BeforeEach
+    void setup() {
+        game = new Game();
+    }
+
     @Test
     void testNewRound() {
-        game = new Game();
         game.newRound();
 
         Assertions.assertTrue(game.isPlayerActed());
@@ -20,7 +25,6 @@ class GameTest {
 
     @Test
     void testPlayerActionHit() {
-        game = new Game();
         game.newRound();
 
         Assertions.assertEquals(2, game.player.getCardCount());
@@ -32,7 +36,6 @@ class GameTest {
 
     @Test
     void testDealerActionHit() {
-        game = new Game();
         game.newRound();
         game.action(2);
         game.action(2);
@@ -45,7 +48,6 @@ class GameTest {
 
     @Test
     void testPlayerBlackjack() {
-        game = new Game();
         game.player = new Player();
         game.player.addCard(new Card(Suit.HEART, Rank.ACE));
         game.player.addCard(new Card(Suit.HEART, Rank.KING));
@@ -60,7 +62,6 @@ class GameTest {
 
     @Test
     void testDealerBlackjack() {
-        game = new Game();
         game.player = new Player();
         game.dealer = new Player();
 
@@ -81,7 +82,6 @@ class GameTest {
 
     @Test
     void testPlayerHasOverdone() {
-        game = new Game();
         game.player = new Player();
         game.dealer = new Player();
 
@@ -98,7 +98,6 @@ class GameTest {
 
     @Test
     void testDealerHasOverdone() {
-        game = new Game();
         game.player = new Player();
         game.dealer = new Player();
 
@@ -115,7 +114,6 @@ class GameTest {
 
     @Test
     void testWhoHasBiggerSum_DealerWins() {
-        game = new Game();
         game.player = new Player();
         game.dealer = new Player();
 
@@ -131,7 +129,6 @@ class GameTest {
 
     @Test
     void testWhoHasBiggerSum_Draw() {
-        game = new Game();
         game.player = new Player();
         game.dealer = new Player();
 
@@ -146,7 +143,6 @@ class GameTest {
 
     @Test
     void testGetDealerSum() {
-        game = new Game();
         game.dealer = new Player();
         game.dealer.addCard(new Card(Suit.CLUB, Rank.TWO));
         game.dealer.addCard(new Card(Suit.DIAMOND, Rank.EIGHT));
@@ -156,7 +152,6 @@ class GameTest {
 
     @Test
     void testGetLastCard_PlayerActed() {
-        game = new Game();
         game.player = new Player();
 
         game.player.addCard(new Card(Suit.SPADE, Rank.FIVE));
@@ -170,7 +165,6 @@ class GameTest {
 
     @Test
     void testGetLastCard_DealerActed() {
-        game = new Game();
         game.dealer = new Player();
 
         game.dealer.addCard(new Card(Suit.SPADE, Rank.FIVE));
