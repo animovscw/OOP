@@ -46,18 +46,15 @@ class InterfaceTest {
     }
 
     private String run() {
-        ByteArrayInputStream in = new ByteArrayInputStream("0\n0\n0\n0\n".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("0\n0\n0\n0\n-1\n".getBytes());
         System.setIn(in);
         final ByteArrayOutputStream myOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(myOut));
         InputStream originalIn = System.in;
         PrintStream originalOut = System.out;
-        try {
-            Interface.main(null);
-        } finally {
-            System.setIn(originalIn);
-            System.setOut(originalOut);
-        }
+        Interface.main(null);
+        System.setIn(originalIn);
+        System.setOut(originalOut);
         return myOut.toString();
     }
 
