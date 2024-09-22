@@ -2,13 +2,27 @@ package ru.nsu.anisimov;
 
 import java.util.Scanner;
 
+/**
+ * Main class, it contains commands to play the game.
+ */
 public class Interface {
 
+    /**
+     * function shows players and dealers cards.
+     *
+     * @param player player
+     * @param dealer AI player
+     */
     public static void showCards(String player, String dealer) {
         System.out.println("\tВаши карты: " + player);
         System.out.println("\tКарты дилера: " + dealer);
     }
 
+    /**
+     * function creates new round.
+     *
+     * @param blackjack game
+     */
     public static void playRound(Game blackjack) {
 
         blackjack.newRound();
@@ -90,6 +104,11 @@ public class Interface {
         }
     }
 
+    /**
+     *  Interface of the game.
+     *
+     * @param args arguments
+     */
     public static void main(String[] args) {
         Game blackjack = new Game();
         System.out.println("Добро пожаловать в Блэкджек!");
