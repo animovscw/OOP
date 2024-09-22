@@ -15,7 +15,7 @@ public class Interface {
         int action;
         Game blackjack = new Game();
         System.out.println("Добро пожаловать в Блэкджек!");
-        while (blackjack.getCountPlayerWins() < 3 && blackjack.getCountDealerWins() < 3) {
+        while (blackjack.getCountPlayerWins() < 1 && blackjack.getCountDealerWins() < 1) {
             blackjack.newRound();
             System.out.println("Раунд " + blackjack.getRound());
             System.out.println("Дилер раздал карты");

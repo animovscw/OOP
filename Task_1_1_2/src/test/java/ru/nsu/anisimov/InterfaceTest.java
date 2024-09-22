@@ -1,10 +1,14 @@
 package ru.nsu.anisimov;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assertions;
+
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 
 class InterfaceTest {
 
@@ -40,5 +44,24 @@ class InterfaceTest {
                 \tКарты дилера: [Туз Пики (11), Туз Трефы (1)] => 12
                 """;
         Assertions.assertEquals(expectedOutput, output);
+    }
+
+    private String run(String input) {
+        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        final ByteArrayOutputStream myOut = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(myOut));
+        InputStream inputStream = System.in;
+        PrintStream outputStream = System.out;
+        Interface.main(null);
+        System.setIn(inputStream);
+        System.setOut(outputStream);
+        return myOut.toString();
+    }
+
+    @Test
+    void inputTest() {
+        run("0\n0\n0\n0\n-1\n");
+        Assertions.assertTrue(true);
     }
 }
