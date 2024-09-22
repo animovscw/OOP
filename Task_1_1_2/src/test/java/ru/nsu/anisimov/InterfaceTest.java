@@ -1,7 +1,6 @@
 package ru.nsu.anisimov;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Assertions;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -46,22 +45,27 @@ class InterfaceTest {
         Assertions.assertEquals(expectedOutput, output);
     }
 
-    private String run(String input) {
-        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+    private String run() {
+        ByteArrayInputStream in = new ByteArrayInputStream("0\n0\n0\n0\n".getBytes());
         System.setIn(in);
         final ByteArrayOutputStream myOut = new ByteArrayOutputStream();
         System.setOut(new PrintStream(myOut));
-        InputStream inputStream = System.in;
-        PrintStream outputStream = System.out;
-        Interface.main(null);
-        System.setIn(inputStream);
-        System.setOut(outputStream);
+        InputStream originalIn = System.in;
+        PrintStream originalOut = System.out;
+        try {
+            Interface.main(null);
+        } finally {
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
         return myOut.toString();
     }
 
     @Test
     void inputTest() {
-        run("0\n0\n0\n0\n-1\n");
-        Assertions.assertTrue(true);
+        String output = run();
+        Assertions.assertTrue(output.contains("Раунд 1"));
+        Assertions.assertTrue(output.contains("Ваш ход"));
+        Assertions.assertTrue(output.contains("Дилер раздал карты"));
     }
 }
