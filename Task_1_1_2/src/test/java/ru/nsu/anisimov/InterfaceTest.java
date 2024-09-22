@@ -7,9 +7,7 @@ import java.io.PrintStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
 class InterfaceTest {
-
     @Test
     void testShowCards() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
