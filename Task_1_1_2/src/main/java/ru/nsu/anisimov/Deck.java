@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * The class represents a deck of playing cards in a game.
- * The deck contains 52 cards, one for each combination of rank and suit.
+ * The class represents a deck of playing cards in a game. The deck contains 52 cards,
+ * one for each combination of rank and suit.
  */
 public class Deck {
 
@@ -38,7 +38,8 @@ public class Deck {
     }
 
     /**
-     * Shuffles the deck of cards using the {@link Collections#shuffle} method to randomize the order.
+     * Shuffles the deck of cards using
+     * the {@link Collections#shuffle} method to randomize the order.
      */
     private void shuffle() {
         Collections.shuffle(deck);
