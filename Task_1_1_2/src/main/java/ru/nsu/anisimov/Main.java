@@ -2,27 +2,49 @@ package ru.nsu.anisimov;
 
 import java.util.Scanner;
 
+/**
+ * Class representing the game logic for a Blackjack game.
+ */
 public class Main {
     int round = 1;
     int countPlayerWins = 0;
     int countDealerWins = 0;
 
+    /**
+     * Handles the dealer's win scenario.
+     * Increments the dealer's win count and displays the result of the round.
+     */
     void dealerWin() {
         ++countDealerWins;
         displayRoundResult("Вы проиграли раунд!");
         ++round;
     }
 
+    /**
+     * Handles the player's win scenario.
+     * Increments the player's win count and displays the result of the round.
+     */
     void playerWin() {
         ++countPlayerWins;
         displayRoundResult("Вы выиграли раунд!");
         ++round;
     }
 
+    /**
+     * Checks if the player has a Blackjack (sum = 21).
+     *
+     * @param player player
+     * @return true if the player has Blackjack, false otherwise.
+     */
     boolean checkBlackjack(Player player) {
         return player.getHandSize() == 2 && player.getSum() == 21;
     }
 
+    /**
+     * Displays the result of the round, including the current score between the player and dealer.
+     *
+     * @param message describing the result of the round.
+     */
     private void displayRoundResult(String message) {
         System.out.print(message + " Счёт " + countPlayerWins + ":" + countDealerWins + " ");
         if (countPlayerWins > countDealerWins) {
@@ -35,6 +57,12 @@ public class Main {
         System.out.println();
     }
 
+    /**
+     * Determines the winner of the round based on the player's and dealer's hand sums.
+     *
+     * @param player player
+     * @param dealer AI player
+     */
     void checkForWin(Player player, Player dealer) {
         if (dealer.getSum() > 21) {
             playerWin();
@@ -49,6 +77,12 @@ public class Main {
         }
     }
 
+    /**
+     * Displays the cards of the player and the dealer.
+     *
+     * @param player player
+     * @param dealer AI player
+     */
     void showCards(Player player, Player dealer) {
         System.out.print("\tВаши карты: " + getFormattedHand(player));
         System.out.println(" => " + player.getSum());
@@ -61,6 +95,12 @@ public class Main {
         System.out.println();
     }
 
+    /**
+     * Formats the player's hand for display purposes.
+     *
+     * @param player player
+     * @return A string representing the formatted hand.
+     */
     private String getFormattedHand(Player player) {
         StringBuilder hand = new StringBuilder("[");
         for (int index = 0; index < player.getHandSize(); ++index) {
@@ -73,6 +113,12 @@ public class Main {
         return hand.toString();
     }
 
+    /**
+     * The main method that starts and controls the game loop for Blackjack.
+     * The game will keep running indefinitely until stopped manually.
+     *
+     * @param args arguments
+     */
     public static void main(String[] args) {
         Main game = new Main();
         System.out.println("Добро пожаловать в Блэкджек!");
