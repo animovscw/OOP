@@ -1,12 +1,11 @@
 package ru.nsu.anisimov;
 
-import org.junit.jupiter.api.Assertions;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
@@ -36,7 +35,8 @@ class MainTest {
     void testInput() {
         String output = runGame("0\n0\n0\n0\n0\n2\n");
         String subOutput = output.substring(output.length() - 58);
-        Assertions.assertEquals("Введите “1”, чтобы взять карту, и “0”, чтобы остановиться\n", subOutput);
+        Assertions.assertEquals("Введите “1”, чтобы взять карту, и “0”, чтобы остановиться\n",
+                subOutput);
     }
 
     @Test
@@ -79,7 +79,6 @@ class MainTest {
 
     @Test
     void testCheckForWin() {
-        Main game = new Main();
         Player player = new Player();
         Player dealer = new Player();
         Deck deck = new Deck();
@@ -88,6 +87,7 @@ class MainTest {
         player.addCard(deck);
         dealer.addCard(deck);
         dealer.addCard(deck);
+        Main game = new Main();
         int rounds = game.countPlayerWins;
         game.checkForWin(player, dealer);
         Assertions.assertTrue(game.countPlayerWins >= rounds);

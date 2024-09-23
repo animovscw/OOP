@@ -10,12 +10,12 @@ public class Deck {
         deck = new ArrayList<>();
 
         Rank[] ranks = new Rank[]{
-                Rank.TWO, Rank.THREE, Rank.FOUR, Rank.FIVE, Rank.SIX,
-                Rank.SEVEN, Rank.EIGHT, Rank.NINE, Rank.TEN,
-                Rank.JACK, Rank.QUEEN, Rank.KING, Rank.ACE
+            Rank.TWO, Rank.THREE, Rank.FOUR, Rank.FIVE, Rank.SIX,
+            Rank.SEVEN, Rank.EIGHT, Rank.NINE, Rank.TEN,
+            Rank.JACK, Rank.QUEEN, Rank.KING, Rank.ACE
         };
         String[] suits = new String[]{
-                "Червы", "Пики", "Бубны", "Трефы"
+            "Червы", "Пики", "Бубны", "Трефы"
         };
         for (String suit : suits) {
             for (Rank rank : ranks) {
