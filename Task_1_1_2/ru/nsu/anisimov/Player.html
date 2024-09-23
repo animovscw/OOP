@@ -90,7 +90,6 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Player</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
-<div class="block">The class represents a player in the game. Each player has a hand of cards.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -119,45 +118,23 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addCard(ru.nsu.anisimov.Card)" class="member-name-link">addCard</a><wbr>(<a href="Card.html" title="class in ru.nsu.anisimov">Card</a>&nbsp;card)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Adds a card to the player's hand, updating the sum of the card values.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCardCount()" class="member-name-link">getCardCount</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the count of cards in the player's hand.</div>
-</div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addCard(ru.nsu.anisimov.Deck)" class="member-name-link">addCard</a><wbr>(<a href="Deck.html" title="class in ru.nsu.anisimov">Deck</a>&nbsp;deck)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Card.html" title="class in ru.nsu.anisimov">Card</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCardByIndex(int)" class="member-name-link">getCardByIndex</a><wbr>(int&nbsp;index)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHandSize()" class="member-name-link">getHandSize</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHidden()" class="member-name-link">getHidden</a>()</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSum()" class="member-name-link">getSum</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Returns the sum of the values of the cards in the player's hand.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#isAllCardsOpen()" class="member-name-link">isAllCardsOpen</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Checks if all cards in the player's hand are open.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#openCard(int)" class="member-name-link">openCard</a><wbr>(int&nbsp;index)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Opens the last card at the specified index in the player's hand.</div>
-</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#openLastCard()" class="member-name-link">openLastCard</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Opens the last card added to the player's hand.</div>
-</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#showCardsInHand()" class="member-name-link">showCardsInHand</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Shows all cards in the player's hand.</div>
-</div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#showLastCard()" class="member-name-link">showLastCard</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
-<div class="block">Shows the last card added to the player's hand.</div>
-</div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setHiddenPlayer(boolean)" class="member-name-link">setHiddenPlayer</a><wbr>(boolean&nbsp;value)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
 </div>
@@ -190,88 +167,39 @@ loadScripts(document, 'script');</script>
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="addCard(ru.nsu.anisimov.Card)">
+<section class="detail" id="addCard(ru.nsu.anisimov.Deck)">
 <h3>addCard</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addCard</span><wbr><span class="parameters">(<a href="Card.html" title="class in ru.nsu.anisimov">Card</a>&nbsp;card)</span></div>
-<div class="block">Adds a card to the player's hand, updating the sum of the card values.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>card</code> - the card to add to the player's hand</dd>
-</dl>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addCard</span><wbr><span class="parameters">(<a href="Deck.html" title="class in ru.nsu.anisimov">Deck</a>&nbsp;deck)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="showCardsInHand()">
-<h3>showCardsInHand</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">showCardsInHand</span>()</div>
-<div class="block">Shows all cards in the player's hand. If all cards are open,
- it also displays the total value.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>a string representation of the player's hand and, by chance, total value.</dd>
-</dl>
+<section class="detail" id="getHidden()">
+<h3>getHidden</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">getHidden</span>()</div>
 </section>
 </li>
 <li>
-<section class="detail" id="isAllCardsOpen()">
-<h3>isAllCardsOpen</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isAllCardsOpen</span>()</div>
-<div class="block">Checks if all cards in the player's hand are open.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>true if all cards are open, false otherwise.</dd>
-</dl>
+<section class="detail" id="setHiddenPlayer(boolean)">
+<h3>setHiddenPlayer</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setHiddenPlayer</span><wbr><span class="parameters">(boolean&nbsp;value)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="getCardByIndex(int)">
+<h3>getCardByIndex</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Card.html" title="class in ru.nsu.anisimov">Card</a></span>&nbsp;<span class="element-name">getCardByIndex</span><wbr><span class="parameters">(int&nbsp;index)</span></div>
 </section>
 </li>
 <li>
 <section class="detail" id="getSum()">
 <h3>getSum</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getSum</span>()</div>
-<div class="block">Returns the sum of the values of the cards in the player's hand.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the total value of the player's hand.</dd>
-</dl>
 </section>
 </li>
 <li>
-<section class="detail" id="showLastCard()">
-<h3>showLastCard</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">showLastCard</span>()</div>
-<div class="block">Shows the last card added to the player's hand.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>a string representation of the last card in the hand.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="openCard(int)">
-<h3>openCard</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">openCard</span><wbr><span class="parameters">(int&nbsp;index)</span></div>
-<div class="block">Opens the last card at the specified index in the player's hand.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>index</code> - the index of the card to open</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="openLastCard()">
-<h3>openLastCard</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">openLastCard</span>()</div>
-<div class="block">Opens the last card added to the player's hand.</div>
-</section>
-</li>
-<li>
-<section class="detail" id="getCardCount()">
-<h3>getCardCount</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getCardCount</span>()</div>
-<div class="block">Returns the count of cards in the player's hand.</div>
-<dl class="notes">
-<dt>Returns:</dt>
-<dd>the number of cards in the player's hand.</dd>
-</dl>
+<section class="detail" id="getHandSize()">
+<h3>getHandSize</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getHandSize</span>()</div>
 </section>
 </li>
 </ul>
