@@ -90,6 +90,8 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Player</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Represents a player in the game of Blackjack.
+ The player has a hand of cards and keeps track of their total value.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -119,22 +121,34 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#addCard(ru.nsu.anisimov.Deck)" class="member-name-link">addCard</a><wbr>(<a href="Deck.html" title="class in ru.nsu.anisimov">Deck</a>&nbsp;deck)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Adds a card from the deck to the player's hand.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Card.html" title="class in ru.nsu.anisimov">Card</a></code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getCardByIndex(int)" class="member-name-link">getCardByIndex</a><wbr>(int&nbsp;index)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Retrieves a card from the player's hand by index.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHandSize()" class="member-name-link">getHandSize</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the number of cards in the player's hand.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getHidden()" class="member-name-link">getHidden</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Checks if the player's hand is hidden.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getSum()" class="member-name-link">getSum</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the total value of the player's hand.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#setHiddenPlayer(boolean)" class="member-name-link">setHiddenPlayer</a><wbr>(boolean&nbsp;value)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Sets the visibility of the player's hand.</div>
+</div>
 </div>
 </div>
 </div>
@@ -170,36 +184,70 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="addCard(ru.nsu.anisimov.Deck)">
 <h3>addCard</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">addCard</span><wbr><span class="parameters">(<a href="Deck.html" title="class in ru.nsu.anisimov">Deck</a>&nbsp;deck)</span></div>
+<div class="block">Adds a card from the deck to the player's hand.
+ If the card is an Ace, it is tracked for value adjustment.
+ If the total value exceeds 21, it adjusts the value of Aces as necessary.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>deck</code> - the deck from which to draw the card.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getHidden()">
 <h3>getHidden</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">getHidden</span>()</div>
+<div class="block">Checks if the player's hand is hidden.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>true if the player's hand is hidden, false otherwise.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="setHiddenPlayer(boolean)">
 <h3>setHiddenPlayer</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">setHiddenPlayer</span><wbr><span class="parameters">(boolean&nbsp;value)</span></div>
+<div class="block">Sets the visibility of the player's hand.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>value</code> - true to hide the hand, false to reveal it.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getCardByIndex(int)">
 <h3>getCardByIndex</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Card.html" title="class in ru.nsu.anisimov">Card</a></span>&nbsp;<span class="element-name">getCardByIndex</span><wbr><span class="parameters">(int&nbsp;index)</span></div>
+<div class="block">Retrieves a card from the player's hand by index.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>index</code> - the index of the card in the hand.</dd>
+<dt>Returns:</dt>
+<dd>the card at the specified index.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getSum()">
 <h3>getSum</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getSum</span>()</div>
+<div class="block">Gets the total value of the player's hand.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the total value of the hand.</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="getHandSize()">
 <h3>getHandSize</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getHandSize</span>()</div>
+<div class="block">Gets the number of cards in the player's hand.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>the size of the player's hand.</dd>
+</dl>
 </section>
 </li>
 </ul>
