@@ -155,7 +155,7 @@ public class Main {
                 if (action == 1) {
                     player.addCard(deck);
                     System.out.print("Вы открыли карту ");
-                    player.getCardByIndex(player.getHandSize() - 1).print();
+                    player.getCardByIndex(player.getHandSize() - 1).display();
                     System.out.println();
                     game.showCards(player, dealer);
                     if (player.getSum() == 21) {
@@ -177,7 +177,7 @@ public class Main {
             dealer.getCardByIndex(dealer.getHandSize() - 1).setHiddenCard(false);
             dealer.setHiddenPlayer(false);
             System.out.print("Дилер открывает закрытую карту ");
-            dealer.getCardByIndex(dealer.getHandSize() - 1).print();
+            dealer.getCardByIndex(dealer.getHandSize() - 1).display();
             System.out.println();
             game.showCards(player, dealer);
             if (game.checkBlackjack(dealer)) {
@@ -187,7 +187,7 @@ public class Main {
             while (dealer.getSum() < 17) {
                 dealer.addCard(deck);
                 System.out.print("Дилер открыл карту ");
-                dealer.getCardByIndex(dealer.getHandSize() - 1).print();
+                dealer.getCardByIndex(dealer.getHandSize() - 1).display();
                 System.out.println();
                 game.showCards(player, dealer);
             }
