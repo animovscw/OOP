@@ -9,7 +9,7 @@ public class Main {
         String infix = scanner.nextLine();
         Expression e = Transformation.getExpression(infix);
         e.print();
-        System.out.println("Expression: " + e.toString());
+        System.out.println("Expression: " + e);
         String variable = scanner.nextLine();
         System.out.println("Derivative: " + e.getDerivative(variable).toString());
         String assignation = scanner.nextLine();

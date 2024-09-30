@@ -16,13 +16,13 @@ public class Mul extends Expression {
      * The method calculates the value of a multiplication expression by substituting
      * the values of the variables from the assignment string.
      *
-     * @param assignationString string
+     * @param assignation string
      * @return The result of multiplication
      */
     @Override
-    public double evaluate(String assignationString) {
-        return this.left.evaluate(assignationString)
-                * this.right.evaluate(assignationString);
+    public double evaluate(String assignation) {
+        return this.left.evaluate(assignation)
+                * this.right.evaluate(assignation);
     }
 
     /**

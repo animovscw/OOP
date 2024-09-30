@@ -39,12 +39,12 @@ public class Variable extends Expression {
     /**
      * The method calculates the value of a variable using a string of variable assignments.
      *
-     * @param assignationString the string
+     * @param assignation the string
      * @return If there is a value for a variable in the dictionary, that value is returned
      */
     @Override
-    public double evaluate(String assignationString) {
-        Dictionary<String, Integer> assignations = parseAssignations(assignationString);
+    public double evaluate(String assignation) {
+        Dictionary<String, Integer> assignations = parseAssignations(assignation);
 
         return assignations.get(this.variableName);
     }

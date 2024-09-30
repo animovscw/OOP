@@ -16,13 +16,13 @@ public class Div extends Expression {
      * The method evaluates the division expression,
      * substituting the values of variables from the given assignment string.
      *
-     * @param assignationString string
+     * @param assignation string
      * @return the result
      */
     @Override
-    public double evaluate(String assignationString) {
-        return this.left.evaluate(assignationString)
-                / this.right.evaluate(assignationString);
+    public double evaluate(String assignation) {
+        return this.left.evaluate(assignation)
+                / this.right.evaluate(assignation);
     }
 
     /**

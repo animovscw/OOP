@@ -15,13 +15,13 @@ public class Add extends Expression {
     /**
      * The method calculates the result of adding two expressions.
      *
-     * @param assignationString the string
+     * @param assignation the string
      * @return The result of evaluating the sum
      */
     @Override
-    public double evaluate(String assignationString) {
-        return this.left.evaluate(assignationString)
-                + this.right.evaluate(assignationString);
+    public double evaluate(String assignation) {
+        return this.left.evaluate(assignation)
+                + this.right.evaluate(assignation);
     }
 
     /**

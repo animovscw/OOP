@@ -16,13 +16,13 @@ public class Sub extends Expression {
      * The method evaluates the subtraction expression by computing the difference between
      * the evaluations of the left and right expressions.
      *
-     * @param assignationString A string containing variable assignments
+     * @param assignation AN assignation containing variable assignments
      * @return The result of subtraction
      */
     @Override
-    public double evaluate(String assignationString) {
-        return this.left.evaluate(assignationString)
-                - this.right.evaluate(assignationString);
+    public double evaluate(String assignation) {
+        return this.left.evaluate(assignation)
+                - this.right.evaluate(assignation);
     }
 
     /**

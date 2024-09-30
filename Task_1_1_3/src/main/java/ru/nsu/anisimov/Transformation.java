@@ -4,24 +4,24 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Transformation {
-    private static String getNextToken(String exp, int position) {
-        if (position >= exp.length()) {
+    private static String getNextToken(String expression, int position) {
+        if (position >= expression.length()) {
             return "";
         }
-        char firstSymbol = exp.charAt(position);
+        char firstSymbol = expression.charAt(position);
         if ("+-*/()".indexOf(firstSymbol) != -1) {
             return String.valueOf(firstSymbol);
         } else if (Character.isDigit(firstSymbol)) {
             StringBuilder result = new StringBuilder();
-            while (position < exp.length() && Character.isDigit(exp.charAt(position))) {
-                result.append(exp.charAt(position));
+            while (position < expression.length() && Character.isDigit(expression.charAt(position))) {
+                result.append(expression.charAt(position));
                 ++position;
             }
             return result.toString();
         } else if (Character.isLetter(firstSymbol)) {
             StringBuilder result = new StringBuilder();
-            while (position < exp.length() && Character.isLetterOrDigit(exp.charAt(position))) {
-                result.append(exp.charAt(position));
+            while (position < expression.length() && Character.isLetterOrDigit(expression.charAt(position))) {
+                result.append(expression.charAt(position));
                 ++position;
             }
             return result.toString();
@@ -29,12 +29,12 @@ public class Transformation {
         return "";
     }
 
-    public static ArrayList<String> getReversePolish(String exp) {
+    public static ArrayList<String> getReversePolish(String expression) {
         ArrayList<String> output = new ArrayList<>();
         Stack<String> stack = new Stack<>();
         int position = 0;
-        while (position < exp.length()) {
-            String token = getNextToken(exp, position);
+        while (position < expression.length()) {
+            String token = getNextToken(expression, position);
             if (token.isEmpty()) {
                 ++position;
                 continue;
@@ -69,8 +69,8 @@ public class Transformation {
         return output;
     }
 
-    public static Expression getExpression(String exp) {
-        ArrayList<String> rpn = getReversePolish(exp);
+    public static Expression getExpression(String expression) {
+        ArrayList<String> rpn = getReversePolish(expression);
         Stack<Expression> result = new Stack<>();
         for (String s : rpn) {
             if (s.matches("\\d+")) {

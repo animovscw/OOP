@@ -1,36 +1,37 @@
 package ru.nsu.anisimov;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Assertions;
 
 import org.junit.jupiter.api.Test;
 
 public class EvaluationTest {
     @Test
-    void simpleEvalTest() {
-        String expression = "2+x";
-        double expected = 5;
-        double result = Transformation.getExpression(expression).evaluate("x = 3");
+    void simpleTest() {
+        String expression = "x+3";
+        double expected = 12;
+        double result = Transformation.getExpression(expression).evaluate("x = 9");
 
-        assertEquals(expected, result);
+        Assertions.assertEquals(expected, result);
     }
 
     @Test
-    void manyVariablesTest() {
-        String expression = "(x+y-long)*story/short";
-        double expected = 10;
+    void multipleTest() {
+        String expression = "(x+y-z)*w/q";
+        double expected = 1;
         double result =
                 Transformation.getExpression(expression)
-                        .evaluate("x = 3; y = 8; long = 1; story = 2; short = 2");
+                        .evaluate("x = 1; y = 1; z = 1; w = 1; q = 1"
+                        );
 
-        assertEquals(expected, result);
+        Assertions.assertEquals(expected, result);
     }
 
     @Test
-    void hardEvalTest() {
+    void toughTest() {
         String expression = "(((x+y)-2+x)*z)*3";
         double expected = 180;
         double result = Transformation.getExpression(expression).evaluate("x = 3; y = 8; z = 5");
 
-        assertEquals(expected, result);
+        Assertions.assertEquals(expected, result);
     }
 }

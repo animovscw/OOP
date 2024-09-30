@@ -11,11 +11,11 @@ public class Number extends Expression {
     /**
      * Calculates the value of an expression.
      *
-     * @param assignationString numeric constant
+     * @param assignation numeric constant
      * @return Its value
      */
     @Override
-    public double evaluate(String assignationString) {
+    public double evaluate(String assignation) {
         return this.value;
     }
 
