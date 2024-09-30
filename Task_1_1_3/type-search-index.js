@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.anisimov","l":"Main"}]
+typeSearchIndex = [{"p":"ru.nsu.anisimov","l":"Add"},{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.anisimov","l":"Div"},{"p":"ru.nsu.anisimov","l":"Expression"},{"p":"ru.nsu.anisimov","l":"Main"},{"p":"ru.nsu.anisimov","l":"Mul"},{"p":"ru.nsu.anisimov","l":"Number"},{"p":"ru.nsu.anisimov","l":"Sub"},{"p":"ru.nsu.anisimov","l":"Transformation"},{"p":"ru.nsu.anisimov","l":"Variable"}]
