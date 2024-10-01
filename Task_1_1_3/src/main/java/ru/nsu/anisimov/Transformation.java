@@ -3,7 +3,21 @@ package ru.nsu.anisimov;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * The class provides methods for converting infix expressions into reverse Polish notation (RPN)
+ * and for generating corresponding objects.
+ * It supports basic mathematical operations such as addition, subtraction, multiplication,
+ * and division, as well as handling variables and numeric values.
+ */
 public class Transformation {
+    /**
+     * Retrieves the next token (number, operator, or variable) from the infix expression starting
+     * from the specified position.
+     *
+     * @param expression the infix expression as a string
+     * @param position   the current position to start parsing the token from
+     * @return The next token as a string
+     */
     private static String getNextToken(String expression, int position) {
         if (position >= expression.length()) {
             return "";
@@ -13,14 +27,16 @@ public class Transformation {
             return String.valueOf(firstSymbol);
         } else if (Character.isDigit(firstSymbol)) {
             StringBuilder result = new StringBuilder();
-            while (position < expression.length() && Character.isDigit(expression.charAt(position))) {
+            while (position < expression.length()
+                    && Character.isDigit(expression.charAt(position))) {
                 result.append(expression.charAt(position));
                 ++position;
             }
             return result.toString();
         } else if (Character.isLetter(firstSymbol)) {
             StringBuilder result = new StringBuilder();
-            while (position < expression.length() && Character.isLetterOrDigit(expression.charAt(position))) {
+            while (position < expression.length()
+                    && Character.isLetterOrDigit(expression.charAt(position))) {
                 result.append(expression.charAt(position));
                 ++position;
             }
@@ -29,6 +45,14 @@ public class Transformation {
         return "";
     }
 
+    /**
+     * Converts an infix expression to a reverse Polish notation (RPN) format.
+     * The method uses a stack to process operators and ensures that the precedence
+     * of operators is handled correctly.
+     *
+     * @param expression the infix expression as a string
+     * @return An ArrayList<String>
+     */
     public static ArrayList<String> getReversePolish(String expression) {
         ArrayList<String> output = new ArrayList<>();
         Stack<String> stack = new Stack<>();
@@ -69,6 +93,13 @@ public class Transformation {
         return output;
     }
 
+    /**
+     * Generates an object from an infix string representation of a mathematical expression.
+     * This method uses reverse Polish notation to evaluate and structure the expression.
+     *
+     * @param expression the infix expression as a string
+     * @return An object representing the parsed expression
+     */
     public static Expression getExpression(String expression) {
         ArrayList<String> rpn = getReversePolish(expression);
         Stack<Expression> result = new Stack<>();

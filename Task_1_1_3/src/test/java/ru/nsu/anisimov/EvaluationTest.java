@@ -3,6 +3,9 @@ package ru.nsu.anisimov;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * The tests to test the evaluation function.
+ */
 public class EvaluationTest {
     @Test
     void simpleTest() {

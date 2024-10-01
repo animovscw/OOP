@@ -1,5 +1,8 @@
 package ru.nsu.anisimov;
 
+/**
+ * Class representing a numeric constant.
+ */
 public class Number extends Expression {
     private final double value;
 

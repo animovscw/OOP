@@ -3,6 +3,9 @@ package ru.nsu.anisimov;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * The tests to test the simplification function.
+ */
 public class SimplificationTest {
     @Test
     void mulWithNullTest() {
@@ -23,7 +26,7 @@ public class SimplificationTest {
     }
 
     @Test
-    void additionOfTwoIdenticalSTest() {
+    void additionOfTwoIdenticalTest() {
         String expression = "(3+3)";
         String expected = "6";
         String result = Transformation.getExpression(expression).getSimplified().toString();

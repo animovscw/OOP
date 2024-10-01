@@ -55,8 +55,8 @@ public class Add extends Expression {
                 && simpAdd.right instanceof Number
         ) {
             return new Number(
-                    ((Number) simpAdd.left).getValue() +
-                            ((Number) simpAdd.right).getValue()
+                    ((Number) simpAdd.left).getValue()
+                            + ((Number) simpAdd.right).getValue()
 
             );
         } else {

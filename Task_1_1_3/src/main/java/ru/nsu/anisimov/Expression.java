@@ -1,5 +1,8 @@
 package ru.nsu.anisimov;
 
+/**
+ * Abstract class for all mathematical expressions.
+ */
 public abstract class Expression {
 
     public abstract double evaluate(String assignation);
