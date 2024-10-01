@@ -60,4 +60,13 @@ public class SimplificationTest {
 
         Assertions.assertEquals(expected, result);
     }
+
+    @Test
+    void universalTest() {
+        String expression = "((((5-x)*0)+((0-1)*2))/(2*2))";
+        String expected = "-0.5";
+        String result = Transformation.getExpression(expression).getSimplified().toString();
+
+        Assertions.assertEquals(expected, result);
+    }
 }
