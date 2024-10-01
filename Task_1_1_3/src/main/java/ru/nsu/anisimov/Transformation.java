@@ -51,7 +51,7 @@ public class Transformation {
      * of operators is handled correctly.
      *
      * @param expression the infix expression as a string
-     * @return An ArrayList<String>
+     * @return A list
      */
     public static ArrayList<String> getReversePolish(String expression) {
         ArrayList<String> output = new ArrayList<>();
