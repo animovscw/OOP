@@ -1,7 +1,6 @@
 package ru.nsu.anisimov;
 
 import org.junit.jupiter.api.Assertions;
-
 import org.junit.jupiter.api.Test;
 
 public class EvaluationTest {
@@ -31,6 +30,33 @@ public class EvaluationTest {
         String expression = "(((x+y)-2+x)*z)*3";
         double expected = 180;
         double result = Transformation.getExpression(expression).evaluate("x = 3; y = 8; z = 5");
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    void subtractionTest() {
+        String expression = "x - 4";
+        double expected = 6;
+        double result = Transformation.getExpression(expression).evaluate("x = 10");
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    void multiplicationTest() {
+        String expression = "x * 5";
+        double expected = 25;
+        double result = Transformation.getExpression(expression).evaluate("x = 5");
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    void divisionTest() {
+        String expression = "x / 2";
+        double expected = 5;
+        double result = Transformation.getExpression(expression).evaluate("x = 10");
 
         Assertions.assertEquals(expected, result);
     }
