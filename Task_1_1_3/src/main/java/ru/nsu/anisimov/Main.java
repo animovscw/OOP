@@ -8,7 +8,6 @@ import java.util.Scanner;
  * evaluate it for a given variable assignment, and simplify it.
  */
 public class Main {
-
     /**
      * The main method reads a mathematical expression from the user in infix notation,
      * calculates its derivative with respect to a variable, evaluates the expression
@@ -18,18 +17,17 @@ public class Main {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter an infix expression:");
+
         String infix = scanner.nextLine();
         Expression e = Transformation.getExpression(infix);
         e.print();
         System.out.println("Expression: " + e);
-        System.out.println("Enter the variable for derivative:");
         String variable = scanner.nextLine();
         System.out.println("Derivative: " + e.getDerivative(variable).toString());
-        System.out.println("Enter the variable assignments (e.g., x=5):");
         String assignation = scanner.nextLine();
         System.out.println("Assigned: " + e.evaluate(assignation));
         System.out.println("Simplified: " + e.getSimplified().toString());
+
         scanner.close();
     }
 }
