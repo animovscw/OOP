@@ -1,8 +1,8 @@
 package ru.nsu.anisimov;
 
-import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -31,7 +31,9 @@ public class TransformationTest {
     @Test
     void expressionWithBracketsAndVariablesTest() {
         String expression = "a*(b+c)-d";
-        ArrayList<String> expected = new ArrayList<>(Arrays.asList("a", "b", "c", "+", "*", "d", "-"));
+        ArrayList<String> expected = new ArrayList<>(
+                Arrays.asList("a", "b", "c", "+", "*", "d", "-")
+        );
         ArrayList<String> result = Transformation.getReversePolish(expression);
 
         Assertions.assertEquals(expected, result);
@@ -40,7 +42,9 @@ public class TransformationTest {
     @Test
     void expressionWithDivisionAndLongVariablesTest() {
         String expression = "number1/(value+3)-factor";
-        ArrayList<String> expected = new ArrayList<>(Arrays.asList("number1", "value", "3", "+", "/", "factor", "-"));
+        ArrayList<String> expected = new ArrayList<>(
+                Arrays.asList("number1", "value", "3", "+", "/", "factor", "-")
+        );
         ArrayList<String> result = Transformation.getReversePolish(expression);
 
         Assertions.assertEquals(expected, result);
@@ -49,7 +53,9 @@ public class TransformationTest {
     @Test
     void nestedBracketsTest() {
         String expression = "(a+b)*(c-(d/e))";
-        ArrayList<String> expected = new ArrayList<>(Arrays.asList("a", "b", "+", "c", "d", "e", "/", "-", "*"));
+        ArrayList<String> expected = new ArrayList<>(
+                Arrays.asList("a", "b", "+", "c", "d", "e", "/", "-", "*")
+        );
         ArrayList<String> result = Transformation.getReversePolish(expression);
 
         Assertions.assertEquals(expected, result);
