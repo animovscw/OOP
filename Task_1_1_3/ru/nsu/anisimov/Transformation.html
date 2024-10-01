@@ -132,6 +132,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Transformation</span>
 extends java.lang.Object</pre>
+<div class="block">The class provides methods for converting infix expressions into reverse Polish notation (RPN)
+ and for generating corresponding objects.
+ It supports basic mathematical operations such as addition, subtraction, multiplication,
+ and division, as well as handling variables and numeric values.</div>
 </li>
 </ul>
 </div>
@@ -176,12 +180,16 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getExpression(java.lang.String)">getExpression</a></span>&#8203;(java.lang.String&nbsp;expression)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Generates an object from an infix string representation of a mathematical expression.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static java.util.ArrayList&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getReversePolish(java.lang.String)">getReversePolish</a></span>&#8203;(java.lang.String&nbsp;expression)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Converts an infix expression to a reverse Polish notation (RPN) format.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -233,6 +241,15 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getReversePolish</h4>
 <pre class="methodSignature">public static&nbsp;java.util.ArrayList&lt;java.lang.String&gt;&nbsp;getReversePolish&#8203;(java.lang.String&nbsp;expression)</pre>
+<div class="block">Converts an infix expression to a reverse Polish notation (RPN) format.
+ The method uses a stack to process operators and ensures that the precedence
+ of operators is handled correctly.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>expression</code> - the infix expression as a string</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A list</dd>
+</dl>
 </li>
 </ul>
 <a id="getExpression(java.lang.String)">
@@ -242,6 +259,14 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getExpression</h4>
 <pre class="methodSignature">public static&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getExpression&#8203;(java.lang.String&nbsp;expression)</pre>
+<div class="block">Generates an object from an infix string representation of a mathematical expression.
+ This method uses reverse Polish notation to evaluate and structure the expression.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>expression</code> - the infix expression as a string</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>An object representing the parsed expression</dd>
+</dl>
 </li>
 </ul>
 </li>
