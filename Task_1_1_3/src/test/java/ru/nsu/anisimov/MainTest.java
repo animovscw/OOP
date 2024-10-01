@@ -3,7 +3,6 @@ package ru.nsu.anisimov;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,7 @@ import org.junit.jupiter.api.Test;
  */
 public class MainTest {
     @Test
-    void testMainWithSimpleExpression() {
+    void simpleTest() {
         String input = "(x+3)\nx\nx = 9\n";
         ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -43,6 +42,35 @@ public class MainTest {
             Assertions.assertEquals(expected.charAt(i), result.charAt(i));
 
         }
+        System.setIn(System.in);
+        System.setOut(System.out);
+    }
+
+    @Test
+    void notSimpleTest() {
+        String input = "((3+(2*x))+1)\nx\nx = 10";
+        ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        System.setIn(in);
+        System.setOut(new PrintStream(out));
+        Main.main(new String[0]);
+        String result = out.toString().replaceAll("\\r\\n?", "\n");
+        String expected =
+                "((3+(2*x))+1)\n"
+                + "Expression: ((3+(2*x))+1)\n"
+                + "Derivative: ((0+((0*x)+(2*1)))+0)\n"
+                + "Assigned: 24.0\n"
+                + "Simplified: ((3+(2*x))+1)\n";
+        Assertions.assertEquals(expected, result);
+        Assertions.assertEquals(expected.length(), result.length());
+
+        for (int i = 0; i < expected.length(); ++i) {
+            if (expected.charAt(i) != result.charAt(i)) {
+                System.out.println(i + expected.charAt(i) + result.charAt(i));
+            }
+            Assertions.assertEquals(expected.charAt(i), result.charAt(i));
+        }
+
         System.setIn(System.in);
         System.setOut(System.out);
     }
