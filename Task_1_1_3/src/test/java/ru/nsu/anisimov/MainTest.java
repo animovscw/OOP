@@ -3,6 +3,7 @@ package ru.nsu.anisimov;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -13,12 +14,7 @@ import org.junit.jupiter.api.Test;
 public class MainTest {
     @Test
     void testMainWithSimpleExpression() {
-        String input =
-                """
-                        (x+3)
-                        x
-                        x = 9
-                        """;
+        String input = "(x+3)\nx\nx = 9\n";
         ByteArrayInputStream in = new ByteArrayInputStream(input.getBytes());
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setIn(in);
@@ -26,13 +22,7 @@ public class MainTest {
         Main.main(new String[0]);
         String result = out.toString().replaceAll("\\r\\n?", "\n");
         String expected =
-                """
-                        (x+3)
-                        Expression: (x+3)
-                        Derivative: (1+0)
-                        Assigned: 12.0
-                        Simplified: (x+3)
-                        """;
+                "(x+3)\nExpression: (x+3)\nDerivative: (1+0)\nAssigned: 12.0\nSimplified: (x+3)\n";
 
         Assertions.assertEquals(expected, result);
         Assertions.assertEquals(expected.length(), result.length());
@@ -41,12 +31,12 @@ public class MainTest {
             if (expected.charAt(i) != result.charAt(i)) {
                 System.out.println(
                         "Mismatch at position "
-                                + i
-                                + ": expected '"
-                                + expected.charAt(i)
-                                + "' but was '"
-                                + result.charAt(i)
-                                + "'"
+                        + i
+                        + ": expected '"
+                        + expected.charAt(i)
+                        + "' but was '"
+                        + result.charAt(i)
+                        + "'"
                 );
             }
 
