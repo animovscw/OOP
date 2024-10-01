@@ -1,11 +1,15 @@
 package ru.nsu.anisimov;
 
 public class Number extends Expression {
-    double value;
+    private final double value;
 
     public Number(double number) {
         super();
         this.value = number;
+    }
+
+    public double getValue() {
+        return value;
     }
 
     /**

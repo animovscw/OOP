@@ -66,24 +66,24 @@ public class Mul extends Expression {
                         && simpMul.right instanceof Number
         ) {
             return new Number(
-                    ((Number) simpMul.left).value
-                            * ((Number) simpMul.right).value
+                    ((Number) simpMul.left).getValue()
+                            * ((Number) simpMul.right).getValue()
             );
         } else if (
                 simpMul.left instanceof Number
-                        && ((Number) simpMul.left).value == 0
+                        && ((Number) simpMul.left).getValue() == 0
                         || simpMul.right instanceof Number
-                        && ((Number) simpMul.right).value == 0
+                        && ((Number) simpMul.right).getValue() == 0
         ) {
             return new Number(0);
         } else if (
                 simpMul.left instanceof Number
-                        && ((Number) simpMul.left).value == 1
+                        && ((Number) simpMul.left).getValue() == 1
         ) {
             return simpMul.right;
         } else if (
                 simpMul.right instanceof Number
-                        && ((Number) simpMul.right).value == 1
+                        && ((Number) simpMul.right).getValue() == 1
         ) {
             return simpMul.left;
         } else {

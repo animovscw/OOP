@@ -56,8 +56,8 @@ public class Sub extends Expression {
         if (simpSub.left instanceof Number
                 && simpSub.right instanceof Number) {
             return new Number(
-                    ((Number) simpSub.left).value
-                            - ((Number) simpSub.right).value
+                    ((Number) simpSub.left).getValue()
+                            - ((Number) simpSub.right).getValue()
             );
         } else if (simpSub.left.toString().equals(
                 simpSub.right.toString()

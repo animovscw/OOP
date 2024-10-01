@@ -71,12 +71,12 @@ public class Div extends Expression {
                         && simpDiv.right instanceof Number
         ) {
             return new Number(
-                    ((Number) simpDiv.left).value
-                            / ((Number) simpDiv.right).value
+                    ((Number) simpDiv.left).getValue()
+                            / ((Number) simpDiv.right).getValue()
             );
         } else if (
                 this.left instanceof Number
-                        && ((Number) this.left).value == 0
+                        && ((Number) this.left).getValue() == 0
         ) {
             return new Number(0);
         } else {

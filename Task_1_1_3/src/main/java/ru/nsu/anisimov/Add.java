@@ -4,8 +4,8 @@ package ru.nsu.anisimov;
  * Class represents the sum of two mathematical expressions.
  */
 public class Add extends Expression {
-    Expression left;
-    Expression right;
+    private final Expression left;
+    private final Expression right;
 
     public Add(Expression left, Expression right) {
         this.left = left;
@@ -55,8 +55,8 @@ public class Add extends Expression {
                 && simpAdd.right instanceof Number
         ) {
             return new Number(
-                    ((Number) simpAdd.left).value +
-                            ((Number) simpAdd.right).value
+                    ((Number) simpAdd.left).getValue() +
+                            ((Number) simpAdd.right).getValue()
 
             );
         } else {

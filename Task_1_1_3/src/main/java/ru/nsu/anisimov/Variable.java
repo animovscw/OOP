@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * A class is used to represent variables in mathematical expressions.
  */
 public class Variable extends Expression {
-    public String variableName;
+    private final String variableName;
 
     public Variable(String name) {
         this.variableName = name;
