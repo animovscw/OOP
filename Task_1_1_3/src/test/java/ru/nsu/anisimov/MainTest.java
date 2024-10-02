@@ -55,12 +55,10 @@ public class MainTest {
         System.setOut(new PrintStream(out));
         Main.main(new String[0]);
         String result = out.toString().replaceAll("\\r\\n?", "\n");
-        String expected =
-                "((3+(2*x))+1)\n"
-                + "Expression: ((3+(2*x))+1)\n"
-                + "Derivative: ((0+((0*x)+(2*1)))+0)\n"
-                + "Assigned: 24.0\n"
-                + "Simplified: ((3+(2*x))+1)\n";
+        String expected = "((3+(2*x))+1)\n"
+                          + "Expression: ((3+(2*x))+1)\n"
+                          + "Derivative: ((0+((0*x)+(2*1)))+0)"
+                          + "\nAssigned: 24.0\nSimplified: ((3+(2*x))+1)\n";
         Assertions.assertEquals(expected, result);
         Assertions.assertEquals(expected.length(), result.length());
 

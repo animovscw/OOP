@@ -4,8 +4,8 @@ package ru.nsu.anisimov;
  * Represents a division of two mathematical expressions.
  */
 public class Div extends Expression {
-    Expression left;
-    Expression right;
+    private final Expression left;
+    private final Expression right;
 
     public Div(Expression left, Expression right) {
         this.left = left;

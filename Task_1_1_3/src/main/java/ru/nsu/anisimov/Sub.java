@@ -4,8 +4,8 @@ package ru.nsu.anisimov;
  * Class represents the subtraction of two mathematical expressions.
  */
 public class Sub extends Expression {
-    Expression left;
-    Expression right;
+    private final Expression left;
+    private final Expression right;
 
     public Sub(Expression left, Expression right) {
         this.left = left;
