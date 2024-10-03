@@ -28,17 +28,17 @@ public class Transformation {
             return String.valueOf(firstSymbol);
         } else if (Character.isDigit(firstSymbol) || firstSymbol == '.') {
             StringBuilder result = new StringBuilder();
-            while (position < expression.length() &&
-                   (Character.isDigit(expression.charAt(position)) ||
-                    expression.charAt(position) == '.')) {
+            while (position < expression.length()
+                   && (Character.isDigit(expression.charAt(position))
+                       || expression.charAt(position) == '.')) {
                 result.append(expression.charAt(position));
                 ++position;
             }
             return result.toString();
         } else if (Character.isLetter(firstSymbol)) {
             StringBuilder result = new StringBuilder();
-            while (position < expression.length() &&
-                   Character.isLetterOrDigit(expression.charAt(position))) {
+            while (position < expression.length()
+                   && Character.isLetterOrDigit(expression.charAt(position))) {
                 result.append(expression.charAt(position));
                 ++position;
             }
@@ -77,8 +77,8 @@ public class Transformation {
                     stack.pop();
                 }
             } else if (isOperator(token)) {
-                while (!stack.isEmpty() && isOperator(stack.peek()) &&
-                       precedence(stack.peek()) >= precedence(token)) {
+                while (!stack.isEmpty() && isOperator(stack.peek())
+                       && precedence(stack.peek()) >= precedence(token)) {
                     output.add(stack.pop());
                 }
                 stack.push(token);
@@ -149,11 +149,12 @@ public class Transformation {
      * @return The precedence level
      */
     private static int precedence(String operator) {
-        return switch (operator) {
-            case "+", "-" -> 1;
-            case "*", "/" -> 2;
-            default -> 0;
-        };
+        if (operator.equals("+") || operator.equals("-")) {
+            return 1;
+        } else if (operator.equals("*") || operator.equals("/")) {
+            return 2;
+        }
+        return 0;
     }
 
     /**
