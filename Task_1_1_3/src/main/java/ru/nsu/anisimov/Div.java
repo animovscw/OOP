@@ -54,7 +54,8 @@ public class Div extends Expression {
 
     /**
      * Simplifies the division expression.
-     * If both numerator and denominator are numbers, computes their division and returns a new Number.
+     * If both numerator and denominator are numbers,
+     * computes their division and returns a new Number.
      * If the numerator is zero, returns the number 0.
      * If the denominator is one, returns the numerator.
      * Otherwise, returns a new expression consisting of simplified subexpressions.

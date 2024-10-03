@@ -96,7 +96,8 @@ public class Transformation {
     }
 
     /**
-     * Generates an Expression object from an infix string representation of a mathematical expression.
+     * Generates an Expression object from an infix string representation
+     * of a mathematical expression.
      * This method uses reverse Polish notation to evaluate and structure the expression.
      *
      * @param expression the infix expression as a string

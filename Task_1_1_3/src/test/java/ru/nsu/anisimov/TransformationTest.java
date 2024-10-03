@@ -2,12 +2,12 @@ package ru.nsu.anisimov;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * The class tests the Transformation class and the ability to convert infix expressions to reverse Polish notation,
+ * The class tests the Transformation class and the ability to convert
+ * infix expressions to reverse Polish notation,
  * as well as the construction and evaluation of the resulting Expression objects.
  */
 public class TransformationTest {

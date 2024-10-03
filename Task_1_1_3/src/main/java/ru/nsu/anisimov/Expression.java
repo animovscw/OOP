@@ -46,7 +46,7 @@ public abstract class Expression {
      * @param assignations a map containing variable assignments
      * @return The result of the evaluated expression
      */
-    abstract protected double evaluate(Map<String, Integer> assignations);
+    abstract double evaluate(Map<String, Integer> assignations);
 
     /**
      * Computes the derivative of the expression with respect to the given variable.
@@ -54,14 +54,14 @@ public abstract class Expression {
      * @param variable the variable with respect to which the derivative is taken
      * @return A new Expression representing the derivative
      */
-    abstract protected Expression getDerivative(String variable);
+    abstract Expression getDerivative(String variable);
 
     /**
      * Simplifies the expression by performing arithmetic simplifications.
      *
      * @return A new Expression representing the simplified expression.
      */
-    abstract protected Expression getSimplified();
+    abstract Expression getSimplified();
 
     /**
      * Prints the string representation of the expression.
