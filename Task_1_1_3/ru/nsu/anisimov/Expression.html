@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":10};
+var data = {"i0":10,"i1":6,"i2":6,"i3":6,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -179,24 +179,39 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>abstract double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#evaluate(java.lang.String)">evaluate</a></span>&#8203;(java.lang.String&nbsp;assignation)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#eval(java.lang.String)">eval</a></span>&#8203;(java.lang.String&nbsp;assignationString)</code></th>
+<td class="colLast">
+<div class="block">Evaluates the expression based on the provided variable assignments.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>abstract <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDerivative(java.lang.String)">getDerivative</a></span>&#8203;(java.lang.String&nbsp;variable)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>protected abstract double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#evaluate(java.util.Map)">evaluate</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Integer&gt;&nbsp;assignations)</code></th>
+<td class="colLast">
+<div class="block">Evaluates the expression based on the provided variable assignments.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>abstract <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSimplified()">getSimplified</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code>protected abstract <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDerivative(java.lang.String)">getDerivative</a></span>&#8203;(java.lang.String&nbsp;variable)</code></th>
+<td class="colLast">
+<div class="block">Computes the derivative of the expression with respect to the given variable.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>protected abstract <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSimplified()">getSimplified</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Simplifies the expression by performing arithmetic simplifications.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#print()">print</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Prints the string representation of the expression.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -241,13 +256,37 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="evaluate(java.lang.String)">
+<a id="eval(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>eval</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;eval&#8203;(java.lang.String&nbsp;assignationString)</pre>
+<div class="block">Evaluates the expression based on the provided variable assignments.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>assignationString</code> - a string containing variable assignments</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The result of the evaluated expression</dd>
+</dl>
+</li>
+</ul>
+<a id="evaluate(java.util.Map)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>evaluate</h4>
-<pre class="methodSignature">public abstract&nbsp;double&nbsp;evaluate&#8203;(java.lang.String&nbsp;assignation)</pre>
+<pre class="methodSignature">protected abstract&nbsp;double&nbsp;evaluate&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Integer&gt;&nbsp;assignations)</pre>
+<div class="block">Evaluates the expression based on the provided variable assignments.
+ This method is implemented by the subclasses to define specific evaluation logic.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>assignations</code> - a map containing variable assignments</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The result of the evaluated expression</dd>
+</dl>
 </li>
 </ul>
 <a id="getDerivative(java.lang.String)">
@@ -256,7 +295,14 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getDerivative</h4>
-<pre class="methodSignature">public abstract&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getDerivative&#8203;(java.lang.String&nbsp;variable)</pre>
+<pre class="methodSignature">protected abstract&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getDerivative&#8203;(java.lang.String&nbsp;variable)</pre>
+<div class="block">Computes the derivative of the expression with respect to the given variable.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>variable</code> - the variable with respect to which the derivative is taken</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A new Expression representing the derivative</dd>
+</dl>
 </li>
 </ul>
 <a id="getSimplified()">
@@ -265,7 +311,12 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getSimplified</h4>
-<pre class="methodSignature">public abstract&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getSimplified()</pre>
+<pre class="methodSignature">protected abstract&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getSimplified()</pre>
+<div class="block">Simplifies the expression by performing arithmetic simplifications.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>A new Expression representing the simplified expression.</dd>
+</dl>
 </li>
 </ul>
 <a id="print()">
@@ -275,6 +326,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>print</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;print()</pre>
+<div class="block">Prints the string representation of the expression.</div>
 </li>
 </ul>
 </li>

@@ -137,7 +137,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Number</span>
 extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></pre>
-<div class="block">Class representing a numeric constant.</div>
+<div class="block">Represents a numerical constant in a mathematical expression.</div>
 </li>
 </ul>
 </div>
@@ -158,8 +158,10 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(double)">Number</a></span>&#8203;(double&nbsp;number)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(double)">Number</a></span>&#8203;(double&nbsp;value)</code></th>
+<td class="colLast">
+<div class="block">Constructs a new Number object representing a constant value.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -180,36 +182,38 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#evaluate(java.lang.String)">evaluate</a></span>&#8203;(java.lang.String&nbsp;assignation)</code></th>
+<td class="colFirst"><code>protected double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#evaluate(java.util.Map)">evaluate</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Integer&gt;&nbsp;assignations)</code></th>
 <td class="colLast">
-<div class="block">Calculates the value of an expression.</div>
+<div class="block">Evaluates the numerical constant.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
+<td class="colFirst"><code>protected <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDerivative(java.lang.String)">getDerivative</a></span>&#8203;(java.lang.String&nbsp;variable)</code></th>
 <td class="colLast">
-<div class="block">Returns the derivative of a constant with respect to the specified variable.</div>
+<div class="block">Computes the derivative of the numerical constant, which is always zero.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
+<td class="colFirst"><code>protected <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSimplified()">getSimplified</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Returns a simplified version of an expression.</div>
+<div class="block">Simplifies the numerical constant, which is already in its simplest form.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getValue()">getValue</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Retrieves the numerical value of the constant.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Returns a string representation of a number.</div>
+<div class="block">Returns the string representation of the numerical constant.</div>
 </td>
 </tr>
 </table>
@@ -218,7 +222,7 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;ru.nsu.anisimov.<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></h3>
-<code><a href="Expression.html#print()">print</a></code></li>
+<code><a href="Expression.html#eval(java.lang.String)">eval</a>, <a href="Expression.html#print()">print</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -249,7 +253,12 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <ul class="blockListLast">
 <li class="blockList">
 <h4>Number</h4>
-<pre>public&nbsp;Number&#8203;(double&nbsp;number)</pre>
+<pre>public&nbsp;Number&#8203;(double&nbsp;value)</pre>
+<div class="block">Constructs a new Number object representing a constant value.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>value</code> - the value</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -269,23 +278,28 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <li class="blockList">
 <h4>getValue</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;getValue()</pre>
+<div class="block">Retrieves the numerical value of the constant.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>The numerical value</dd>
+</dl>
 </li>
 </ul>
-<a id="evaluate(java.lang.String)">
+<a id="evaluate(java.util.Map)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>evaluate</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;evaluate&#8203;(java.lang.String&nbsp;assignation)</pre>
-<div class="block">Calculates the value of an expression.</div>
+<pre class="methodSignature">protected&nbsp;double&nbsp;evaluate&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Integer&gt;&nbsp;assignations)</pre>
+<div class="block">Evaluates the numerical constant.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#evaluate(java.lang.String)">evaluate</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
+<dd><code><a href="Expression.html#evaluate(java.util.Map)">evaluate</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>assignation</code> - numeric constant</dd>
+<dd><code>assignations</code> - a map containing variable assignments (not used)</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>Its value</dd>
+<dd>The numerical value</dd>
 </dl>
 </li>
 </ul>
@@ -295,15 +309,15 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <ul class="blockList">
 <li class="blockList">
 <h4>getDerivative</h4>
-<pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getDerivative&#8203;(java.lang.String&nbsp;variable)</pre>
-<div class="block">Returns the derivative of a constant with respect to the specified variable.</div>
+<pre class="methodSignature">protected&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getDerivative&#8203;(java.lang.String&nbsp;variable)</pre>
+<div class="block">Computes the derivative of the numerical constant, which is always zero.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Expression.html#getDerivative(java.lang.String)">getDerivative</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>variable</code> - the variable name</dd>
+<dd><code>variable</code> - the variable with respect to which the derivative is taken</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>New Number object with value 0</dd>
+<dd>A new Number object representing zero.</dd>
 </dl>
 </li>
 </ul>
@@ -313,13 +327,13 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <ul class="blockList">
 <li class="blockList">
 <h4>getSimplified</h4>
-<pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getSimplified()</pre>
-<div class="block">Returns a simplified version of an expression.</div>
+<pre class="methodSignature">protected&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getSimplified()</pre>
+<div class="block">Simplifies the numerical constant, which is already in its simplest form.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Expression.html#getSimplified()">getSimplified</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>A copy of it</dd>
+<dd>The numerical constant itself</dd>
 </dl>
 </li>
 </ul>
@@ -330,12 +344,12 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <li class="blockList">
 <h4>toString</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
-<div class="block">Returns a string representation of a number.</div>
+<div class="block">Returns the string representation of the numerical constant.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>Integer if the number is integer, in floating point format otherwise</dd>
+<dd>The numerical value as a string</dd>
 </dl>
 </li>
 </ul>

@@ -137,7 +137,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Add</span>
 extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></pre>
-<div class="block">Class represents the sum of two mathematical expressions.</div>
+<div class="block">Represents the sum of two mathematical expressions.</div>
 </li>
 </ul>
 </div>
@@ -160,7 +160,9 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(ru.nsu.anisimov.Expression,ru.nsu.anisimov.Expression)">Add</a></span>&#8203;(<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;left,
    <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;right)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructs a new object representing the addition of two expressions.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -181,31 +183,31 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#evaluate(java.lang.String)">evaluate</a></span>&#8203;(java.lang.String&nbsp;assignation)</code></th>
+<td class="colFirst"><code>protected double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#evaluate(java.util.Map)">evaluate</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Integer&gt;&nbsp;assignations)</code></th>
 <td class="colLast">
-<div class="block">The method calculates the result of adding two expressions.</div>
+<div class="block">Evaluates the sum of two expressions based on the provided variable assignments.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
+<td class="colFirst"><code>protected <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDerivative(java.lang.String)">getDerivative</a></span>&#8203;(java.lang.String&nbsp;variable)</code></th>
 <td class="colLast">
-<div class="block">The method returns the derivative of the sum with respect to the specified variable.</div>
+<div class="block">Computes the derivative of the sum with respect to the specified variable.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
+<td class="colFirst"><code>protected <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSimplified()">getSimplified</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Simplifies the expression.</div>
+<div class="block">Simplifies the addition expression.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">
-<div class="block">The method returns a string representation of the expression.</div>
+<div class="block">Returns the string representation of the addition expression.</div>
 </td>
 </tr>
 </table>
@@ -214,7 +216,7 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;ru.nsu.anisimov.<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></h3>
-<code><a href="Expression.html#print()">print</a></code></li>
+<code><a href="Expression.html#eval(java.lang.String)">eval</a>, <a href="Expression.html#print()">print</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -247,6 +249,12 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <h4>Add</h4>
 <pre>public&nbsp;Add&#8203;(<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;left,
            <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;right)</pre>
+<div class="block">Constructs a new object representing the addition of two expressions.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>left</code> - the left operand of the addition</dd>
+<dd><code>right</code> - the right operand of the addition</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -259,21 +267,21 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="evaluate(java.lang.String)">
+<a id="evaluate(java.util.Map)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>evaluate</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;evaluate&#8203;(java.lang.String&nbsp;assignation)</pre>
-<div class="block">The method calculates the result of adding two expressions.</div>
+<pre class="methodSignature">protected&nbsp;double&nbsp;evaluate&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Integer&gt;&nbsp;assignations)</pre>
+<div class="block">Evaluates the sum of two expressions based on the provided variable assignments.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#evaluate(java.lang.String)">evaluate</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
+<dd><code><a href="Expression.html#evaluate(java.util.Map)">evaluate</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>assignation</code> - the string</dd>
+<dd><code>assignations</code> - a map containing variable assignments</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The result of evaluating the sum</dd>
+<dd>The result of evaluating the sum as a double</dd>
 </dl>
 </li>
 </ul>
@@ -283,15 +291,15 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <ul class="blockList">
 <li class="blockList">
 <h4>getDerivative</h4>
-<pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getDerivative&#8203;(java.lang.String&nbsp;variable)</pre>
-<div class="block">The method returns the derivative of the sum with respect to the specified variable.</div>
+<pre class="methodSignature">protected&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getDerivative&#8203;(java.lang.String&nbsp;variable)</pre>
+<div class="block">Computes the derivative of the sum with respect to the specified variable.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Expression.html#getDerivative(java.lang.String)">getDerivative</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>variable</code> - the variable</dd>
+<dd><code>variable</code> - the variable with respect to which the derivative is taken</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The derivative of the sum as a new Add expression</dd>
+<dd>A new expression representing the derivative of the sum</dd>
 </dl>
 </li>
 </ul>
@@ -301,10 +309,10 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <ul class="blockList">
 <li class="blockList">
 <h4>getSimplified</h4>
-<pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getSimplified()</pre>
-<div class="block">Simplifies the expression. If both sides are constants, returns a new
- Number expression representing their sum. Otherwise, returns a new Sum of
- the simplified left and right expressions.</div>
+<pre class="methodSignature">protected&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getSimplified()</pre>
+<div class="block">Simplifies the addition expression. If both operands are constants, returns a new
+ expression representing their sum. Otherwise, returns a new
+ expression of the simplified left and right expressions.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Expression.html#getSimplified()">getSimplified</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
@@ -320,12 +328,12 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <li class="blockList">
 <h4>toString</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
-<div class="block">The method returns a string representation of the expression.</div>
+<div class="block">Returns the string representation of the addition expression.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>A string representation of the add expression</dd>
+<dd>A string</dd>
 </dl>
 </li>
 </ul>

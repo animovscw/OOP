@@ -137,7 +137,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">Sub</span>
 extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></pre>
-<div class="block">Class represents the subtraction of two mathematical expressions.</div>
+<div class="block">Represents the subtraction of two mathematical expressions.</div>
 </li>
 </ul>
 </div>
@@ -160,7 +160,9 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(ru.nsu.anisimov.Expression,ru.nsu.anisimov.Expression)">Sub</a></span>&#8203;(<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;left,
    <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;right)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructs a new object representing the subtraction of two expressions.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -181,22 +183,22 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>double</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#evaluate(java.lang.String)">evaluate</a></span>&#8203;(java.lang.String&nbsp;assignation)</code></th>
+<td class="colFirst"><code>protected double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#evaluate(java.util.Map)">evaluate</a></span>&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Integer&gt;&nbsp;assignations)</code></th>
 <td class="colLast">
-<div class="block">The method evaluates the subtraction expression by computing the difference between
- the evaluations of the left and right expressions.</div>
+<div class="block">Evaluates the subtraction expression based on the provided variable assignments.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
+<td class="colFirst"><code>protected <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDerivative(java.lang.String)">getDerivative</a></span>&#8203;(java.lang.String&nbsp;variable)</code></th>
 <td class="colLast">
-<div class="block">Computes the derivative of the subtraction expression with respect to a specified variable.</div>
+<div class="block">Computes the derivative of the subtraction expression
+ with respect to the specified variable.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
+<td class="colFirst"><code>protected <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSimplified()">getSimplified</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Simplifies the subtraction expression.</div>
@@ -215,7 +217,7 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;ru.nsu.anisimov.<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></h3>
-<code><a href="Expression.html#print()">print</a></code></li>
+<code><a href="Expression.html#eval(java.lang.String)">eval</a>, <a href="Expression.html#print()">print</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -248,6 +250,12 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <h4>Sub</h4>
 <pre>public&nbsp;Sub&#8203;(<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;left,
            <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;right)</pre>
+<div class="block">Constructs a new object representing the subtraction of two expressions.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>left</code> - the left operand of the subtraction</dd>
+<dd><code>right</code> - the right operand of the subtraction</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -260,22 +268,21 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="evaluate(java.lang.String)">
+<a id="evaluate(java.util.Map)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>evaluate</h4>
-<pre class="methodSignature">public&nbsp;double&nbsp;evaluate&#8203;(java.lang.String&nbsp;assignation)</pre>
-<div class="block">The method evaluates the subtraction expression by computing the difference between
- the evaluations of the left and right expressions.</div>
+<pre class="methodSignature">protected&nbsp;double&nbsp;evaluate&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Integer&gt;&nbsp;assignations)</pre>
+<div class="block">Evaluates the subtraction expression based on the provided variable assignments.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#evaluate(java.lang.String)">evaluate</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
+<dd><code><a href="Expression.html#evaluate(java.util.Map)">evaluate</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>assignation</code> - AN assignation containing variable assignments</dd>
+<dd><code>assignations</code> - a map containing variable assignments</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>The result of subtraction</dd>
+<dd>The result of the subtraction as a double</dd>
 </dl>
 </li>
 </ul>
@@ -285,13 +292,14 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <ul class="blockList">
 <li class="blockList">
 <h4>getDerivative</h4>
-<pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getDerivative&#8203;(java.lang.String&nbsp;variable)</pre>
-<div class="block">Computes the derivative of the subtraction expression with respect to a specified variable.</div>
+<pre class="methodSignature">protected&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getDerivative&#8203;(java.lang.String&nbsp;variable)</pre>
+<div class="block">Computes the derivative of the subtraction expression
+ with respect to the specified variable.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Expression.html#getDerivative(java.lang.String)">getDerivative</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>variable</code> - the variable</dd>
+<dd><code>variable</code> - the variable with respect to which the derivative is taken</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A new expression representing the derivative</dd>
 </dl>
@@ -303,16 +311,16 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <ul class="blockList">
 <li class="blockList">
 <h4>getSimplified</h4>
-<pre class="methodSignature">public&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getSimplified()</pre>
+<pre class="methodSignature">protected&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getSimplified()</pre>
 <div class="block">Simplifies the subtraction expression.
- If both subexpressions are numbers, subtracts them and returns the new number.
+ If both subexpressions are numbers, subtracts them and returns the new expression.
  If the left and right subexpressions are identical, returns the number 0.
  Otherwise, returns a new expression consisting of simplified subexpressions.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="Expression.html#getSimplified()">getSimplified</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>A simplified instance</dd>
+<dd>A simplified Expression</dd>
 </dl>
 </li>
 </ul>
@@ -328,7 +336,7 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>A string representation of the sub expression</dd>
+<dd>A string</dd>
 </dl>
 </li>
 </ul>
