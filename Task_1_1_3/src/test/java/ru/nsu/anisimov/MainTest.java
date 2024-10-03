@@ -21,7 +21,10 @@ public class MainTest {
         Main.main(new String[0]);
         String result = out.toString().replaceAll("\\r\\n?", "\n");
         String expected =
-                "(x+3)\nExpression: (x+3)\nDerivative: (1+0)\nAssigned Value: 12.0\nSimplified Expression: (x+3)\n";
+                "(x+3)\n"
+                + "Expression: (x+3)\n"
+                + "Derivative: (1+0)\n"
+                + "Assigned Value: 12.0\nSimplified Expression: (x+3)\n";
 
         Assertions.assertEquals(expected, result);
         Assertions.assertEquals(expected.length(), result.length());

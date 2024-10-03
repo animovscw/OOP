@@ -125,6 +125,7 @@ public class Transformation {
                     case "/":
                         stack.push(new Div(left, right));
                         break;
+                    default:
                 }
             } else {
                 stack.push(new Variable(token));
