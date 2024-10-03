@@ -276,8 +276,6 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <pre class="methodSignature">protected&nbsp;double&nbsp;evaluate&#8203;(java.util.Map&lt;java.lang.String,&#8203;java.lang.Integer&gt;&nbsp;assignations)</pre>
 <div class="block">Evaluates the division expression based on the provided variable assignments.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#evaluate(java.util.Map)">evaluate</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>assignations</code> - a map containing variable assignments</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -296,8 +294,6 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <pre class="methodSignature">protected&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getDerivative&#8203;(java.lang.String&nbsp;variable)</pre>
 <div class="block">Computes the derivative of the division expression with respect to the specified variable.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#getDerivative(java.lang.String)">getDerivative</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>variable</code> - the variable with respect to which the derivative is taken</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -313,13 +309,12 @@ extends <a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a
 <h4>getSimplified</h4>
 <pre class="methodSignature">protected&nbsp;<a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a>&nbsp;getSimplified()</pre>
 <div class="block">Simplifies the division expression.
- If both numerator and denominator are numbers, computes their division and returns a new Number.
+ If both numerator and denominator are numbers,
+ computes their division and returns a new Number.
  If the numerator is zero, returns the number 0.
  If the denominator is one, returns the numerator.
  Otherwise, returns a new expression consisting of simplified subexpressions.</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="Expression.html#getSimplified()">getSimplified</a></code>&nbsp;in class&nbsp;<code><a href="Expression.html" title="class in ru.nsu.anisimov">Expression</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>A simplified Expression</dd>
 </dl>
