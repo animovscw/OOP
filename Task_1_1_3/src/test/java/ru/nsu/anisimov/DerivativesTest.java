@@ -37,15 +37,16 @@ public class DerivativesTest {
     @Test
     void divisionTest() {
         String expression = "(5-x)/2";
-        String expected = "((((0-1)*2)+((5-x)*0))/(2*2))";
+        String expected = "((((0-1)*2)-((5-x)*0))/(2*2))";
         String result = Transformation.getExpression(expression).getDerivative("x").toString();
+
         Assertions.assertEquals(expected, result);
     }
 
     @Test
     void complexDivisionTest() {
         String expression = "(5-x)/x";
-        String expected = "((((0-1)*x)+((5-x)*1))/(x*x))";
+        String expected = "((((0-1)*x)-((5-x)*1))/(x*x))";
         String result = Transformation.getExpression(expression).getDerivative("x").toString();
 
         Assertions.assertEquals(expected, result);

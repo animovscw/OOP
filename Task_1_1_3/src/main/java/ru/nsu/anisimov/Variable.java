@@ -1,62 +1,44 @@
 package ru.nsu.anisimov;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Map;
 
 /**
- * A class is used to represent variables in mathematical expressions.
+ * Represents a variable in a mathematical expression.
  */
 public class Variable extends Expression {
     private final String variableName;
 
+    /**
+     * Constructs a new object with the specified name.
+     *
+     * @param name the name of the variable
+     */
     public Variable(String name) {
         this.variableName = name;
     }
 
     /**
-     * The method parses strings containing variable assignments
-     * and stores these value in a dictionary.
+     * Evaluates the value of the variable based on the provided variable assignments.
      *
-     * @param input the variable string
-     * @return Dictionary of entries
+     * @param assignations a map containing variable assignments
+     * @return The value of the variable as a double
      */
-    private static Dictionary<String, Integer> parseAssignations(String input) {
-        Dictionary<String, Integer> dictionary = new Hashtable<>();
-        Pattern pattern = Pattern.compile("(\\w+)\\s*=\\s*(\\d+)(;?)");
-        Matcher matcher = pattern.matcher(input);
-
-        while (matcher.find()) {
-            String key = matcher.group(1);
-            int value = Integer.parseInt(matcher.group(2));
-            dictionary.put(key, value);
+    @Override
+    protected double evaluate(Map<String, Integer> assignations) {
+        if (assignations.containsKey(this.variableName)) {
+            return assignations.get(this.variableName);
         }
-
-        return dictionary;
+        return 0;
     }
 
     /**
-     * The method calculates the value of a variable using a string of variable assignments.
+     * Computes the derivative of the variable with respect to the specified variable.
      *
-     * @param assignation the string
-     * @return If there is a value for a variable in the dictionary, that value is returned
+     * @param variable the variable with respect to which the derivative is taken
+     * @return A new expression representing 1 if the variable matches, otherwise 0
      */
     @Override
-    public double evaluate(String assignation) {
-        Dictionary<String, Integer> assignations = parseAssignations(assignation);
-
-        return assignations.get(this.variableName);
-    }
-
-    /**
-     * The method returns the derivative of a variable with respect to a given variable.
-     *
-     * @param variable the variable
-     * @return 1 if the variable matches the variable name, 0 otherwise
-     */
-    @Override
-    public Expression getDerivative(String variable) {
+    protected Expression getDerivative(String variable) {
         if (variable.equals(this.variableName)) {
             return new Number(1);
         } else {
@@ -65,19 +47,19 @@ public class Variable extends Expression {
     }
 
     /**
-     * The method returns a simplified version of the variable.
+     * Simplifies the variable expression.
      *
-     * @return A copy of the variable itself
+     * @return The variable itself
      */
     @Override
-    public Expression getSimplified() {
-        return new Variable(this.variableName);
+    protected Expression getSimplified() {
+        return this;
     }
 
     /**
-     * The method returns a string representation of a variable.
+     * Returns the string representation of the variable.
      *
-     * @return The variableName
+     * @return The name of the variable
      */
     @Override
     public String toString() {

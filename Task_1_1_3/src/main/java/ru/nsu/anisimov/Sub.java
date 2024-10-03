@@ -1,38 +1,45 @@
 package ru.nsu.anisimov;
 
+import java.util.Map;
+
 /**
- * Class represents the subtraction of two mathematical expressions.
+ * Represents the subtraction of two mathematical expressions.
  */
 public class Sub extends Expression {
     private final Expression left;
     private final Expression right;
 
+    /**
+     * Constructs a new object representing the subtraction of two expressions.
+     *
+     * @param left  the left operand of the subtraction
+     * @param right the right operand of the subtraction
+     */
     public Sub(Expression left, Expression right) {
         this.left = left;
         this.right = right;
     }
 
     /**
-     * The method evaluates the subtraction expression by computing the difference between
-     * the evaluations of the left and right expressions.
+     * Evaluates the subtraction expression based on the provided variable assignments.
      *
-     * @param assignation AN assignation containing variable assignments
-     * @return The result of subtraction
+     * @param assignations a map containing variable assignments
+     * @return The result of the subtraction as a double
      */
     @Override
-    public double evaluate(String assignation) {
-        return this.left.evaluate(assignation)
-                - this.right.evaluate(assignation);
+    protected double evaluate(Map<String, Integer> assignations) {
+        return this.left.evaluate(assignations) - this.right.evaluate(assignations);
     }
 
     /**
-     * Computes the derivative of the subtraction expression with respect to a specified variable.
+     * Computes the derivative of the subtraction expression
+     * with respect to the specified variable.
      *
-     * @param variable the variable
+     * @param variable the variable with respect to which the derivative is taken
      * @return A new expression representing the derivative
      */
     @Override
-    public Expression getDerivative(String variable) {
+    protected Expression getDerivative(String variable) {
         return new Sub(
                 this.left.getDerivative(variable),
                 this.right.getDerivative(variable)
@@ -41,44 +48,44 @@ public class Sub extends Expression {
 
     /**
      * Simplifies the subtraction expression.
-     * If both subexpressions are numbers, subtracts them and returns the new number.
+     * If both subexpressions are numbers, subtracts them and returns the new expression.
      * If the left and right subexpressions are identical, returns the number 0.
      * Otherwise, returns a new expression consisting of simplified subexpressions.
      *
-     * @return A simplified instance
+     * @return A simplified Expression
      */
     @Override
-    public Expression getSimplified() {
-        Sub simpSub = new Sub(
-                this.left.getSimplified(),
-                this.right.getSimplified()
-        );
-        if (simpSub.left instanceof Number
-                && simpSub.right instanceof Number) {
-            return new Number(
-                    ((Number) simpSub.left).getValue()
-                            - ((Number) simpSub.right).getValue()
-            );
-        } else if (simpSub.left.toString().equals(
-                simpSub.right.toString()
-        )) {
-            return new Number(0);
-        } else {
-            return simpSub;
+    protected Expression getSimplified() {
+        Expression simplifiedLeft = this.left.getSimplified();
+        Expression simplifiedRight = this.right.getSimplified();
+
+        if (simplifiedLeft instanceof Number
+            && simplifiedRight instanceof Number) {
+            double difference = ((Number) simplifiedLeft).getValue()
+                                - ((Number) simplifiedRight).getValue();
+            return new Number(difference);
         }
+        if (simplifiedLeft.toString().equals(simplifiedRight.toString())) {
+            return new Number(0);
+        }
+        if (simplifiedRight instanceof Number
+            && ((Number) simplifiedRight).getValue() == 0) {
+            return simplifiedLeft;
+        }
+        return new Sub(simplifiedLeft, simplifiedRight);
     }
 
     /**
      * Returns the string representation of the subtraction expression.
      *
-     * @return A string representation of the sub expression
+     * @return A string
      */
     @Override
     public String toString() {
         return "("
-                + this.left.toString()
-                + "-"
-                + this.right.toString()
-                + ")";
+               + this.left.toString()
+               + "-"
+               + this.right.toString()
+               + ")";
     }
 }

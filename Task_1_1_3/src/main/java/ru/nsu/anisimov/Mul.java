@@ -1,107 +1,110 @@
 package ru.nsu.anisimov;
 
+import java.util.Map;
+
 /**
- * The class represents the operation of multiplying two mathematical expressions.
+ * Represents the multiplication of two mathematical expressions.
  */
 public class Mul extends Expression {
     private final Expression left;
     private final Expression right;
 
+    /**
+     * Constructs a new object representing the multiplication of two expressions.
+     *
+     * @param left  the left operand
+     * @param right the right operand
+     */
     public Mul(Expression left, Expression right) {
         this.left = left;
         this.right = right;
     }
 
     /**
-     * The method calculates the value of a multiplication expression by substituting
-     * the values of the variables from the assignment string.
+     * Evaluates the multiplication of two expressions based on the provided variable assignments.
      *
-     * @param assignation string
-     * @return The result of multiplication
+     * @param assignations a map containing variable assignments
+     * @return The result of evaluating the multiplication
      */
     @Override
-    public double evaluate(String assignation) {
-        return this.left.evaluate(assignation)
-                * this.right.evaluate(assignation);
+    protected double evaluate(Map<String, Integer> assignations) {
+        return this.left.evaluate(assignations)
+               * this.right.evaluate(assignations);
     }
 
     /**
-     * The method calculates the derivative of a multiplication expression
-     * with respect to a given variable.
+     * Computes the derivative of the multiplication expression.
      *
-     * @param variable the variable with which the derivative is taken.
-     * @return New expression
+     * @param variable the variable with respect to which the derivative is taken
+     * @return A new expression representing the derivative of the multiplication
      */
     @Override
-    public Expression getDerivative(String variable) {
+    protected Expression getDerivative(String variable) {
+        Expression leftDerivative = this.left.getDerivative(variable);
+        Expression rightDerivative = this.right.getDerivative(variable);
         return new Add(
                 new Mul(
-                        this.left.getDerivative(variable),
-                        this.right
+                        leftDerivative, this.right
                 ),
                 new Mul(
                         this.left,
-                        this.right.getDerivative(variable)
+                        rightDerivative
                 )
         );
     }
 
     /**
-     * Simplifies multiplication expressions.
-     * If both subexpressions are Number, evaluates their product and returns the new Number.
-     * If one of the subexpressions is Number(0), returns Number(0).
-     * If one of the subexpressions is Number(1), returns the other subexpression.
-     * Otherwise, returns a new Mul expression with simplified subexpressions.
+     * Simplifies the multiplication expression.
+     * If either operand is 0, returns a new expression representing 0.
+     * If one operand is 1, returns the other operand.
+     * If both operands are numbers, returns their product as a new expression.
+     * Otherwise, returns a new expression of the simplified left and right expressions.
      *
-     * @return Simplified expression
+     * @return The simplified expression
      */
     @Override
-    public Expression getSimplified() {
-        Mul simpMul = new Mul(
-                this.left.getSimplified(),
-                this.right.getSimplified()
-        );
-        if (
-                simpMul.left instanceof Number
-                        && simpMul.right instanceof Number
-        ) {
-            return new Number(
-                    ((Number) simpMul.left).getValue()
-                            * ((Number) simpMul.right).getValue()
-            );
-        } else if (
-                simpMul.left instanceof Number
-                        && ((Number) simpMul.left).getValue() == 0
-                        || simpMul.right instanceof Number
-                        && ((Number) simpMul.right).getValue() == 0
-        ) {
+    protected Expression getSimplified() {
+        Expression simplifiedLeft = this.left.getSimplified();
+        Expression simplifiedRight = this.right.getSimplified();
+
+        if ((simplifiedLeft instanceof Number
+             && ((Number) simplifiedLeft).getValue() == 0)
+            || (simplifiedRight instanceof Number
+                && ((Number) simplifiedRight).getValue() == 0)) {
             return new Number(0);
-        } else if (
-                simpMul.left instanceof Number
-                        && ((Number) simpMul.left).getValue() == 1
-        ) {
-            return simpMul.right;
-        } else if (
-                simpMul.right instanceof Number
-                        && ((Number) simpMul.right).getValue() == 1
-        ) {
-            return simpMul.left;
-        } else {
-            return simpMul;
         }
+
+        if (simplifiedLeft instanceof Number
+            && ((Number) simplifiedLeft).getValue() == 1) {
+            return simplifiedRight;
+        }
+
+        if (simplifiedRight instanceof Number
+            && ((Number) simplifiedRight).getValue() == 1) {
+            return simplifiedLeft;
+        }
+
+        if (simplifiedLeft instanceof Number
+            && simplifiedRight instanceof Number) {
+            double product = ((Number) simplifiedLeft).getValue()
+                             * ((Number) simplifiedRight).getValue();
+            return new Number(product);
+        }
+
+        return new Mul(simplifiedLeft, simplifiedRight);
     }
 
     /**
-     * Returns a string representation of a multiplication expression.
+     * Returns the string representation of the multiplication expression.
      *
-     * @return String
+     * @return A string
      */
     @Override
     public String toString() {
         return "("
-                + this.left.toString()
-                + "*"
-                + this.right.toString()
-                + ")";
+               + this.left.toString()
+               + "*"
+               + this.right.toString()
+               + ")";
     }
 }

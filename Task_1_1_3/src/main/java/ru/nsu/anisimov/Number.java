@@ -1,63 +1,73 @@
 package ru.nsu.anisimov;
 
+import java.util.Map;
+
 /**
- * Class representing a numeric constant.
+ * Represents a numerical constant in a mathematical expression.
  */
 public class Number extends Expression {
     private final double value;
 
-    public Number(double number) {
-        super();
-        this.value = number;
+    /**
+     * Constructs a new Number object representing a constant value.
+     *
+     * @param value the value
+     */
+    public Number(double value) {
+        this.value = value;
     }
 
+    /**
+     * Retrieves the numerical value of the constant.
+     *
+     * @return The numerical value
+     */
     public double getValue() {
         return value;
     }
 
     /**
-     * Calculates the value of an expression.
+     * Evaluates the numerical constant.
      *
-     * @param assignation numeric constant
-     * @return Its value
+     * @param assignations a map containing variable assignments (not used)
+     * @return The numerical value
      */
     @Override
-    public double evaluate(String assignation) {
-        return this.value;
+    protected double evaluate(Map<String, Integer> assignations) {
+        return value;
     }
 
     /**
-     * Returns the derivative of a constant with respect to the specified variable.
+     * Computes the derivative of the numerical constant, which is always zero.
      *
-     * @param variable the variable name
-     * @return New Number object with value 0
+     * @param variable the variable with respect to which the derivative is taken
+     * @return A new Number object representing zero.
      */
     @Override
-    public Expression getDerivative(String variable) {
+    protected Expression getDerivative(String variable) {
         return new Number(0);
     }
 
     /**
-     * Returns a simplified version of an expression.
+     * Simplifies the numerical constant, which is already in its simplest form.
      *
-     * @return A copy of it
+     * @return The numerical constant itself
      */
     @Override
-    public Expression getSimplified() {
-        return new Number(this.value);
+    protected Expression getSimplified() {
+        return this;
     }
 
     /**
-     * Returns a string representation of a number.
+     * Returns the string representation of the numerical constant.
      *
-     * @return Integer if the number is integer, in floating point format otherwise
+     * @return The numerical value as a string
      */
     @Override
     public String toString() {
-        if (this.value % 1 == 0) {
-            return "" + (int) this.value;
-        } else {
-            return "" + this.value;
+        if (value == (int) value) {
+            return String.valueOf((int) value);
         }
+        return String.valueOf(value);
     }
 }

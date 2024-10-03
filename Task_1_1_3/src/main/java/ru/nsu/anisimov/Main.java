@@ -16,18 +16,20 @@ public class Main {
      * @param args command-line arguments
      */
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
-        String infix = scanner.nextLine();
-        Expression e = Transformation.getExpression(infix);
-        e.print();
-        System.out.println("Expression: " + e);
-        String variable = scanner.nextLine();
-        System.out.println("Derivative: " + e.getDerivative(variable).toString());
-        String assignation = scanner.nextLine();
-        System.out.println("Assigned: " + e.evaluate(assignation));
-        System.out.println("Simplified: " + e.getSimplified().toString());
-
-        scanner.close();
+        try (Scanner scanner = new Scanner(System.in)) {
+            String infix = scanner.nextLine();
+            Expression expression = Transformation.getExpression(infix);
+            expression.print();
+            System.out.println("Expression: " + expression);
+            String variable = scanner.nextLine();
+            Expression derivative = expression.getDerivative(variable);
+            System.out.println("Derivative: " + derivative);
+            String assignation = scanner.nextLine();
+            double assignedValue = expression.eval(assignation);
+            System.out.println("Assigned Value: " + assignedValue);
+            Expression simplified = expression.getSimplified();
+            System.out.println("Simplified Expression: " + simplified);
+        }
     }
 }

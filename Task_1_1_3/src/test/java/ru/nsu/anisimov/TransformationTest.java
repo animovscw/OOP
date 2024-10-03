@@ -2,11 +2,13 @@ package ru.nsu.anisimov;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * The tests the Transformation class.
+ * The class tests the Transformation class and the ability to convert infix expressions to reverse Polish notation,
+ * as well as the construction and evaluation of the resulting Expression objects.
  */
 public class TransformationTest {
 
@@ -77,5 +79,38 @@ public class TransformationTest {
         String result = Transformation.getExpression(expression).toString();
 
         Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    void evaluateExpressionTest() {
+        String expression = "x+y";
+        Expression expr = Transformation.getExpression(expression);
+        String assignation = "x=3; y=4";
+        double expected = 7.0; // 3 + 4 = 7
+        double result = expr.eval(assignation);
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    void derivativeTest() {
+        String expression = "x*y+y";
+        Expression expr = Transformation.getExpression(expression);
+        String variable = "x";
+        String expected = "y";
+        Expression derivative = expr.getDerivative(variable).getSimplified();
+
+        Assertions.assertEquals(expected, derivative.toString());
+    }
+
+
+    @Test
+    void simplifiedExpressionTest() {
+        String expression = "x+0";
+        Expression expr = Transformation.getExpression(expression);
+        String expectedSimplified = "x";
+        Expression simplified = expr.getSimplified();
+
+        Assertions.assertEquals(expectedSimplified, simplified.toString());
     }
 }

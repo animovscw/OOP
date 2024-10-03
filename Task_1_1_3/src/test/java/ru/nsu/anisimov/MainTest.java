@@ -21,7 +21,7 @@ public class MainTest {
         Main.main(new String[0]);
         String result = out.toString().replaceAll("\\r\\n?", "\n");
         String expected =
-                "(x+3)\nExpression: (x+3)\nDerivative: (1+0)\nAssigned: 12.0\nSimplified: (x+3)\n";
+                "(x+3)\nExpression: (x+3)\nDerivative: (1+0)\nAssigned Value: 12.0\nSimplified Expression: (x+3)\n";
 
         Assertions.assertEquals(expected, result);
         Assertions.assertEquals(expected.length(), result.length());
@@ -58,7 +58,8 @@ public class MainTest {
         String expected = "((3+(2*x))+1)\n"
                           + "Expression: ((3+(2*x))+1)\n"
                           + "Derivative: ((0+((0*x)+(2*1)))+0)"
-                          + "\nAssigned: 24.0\nSimplified: ((3+(2*x))+1)\n";
+                          + "\nAssigned Value: 24.0\nSimplified Expression: ((3+(2*x))+1)\n";
+
         Assertions.assertEquals(expected, result);
         Assertions.assertEquals(expected.length(), result.length());
 
@@ -66,7 +67,9 @@ public class MainTest {
             if (expected.charAt(i) != result.charAt(i)) {
                 System.out.println(i + expected.charAt(i) + result.charAt(i));
             }
+
             Assertions.assertEquals(expected.charAt(i), result.charAt(i));
+
         }
 
         System.setIn(System.in);

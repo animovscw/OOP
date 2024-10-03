@@ -1,100 +1,104 @@
 package ru.nsu.anisimov;
 
+import java.util.Map;
+
 /**
- * Represents a division of two mathematical expressions.
+ * Represents the division of two mathematical expressions.
  */
 public class Div extends Expression {
-    private final Expression left;
-    private final Expression right;
+    private final Expression numerator;
+    private final Expression denominator;
 
-    public Div(Expression left, Expression right) {
-        this.left = left;
-        this.right = right;
+    /**
+     * Constructs a new object representing the division of two expressions.
+     *
+     * @param numerator   the numerator expression
+     * @param denominator the denominator expression
+     */
+    public Div(Expression numerator, Expression denominator) {
+        this.numerator = numerator;
+        this.denominator = denominator;
     }
 
     /**
-     * The method evaluates the division expression,
-     * substituting the values of variables from the given assignment string.
+     * Evaluates the division expression based on the provided variable assignments.
      *
-     * @param assignation string
-     * @return the result
+     * @param assignations a map containing variable assignments
+     * @return The result of the division as a double
+     * @throws ArithmeticException If division by zero occurs.
      */
     @Override
-    public double evaluate(String assignation) {
-        return this.left.evaluate(assignation)
-                / this.right.evaluate(assignation);
+    protected double evaluate(Map<String, Integer> assignations) {
+        double denomValue = this.denominator.evaluate(assignations);
+        if (denomValue == 0) {
+            throw new ArithmeticException("Division by zero.");
+        }
+        return this.numerator.evaluate(assignations) / denomValue;
     }
 
     /**
-     * The method calculates the derivative of the division expression
-     * with respect to the given variable.
+     * Computes the derivative of the division expression with respect to the specified variable.
      *
-     * @param variable the variable with which the derivative is taken.
-     * @return New expression
+     * @param variable the variable with respect to which the derivative is taken
+     * @return A new expression representing the derivative
      */
     @Override
-    public Expression getDerivative(String variable) {
-        return new Div(
-                new Add(
-                        new Mul(
-                                this.left.getDerivative(variable),
-                                this.right
-                        ),
-                        new Mul(
-                                this.left,
-                                this.right.getDerivative(variable)
-                        )
-                ),
-                new Mul(
-                        this.right,
-                        this.right
-                )
+    protected Expression getDerivative(String variable) {
+        Expression numeratorDerivative = new Sub(
+                new Mul(this.numerator.getDerivative(variable), this.denominator),
+                new Mul(this.numerator, this.denominator.getDerivative(variable))
         );
+        Expression denominatorSquared = new Mul(this.denominator, this.denominator);
+        return new Div(numeratorDerivative, denominatorSquared);
     }
 
     /**
      * Simplifies the division expression.
-     * If both numerator and denominator are objects, it computes their division.
-     * If the numerator is zero, the result is zero.
-     * Otherwise, it returns a new simplified division expression.
+     * If both numerator and denominator are numbers, computes their division and returns a new Number.
+     * If the numerator is zero, returns the number 0.
+     * If the denominator is one, returns the numerator.
+     * Otherwise, returns a new expression consisting of simplified subexpressions.
      *
-     * @return A simplified expression
+     * @return A simplified Expression
      */
     @Override
-    public Expression getSimplified() {
-        Div simpDiv = new Div(
-                this.left.getSimplified(),
-                this.right.getSimplified()
-        );
-        if (
-                simpDiv.left instanceof Number
-                        && simpDiv.right instanceof Number
-        ) {
-            return new Number(
-                    ((Number) simpDiv.left).getValue()
-                            / ((Number) simpDiv.right).getValue()
-            );
-        } else if (
-                this.left instanceof Number
-                        && ((Number) this.left).getValue() == 0
-        ) {
+    protected Expression getSimplified() {
+        Expression simplifiedNumerator = this.numerator.getSimplified();
+        Expression simplifiedDenominator = this.denominator.getSimplified();
+
+        if (simplifiedNumerator instanceof Number
+            && ((Number) simplifiedNumerator).getValue() == 0) {
             return new Number(0);
-        } else {
-            return simpDiv;
         }
+
+        if (simplifiedDenominator instanceof Number
+            && ((Number) simplifiedDenominator).getValue() == 1) {
+            return simplifiedNumerator;
+        }
+
+        if (simplifiedNumerator instanceof Number
+            && simplifiedDenominator instanceof Number) {
+            double denomValue = ((Number) simplifiedDenominator).getValue();
+            if (denomValue == 0) {
+                throw new ArithmeticException("Division by zero.");
+            }
+            return new Number(((Number) simplifiedNumerator).getValue() / denomValue);
+        }
+
+        return new Div(simplifiedNumerator, simplifiedDenominator);
     }
 
     /**
-     * Returns a string representation of the division expression.
+     * Returns the string representation of the division expression.
      *
-     * @return A string representing the division expression
+     * @return A string
      */
     @Override
     public String toString() {
         return "("
-                + this.left.toString()
-                + "/"
-                + this.right.toString()
-                + ")";
+               + this.numerator.toString()
+               + "/"
+               + this.denominator.toString()
+               + ")";
     }
 }
