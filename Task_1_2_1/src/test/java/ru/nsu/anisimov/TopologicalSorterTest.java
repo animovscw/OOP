@@ -93,7 +93,7 @@ public class TopologicalSorterTest {
         List<Vertex<String>> sorted = sorter.topologicalSort(graph);
 
         Assertions.assertEquals(1, sorted.size());
-        Assertions.assertEquals("A", sorted.getFirst().getLabel());
+        Assertions.assertEquals("A", sorted.get(0).getLabel());
     }
 
     @Test
