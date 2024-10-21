@@ -2,6 +2,11 @@ package ru.nsu.anisimov;
 
 import java.util.List;
 
+/**
+ * Defines the operations for a graph data structure.
+ *
+ * @param <T> the type of the vertices in the graph
+ */
 public interface Graph<T> {
     void addVertex(Vertex<T> vertex);
 
