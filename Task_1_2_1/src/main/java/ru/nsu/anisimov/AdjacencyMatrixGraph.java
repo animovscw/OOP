@@ -3,7 +3,12 @@ package ru.nsu.anisimov;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class AdjacencyMatrixGraph<T> implements Graph<T> {
     private final List<Vertex<T>> verticesList;
@@ -137,7 +142,9 @@ public class AdjacencyMatrixGraph<T> implements Graph<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) {
+            return true;
+        }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }

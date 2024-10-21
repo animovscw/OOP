@@ -6,27 +6,26 @@ public class Main {
     public static void main(String[] args) {
         Graph<String> graph = new AdjacencyListGraph<>();
 
-        Vertex<String> vA = new Vertex<>("A");
-        Vertex<String> vB = new Vertex<>("B");
-        Vertex<String> vC = new Vertex<>("C");
-        Vertex<String> vD = new Vertex<>("D");
-        graph.addVertex(vA);
-        graph.addVertex(vB);
-        graph.addVertex(vC);
-        graph.addVertex(vD);
+        Vertex<String> VA = new Vertex<>("A");
+        Vertex<String> VB = new Vertex<>("B");
+        Vertex<String> VC = new Vertex<>("C");
+        Vertex<String> VD = new Vertex<>("D");
+        graph.addVertex(VA);
+        graph.addVertex(VB);
+        graph.addVertex(VC);
+        graph.addVertex(VD);
 
-        graph.addEdge(new Edge<>(vA, vB));
-        graph.addEdge(new Edge<>(vA, vC));
-        graph.addEdge(new Edge<>(vB, vC));
-        graph.addEdge(new Edge<>(vC, vD));
+        graph.addEdge(new Edge<>(VA, VB));
+        graph.addEdge(new Edge<>(VA, VC));
+        graph.addEdge(new Edge<>(VB, VC));
+        graph.addEdge(new Edge<>(VC, VD));
 
         System.out.println(graph);
 
-        System.out.println("Neighbours of " + vA + ": " + graph.getNeighbours(vA));
+        System.out.println("Neighbours of " + VA + ": " + graph.getNeighbours(VA));
 
-        TopologicalSorter<String> sorter = new TopologicalSorter<>();
         try {
-            List<Vertex<String>> sorted = sorter.topologicalSort(graph);
+            List<Vertex<String>> sorted = TopologicalSorter.topologicalSort(graph);
             System.out.println("Topological Sort:");
             for (Vertex<String> v : sorted) {
                 System.out.print(v.getLabel() + " ");
@@ -36,8 +35,8 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        graph.deleteEdge(new Edge<>(vB, vC));
-        graph.deleteVertex(vD);
+        graph.deleteEdge(new Edge<>(VB, VC));
+        graph.deleteVertex(VD);
 
         System.out.println("After deletion vertex D:");
         System.out.println(graph);

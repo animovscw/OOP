@@ -3,7 +3,13 @@ package ru.nsu.anisimov;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 public class AdjacencyListGraph<T> implements Graph<T> {
     private final Map<Vertex<T>, List<Vertex<T>>> adjList;
@@ -59,7 +65,9 @@ public class AdjacencyListGraph<T> implements Graph<T> {
             int numVertices = Integer.parseInt(line.trim());
             for (int i = 0; i < numVertices; ++i) {
                 line = br.readLine();
-                if (line == null) break;
+                if (line == null) {
+                    break;
+                }
                 String[] parts = line.trim().split("\\s+", 2);
                 T label = (T) parts[1];
                 addVertex(new Vertex<>(label));
@@ -68,7 +76,9 @@ public class AdjacencyListGraph<T> implements Graph<T> {
             int numEdges = Integer.parseInt(line.trim());
             for (int i = 0; i < numEdges; ++i) {
                 line = br.readLine();
-                if (line == null) break;
+                if (line == null) {
+                    break;
+                }
                 String[] parts = line.trim().split("\\s+", 2);
                 T srcLabel = (T) parts[0];
                 T destLabel = (T) parts[1];
@@ -100,12 +110,18 @@ public class AdjacencyListGraph<T> implements Graph<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AdjacencyListGraph<?> that = (AdjacencyListGraph<?>) o;
 
-        if (!adjList.equals(that.adjList)) return false;
+        if (!adjList.equals(that.adjList)) {
+            return false;
+        }
         return vertices.equals(that.vertices);
     }
 

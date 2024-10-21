@@ -1,9 +1,11 @@
 package ru.nsu.anisimov;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Assertions;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+import org.junit.jupiter.api.Test;
 
 public class TopologicalSorterTest {
 
@@ -15,19 +17,19 @@ public class TopologicalSorterTest {
     }
 
     @Test
-    public void testSimpleDAG() {
-        Vertex<String> vA = new Vertex<>("A");
-        Vertex<String> vB = new Vertex<>("B");
-        Vertex<String> vC = new Vertex<>("C");
-        Vertex<String> vD = new Vertex<>("D");
-        graph.addVertex(vA);
-        graph.addVertex(vB);
-        graph.addVertex(vC);
-        graph.addVertex(vD);
-        graph.addEdge(new Edge<>(vA, vB));
-        graph.addEdge(new Edge<>(vA, vC));
-        graph.addEdge(new Edge<>(vB, vC));
-        graph.addEdge(new Edge<>(vC, vD));
+    public void testSimpleDag() {
+        Vertex<String> VA = new Vertex<>("A");
+        Vertex<String> VB = new Vertex<>("B");
+        Vertex<String> VC = new Vertex<>("C");
+        Vertex<String> VD = new Vertex<>("D");
+        graph.addVertex(VA);
+        graph.addVertex(VB);
+        graph.addVertex(VC);
+        graph.addVertex(VD);
+        graph.addEdge(new Edge<>(VA, VB));
+        graph.addEdge(new Edge<>(VA, VC));
+        graph.addEdge(new Edge<>(VB, VC));
+        graph.addEdge(new Edge<>(VC, VD));
 
         List<Vertex<String>> sorted = TopologicalSorter.topologicalSort(graph);
 
@@ -48,20 +50,20 @@ public class TopologicalSorterTest {
 
     @Test
     public void testMultipleOrderings() {
-        Vertex<String> vA = new Vertex<>("A");
-        Vertex<String> vB = new Vertex<>("B");
-        Vertex<String> vC = new Vertex<>("C");
-        Vertex<String> vD = new Vertex<>("D");
+        Vertex<String> VA = new Vertex<>("A");
+        Vertex<String> VB = new Vertex<>("B");
+        Vertex<String> VC = new Vertex<>("C");
+        Vertex<String> VD = new Vertex<>("D");
 
-        graph.addVertex(vA);
-        graph.addVertex(vB);
-        graph.addVertex(vC);
-        graph.addVertex(vD);
+        graph.addVertex(VA);
+        graph.addVertex(VB);
+        graph.addVertex(VC);
+        graph.addVertex(VD);
 
-        graph.addEdge(new Edge<>(vA, vB));
-        graph.addEdge(new Edge<>(vA, vC));
-        graph.addEdge(new Edge<>(vB, vD));
-        graph.addEdge(new Edge<>(vC, vD));
+        graph.addEdge(new Edge<>(VA, VB));
+        graph.addEdge(new Edge<>(VA, VC));
+        graph.addEdge(new Edge<>(VB, VD));
+        graph.addEdge(new Edge<>(VC, VD));
 
         List<Vertex<String>> sorted = TopologicalSorter.topologicalSort(graph);
 
@@ -69,9 +71,9 @@ public class TopologicalSorterTest {
         Assertions.assertEquals("A", sorted.get(0).getLabel());
         Assertions.assertEquals("D", sorted.get(3).getLabel());
 
-        int indexB = sorted.indexOf(vB);
-        int indexC = sorted.indexOf(vC);
-        int indexD = sorted.indexOf(vD);
+        int indexB = sorted.indexOf(VB);
+        int indexC = sorted.indexOf(VC);
+        int indexD = sorted.indexOf(VD);
 
         Assertions.assertTrue(indexB < indexD);
         Assertions.assertTrue(indexC < indexD);
@@ -86,8 +88,8 @@ public class TopologicalSorterTest {
 
     @Test
     public void testSingleVertex() {
-        Vertex<String> vA = new Vertex<>("A");
-        graph.addVertex(vA);
+        Vertex<String> VA = new Vertex<>("A");
+        graph.addVertex(VA);
         List<Vertex<String>> sorted = TopologicalSorter.topologicalSort(graph);
 
         Assertions.assertEquals(1, sorted.size());
@@ -96,18 +98,18 @@ public class TopologicalSorterTest {
 
     @Test
     public void testDisconnectedGraph() {
-        Vertex<String> vA = new Vertex<>("A");
-        Vertex<String> vB = new Vertex<>("B");
-        Vertex<String> vC = new Vertex<>("C");
-        Vertex<String> vD = new Vertex<>("D");
+        Vertex<String> VA = new Vertex<>("A");
+        Vertex<String> VB = new Vertex<>("B");
+        Vertex<String> VC = new Vertex<>("C");
+        Vertex<String> VD = new Vertex<>("D");
 
-        graph.addVertex(vA);
-        graph.addVertex(vB);
-        graph.addVertex(vC);
-        graph.addVertex(vD);
+        graph.addVertex(VA);
+        graph.addVertex(VB);
+        graph.addVertex(VC);
+        graph.addVertex(VD);
 
-        graph.addEdge(new Edge<>(vA, vB));
-        graph.addEdge(new Edge<>(vC, vD));
+        graph.addEdge(new Edge<>(VA, VB));
+        graph.addEdge(new Edge<>(VC, VD));
 
         List<Vertex<String>> sorted = TopologicalSorter.topologicalSort(graph);
         Assertions.assertEquals(4, sorted.size());

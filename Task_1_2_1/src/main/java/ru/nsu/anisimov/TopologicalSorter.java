@@ -1,6 +1,11 @@
 package ru.nsu.anisimov;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 public class TopologicalSorter<T> {
     public static <T> List<Vertex<T>> topologicalSort(Graph<T> graph) {

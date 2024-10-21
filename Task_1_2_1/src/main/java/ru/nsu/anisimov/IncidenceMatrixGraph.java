@@ -3,7 +3,13 @@ package ru.nsu.anisimov;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class IncidenceMatrixGraph<T> implements Graph<T> {
     private final List<Vertex<T>> verticesList;
@@ -110,7 +116,7 @@ public class IncidenceMatrixGraph<T> implements Graph<T> {
             return neighbours;
         }
         int index = vertexIndexMap.get(vertex);
-        for (int j = 0; j < edgesList.size(); j++) {
+        for (int j = 0; j < edgesList.size(); ++j) {
             if (matrix[index][j] == 1) {
                 neighbours.add(edgesList.get(j).getDestination());
             }
@@ -126,7 +132,9 @@ public class IncidenceMatrixGraph<T> implements Graph<T> {
             int numVertices = Integer.parseInt(line.trim());
             for (int i = 0; i < numVertices; ++i) {
                 line = br.readLine();
-                if (line == null) break;
+                if (line == null) {
+                    break;
+                }
                 String[] parts = line.trim().split("\\s+", 2);
                 T label = (T) parts[1];
                 addVertex(new Vertex<>(label));
@@ -135,7 +143,9 @@ public class IncidenceMatrixGraph<T> implements Graph<T> {
             int numEdges = Integer.parseInt(line.trim());
             for (int i = 0; i < numEdges; ++i) {
                 line = br.readLine();
-                if (line == null) break;
+                if (line == null) {
+                    break;
+                }
                 String[] parts = line.trim().split("\\s+", 2);
                 T srcLabel = (T) parts[0];
                 T destLabel = (T) parts[1];
@@ -166,16 +176,30 @@ public class IncidenceMatrixGraph<T> implements Graph<T> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         IncidenceMatrixGraph<?> that = (IncidenceMatrixGraph<?>) o;
 
-        if (capacityVertices != that.capacityVertices) return false;
-        if (capacityEdges != that.capacityEdges) return false;
-        if (!verticesList.equals(that.verticesList)) return false;
-        if (!vertexIndexMap.equals(that.vertexIndexMap)) return false;
-        if (!edgesList.equals(that.edgesList)) return false;
+        if (capacityVertices != that.capacityVertices) {
+            return false;
+        }
+        if (capacityEdges != that.capacityEdges) {
+            return false;
+        }
+        if (!verticesList.equals(that.verticesList)) {
+            return false;
+        }
+        if (!vertexIndexMap.equals(that.vertexIndexMap)) {
+            return false;
+        }
+        if (!edgesList.equals(that.edgesList)) {
+            return false;
+        }
         return Arrays.deepEquals(matrix, that.matrix);
     }
 
