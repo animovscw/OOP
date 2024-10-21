@@ -9,7 +9,7 @@ public class GraphFileReadException extends RuntimeException {
     /**
      * Constructs a new GraphFileReadException with the specified detail message and cause.
      *
-     * @param message the detail message, which is saved for later retrieval by the getMessage method
+     * @param message the detail message, which is saved for later retrieval
      * @param cause the cause
      */
     public GraphFileReadException(String message, Throwable cause) {
