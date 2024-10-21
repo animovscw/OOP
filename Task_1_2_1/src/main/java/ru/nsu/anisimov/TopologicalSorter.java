@@ -7,7 +7,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+/**
+ * A utility class for performing topological sorting on a directed acyclic graph (DAG).
+ *
+ * @param <T> the type of elements stored in the vertices of the graph
+ */
 public class TopologicalSorter<T> {
+
+    /**
+     * Performs a topological sort on the given directed acyclic graph (DAG).
+     *
+     * @param graph the directed acyclic graph to be sorted
+     * @return a list of vertices in topologically sorted order
+     */
     public static <T> List<Vertex<T>> topologicalSort(Graph<T> graph) {
         List<Vertex<T>> sorted = new ArrayList<>();
         Map<Vertex<T>, Integer> inDegree = new HashMap<>();
@@ -39,6 +51,7 @@ public class TopologicalSorter<T> {
                 }
             }
         }
+
         return sorted;
     }
 }
