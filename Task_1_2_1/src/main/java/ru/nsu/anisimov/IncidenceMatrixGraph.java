@@ -3,13 +3,7 @@ package ru.nsu.anisimov;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class IncidenceMatrixGraph<T> implements Graph<T> {
     private final List<Vertex<T>> verticesList;
@@ -160,7 +154,7 @@ public class IncidenceMatrixGraph<T> implements Graph<T> {
         }
     }
 
-    private Vertex<T> findVertexByLabel(T label) {
+    Vertex<T> findVertexByLabel(T label) {
         for (Vertex<T> v : verticesList) {
             if (v.getLabel().equals(label)) {
                 return v;
@@ -226,5 +220,9 @@ public class IncidenceMatrixGraph<T> implements Graph<T> {
             sb.append(e).append("\n");
         }
         return sb.toString();
+    }
+
+    public List<Edge<T>> getEdges() {
+        return new ArrayList<>(edgesList);
     }
 }
