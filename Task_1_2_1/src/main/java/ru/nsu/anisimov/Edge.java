@@ -7,9 +7,6 @@ public class Edge<T> {
     private final Vertex<T> destination;
 
     public Edge(Vertex<T> source, Vertex<T> destination) {
-        if (source == null || destination == null) {
-            throw new IllegalArgumentException("Source and Destination vertices cannot be null.");
-        }
         this.source = source;
         this.destination = destination;
     }
@@ -28,7 +25,8 @@ public class Edge<T> {
         if (o == null || getClass() != o.getClass()) return false;
 
         Edge<?> edge = (Edge<?>) o;
-        return Objects.equals(source, edge.source) && Objects.equals(destination, edge.destination);
+        return Objects.equals(source, edge.source)
+               && Objects.equals(destination, edge.destination);
     }
 
     @Override

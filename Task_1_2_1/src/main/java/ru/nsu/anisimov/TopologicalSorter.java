@@ -3,7 +3,7 @@ package ru.nsu.anisimov;
 import java.util.*;
 
 public class TopologicalSorter<T> {
-    public List<Vertex<T>> topologicalSort(Graph<T> graph) {
+    public static <T> List<Vertex<T>> topologicalSort(Graph<T> graph) {
         List<Vertex<T>> sorted = new ArrayList<>();
         Map<Vertex<T>, Integer> inDegree = new HashMap<>();
 

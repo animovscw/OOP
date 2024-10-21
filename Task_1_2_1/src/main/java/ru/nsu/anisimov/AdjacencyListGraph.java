@@ -79,9 +79,10 @@ public class AdjacencyListGraph<T> implements Graph<T> {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new GraphFileReadException("Failed to read the graph from file: " + filename, e);
         }
     }
+
 
     private Vertex<T> findVertexByLabel(T label) {
         for (Vertex<T> v : vertices) {
