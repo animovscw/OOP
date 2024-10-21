@@ -205,7 +205,10 @@ public class IncidenceMatrixGraph<T> implements Graph<T> {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(verticesList, vertexIndexMap, edgesList, capacityVertices, capacityEdges);
+        int result = Objects.hash(
+                verticesList, vertexIndexMap,
+                edgesList, capacityVertices, capacityEdges
+        );
         result = 31 * result + Arrays.deepHashCode(matrix);
         return result;
     }
