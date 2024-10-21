@@ -97,21 +97,29 @@ public class AdjacencyMatrixGraph<T> implements Graph<T> {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             line = br.readLine();
-            if (line == null) return;
+            if (line == null) {
+                return;
+            }
             int numVertices = Integer.parseInt(line.trim());
             for (int i = 0; i < numVertices; i++) {
                 line = br.readLine();
-                if (line == null) break;
+                if (line == null) {
+                    break;
+                }
                 String[] parts = line.trim().split("\\s+", 2);
                 T label = (T) parts[1];
                 addVertex(new Vertex<>(label));
             }
             line = br.readLine();
-            if (line == null) return;
+            if (line == null) {
+                return;
+            }
             int numEdges = Integer.parseInt(line.trim());
             for (int i = 0; i < numEdges; ++i) {
                 line = br.readLine();
-                if (line == null) break;
+                if (line == null) {
+                    break;
+                }
                 String[] parts = line.trim().split("\\s+", 2);
                 T srcLabel = (T) parts[0];
                 T destLabel = (T) parts[1];

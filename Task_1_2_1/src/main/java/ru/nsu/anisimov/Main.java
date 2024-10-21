@@ -6,23 +6,23 @@ public class Main {
     public static void main(String[] args) {
         Graph<String> graph = new AdjacencyListGraph<>();
 
-        Vertex<String> VA = new Vertex<>("A");
-        Vertex<String> VB = new Vertex<>("B");
-        Vertex<String> VC = new Vertex<>("C");
-        Vertex<String> VD = new Vertex<>("D");
-        graph.addVertex(VA);
-        graph.addVertex(VB);
-        graph.addVertex(VC);
-        graph.addVertex(VD);
+        Vertex<String> A = new Vertex<>("A");
+        Vertex<String> B = new Vertex<>("B");
+        Vertex<String> C = new Vertex<>("C");
+        Vertex<String> D = new Vertex<>("D");
+        graph.addVertex(A);
+        graph.addVertex(B);
+        graph.addVertex(C);
+        graph.addVertex(D);
 
-        graph.addEdge(new Edge<>(VA, VB));
-        graph.addEdge(new Edge<>(VA, VC));
-        graph.addEdge(new Edge<>(VB, VC));
-        graph.addEdge(new Edge<>(VC, VD));
+        graph.addEdge(new Edge<>(A, B));
+        graph.addEdge(new Edge<>(A, C));
+        graph.addEdge(new Edge<>(B, C));
+        graph.addEdge(new Edge<>(C, D));
 
         System.out.println(graph);
 
-        System.out.println("Neighbours of " + VA + ": " + graph.getNeighbours(VA));
+        System.out.println("Neighbours of " + A + ": " + graph.getNeighbours(A));
 
         try {
             List<Vertex<String>> sorted = TopologicalSorter.topologicalSort(graph);
@@ -35,8 +35,8 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        graph.deleteEdge(new Edge<>(VB, VC));
-        graph.deleteVertex(VD);
+        graph.deleteEdge(new Edge<>(B, C));
+        graph.deleteVertex(D);
 
         System.out.println("After deletion vertex D:");
         System.out.println(graph);
