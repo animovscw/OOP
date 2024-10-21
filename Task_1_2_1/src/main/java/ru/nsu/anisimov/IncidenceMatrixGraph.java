@@ -3,7 +3,13 @@ package ru.nsu.anisimov;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Implementation of a graph using an incidence matrix.
@@ -19,7 +25,8 @@ public class IncidenceMatrixGraph<T> implements Graph<T> {
     private int[][] matrix;
 
     /**
-     * Constructs a new, empty incidence matrix graph with initial capacities for vertices and edges.
+     * Constructs a new, empty incidence matrix graph
+     * with initial capacities for vertices and edges.
      */
     public IncidenceMatrixGraph() {
         verticesList = new ArrayList<>();
@@ -31,7 +38,8 @@ public class IncidenceMatrixGraph<T> implements Graph<T> {
     }
 
     /**
-     * Adds a vertex to the graph. If the current capacity for vertices is reached, the capacity is expanded.
+     * Adds a vertex to the graph. If the current capacity for vertices is reached,
+     * the capacity is expanded.
      *
      * @param vertex the vertex to be added
      */
@@ -69,7 +77,8 @@ public class IncidenceMatrixGraph<T> implements Graph<T> {
     }
 
     /**
-     * Adds an edge to the graph. If the current capacity for edges is reached, the capacity is expanded.
+     * Adds an edge to the graph. If the current capacity for edges is reached,
+     * the capacity is expanded.
      *
      * @param edge the edge to be added
      */
