@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests to check the work of the class.
+ */
 public class AdjacencyMatrixGraphTest {
     private AdjacencyMatrixGraph<String> graph;
     private File tempFile;

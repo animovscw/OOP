@@ -3,6 +3,9 @@ package ru.nsu.anisimov;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests to check the work of the class.
+ */
 public class EdgeTest {
     @Test
     public void testEdgeCreation() {

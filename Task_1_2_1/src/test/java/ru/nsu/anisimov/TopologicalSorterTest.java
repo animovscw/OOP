@@ -7,6 +7,9 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Tests to check the work of the class.
+ */
 public class TopologicalSorterTest {
 
     private Graph<String> graph;

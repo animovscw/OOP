@@ -4,7 +4,9 @@ import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-
+/**
+ * Tests to check the work of the class.
+ */
 public class GraphFileReadExceptionTest {
 
     @Test
