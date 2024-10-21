@@ -129,7 +129,7 @@ public class AdjacencyMatrixGraph<T> implements Graph<T> {
         }
     }
 
-    private Vertex<T> findVertexByLabel(T label) {
+    Vertex<T> findVertexByLabel(T label) {
         for (Vertex<T> v : verticesList) {
             if (v.getLabel().equals(label)) {
                 return v;

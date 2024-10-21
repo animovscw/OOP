@@ -94,7 +94,7 @@ public class AdjacencyListGraph<T> implements Graph<T> {
     }
 
 
-    private Vertex<T> findVertexByLabel(T label) {
+    Vertex<T> findVertexByLabel(T label) {
         for (Vertex<T> v : vertices) {
             if (v.getLabel().equals(label)) {
                 return v;

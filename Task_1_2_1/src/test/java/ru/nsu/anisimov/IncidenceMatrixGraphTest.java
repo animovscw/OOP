@@ -108,14 +108,14 @@ public class IncidenceMatrixGraphTest {
 
     @Test
     public void testGraphEquality() {
-        IncidenceMatrixGraph<String> anotherGraph = new IncidenceMatrixGraph<>();
+
         Vertex<String> vertexA = new Vertex<>("A");
         Vertex<String> vertexB = new Vertex<>("B");
-
         graph.addVertex(vertexA);
         graph.addVertex(vertexB);
         graph.addEdge(new Edge<>(vertexA, vertexB));
 
+        IncidenceMatrixGraph<String> anotherGraph = new IncidenceMatrixGraph<>();
         anotherGraph.addVertex(vertexA);
         anotherGraph.addVertex(vertexB);
         anotherGraph.addEdge(new Edge<>(vertexA, vertexB));
