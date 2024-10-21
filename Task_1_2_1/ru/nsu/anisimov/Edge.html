@@ -129,9 +129,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>T</code> - the type of elements stored in the vertices of the graph</dd>
+</dl>
 <hr>
 <pre>public class <span class="typeNameLabel">Edge&lt;T&gt;</span>
 extends java.lang.Object</pre>
+<div class="block">Represents an edge in a graph, connecting a source vertex to a destination vertex.</div>
 </li>
 </ul>
 </div>
@@ -154,7 +159,9 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(ru.nsu.anisimov.Vertex,ru.nsu.anisimov.Vertex)">Edge</a></span>&#8203;(<a href="Vertex.html" title="class in ru.nsu.anisimov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;source,
     <a href="Vertex.html" title="class in ru.nsu.anisimov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;destination)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructs a new edge with the specified source and destination vertices.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -177,27 +184,37 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Compares this edge to another object for equality.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="Vertex.html" title="class in ru.nsu.anisimov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDestination()">getDestination</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the destination vertex of the edge.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="Vertex.html" title="class in ru.nsu.anisimov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSource()">getSource</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns the source vertex of the edge.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns a hash code value for the edge.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Returns a string representation of the edge.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -231,6 +248,12 @@ extends java.lang.Object</pre>
 <h4>Edge</h4>
 <pre>public&nbsp;Edge&#8203;(<a href="Vertex.html" title="class in ru.nsu.anisimov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;source,
             <a href="Vertex.html" title="class in ru.nsu.anisimov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;destination)</pre>
+<div class="block">Constructs a new edge with the specified source and destination vertices.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>source</code> - the source vertex of the edge</dd>
+<dd><code>destination</code> - the destination vertex of the edge</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -250,6 +273,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getSource</h4>
 <pre class="methodSignature">public&nbsp;<a href="Vertex.html" title="class in ru.nsu.anisimov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;getSource()</pre>
+<div class="block">Returns the source vertex of the edge.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the source vertex</dd>
+</dl>
 </li>
 </ul>
 <a id="getDestination()">
@@ -259,6 +287,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getDestination</h4>
 <pre class="methodSignature">public&nbsp;<a href="Vertex.html" title="class in ru.nsu.anisimov">Vertex</a>&lt;<a href="Edge.html" title="type parameter in Edge">T</a>&gt;&nbsp;getDestination()</pre>
+<div class="block">Returns the destination vertex of the edge.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the destination vertex</dd>
+</dl>
 </li>
 </ul>
 <a id="equals(java.lang.Object)">
@@ -268,9 +301,14 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>equals</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;equals&#8203;(java.lang.Object&nbsp;o)</pre>
+<div class="block">Compares this edge to another object for equality.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>equals</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>o</code> - the object to compare to</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the edges are equal, false otherwise</dd>
 </dl>
 </li>
 </ul>
@@ -281,9 +319,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>hashCode</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;hashCode()</pre>
+<div class="block">Returns a hash code value for the edge.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a hash code value</dd>
 </dl>
 </li>
 </ul>
@@ -294,9 +335,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>toString</h4>
 <pre class="methodSignature">public&nbsp;java.lang.String&nbsp;toString()</pre>
+<div class="block">Returns a string representation of the edge.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code>toString</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a string representation</dd>
 </dl>
 </li>
 </ul>
