@@ -1,12 +1,17 @@
 package ru.nsu.anisimov;
 
 import java.util.List;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class IncidenceMatrixGraphTest {
     private IncidenceMatrixGraph<String> graph;
+    private File tempFile;
 
     @BeforeEach
     public void setUp() {
@@ -76,6 +81,7 @@ public class IncidenceMatrixGraphTest {
         graph.deleteEdge(edge);
 
         List<Vertex<String>> neighbours = graph.getNeighbours(vertexA);
+
         Assertions.assertFalse(neighbours.contains(vertexB));
     }
 
@@ -138,7 +144,37 @@ public class IncidenceMatrixGraphTest {
         graph.addEdge(new Edge<>(vertexA, vertexB));
 
         String result = graph.toString();
+
         Assertions.assertTrue(result.contains("Vertices:"));
         Assertions.assertTrue(result.contains("Edges:"));
+    }
+
+    private File createTempFile(String content) throws IOException {
+        tempFile = File.createTempFile("testGraph", ".txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+            writer.write(content);
+        }
+        return tempFile;
+    }
+
+    @Test
+    public void testReadFromFile() throws IOException {
+        String fileContent = "3\n0 A\n1 B\n2 C\n2\nA B\nB C\n";
+
+        File testFile = createTempFile(fileContent);
+        graph.readFromFile(testFile.getAbsolutePath());
+
+        List<Vertex<String>> vertices = graph.getVertices();
+
+        Assertions.assertEquals(3, vertices.size());
+        Assertions.assertTrue(vertices.stream().anyMatch(v -> v.getLabel().equals("A")));
+        Assertions.assertTrue(vertices.stream().anyMatch(v -> v.getLabel().equals("B")));
+        Assertions.assertTrue(vertices.stream().anyMatch(v -> v.getLabel().equals("C")));
+
+        List<Edge<String>> edges = graph.getEdges();
+
+        Assertions.assertEquals(2, edges.size());
+        Assertions.assertTrue(edges.contains(new Edge<>(new Vertex<>("A"), new Vertex<>("B"))));
+        Assertions.assertTrue(edges.contains(new Edge<>(new Vertex<>("B"), new Vertex<>("C"))));
     }
 }
