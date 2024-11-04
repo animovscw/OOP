@@ -17,7 +17,6 @@ import java.util.Objects;
 public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     private static final int DEFAULT_CAPACITY = 11;
     private static final float LOAD_FACTOR = 0.75f;
-
     private LinkedList<Entry<K, V>>[] table;
     private int size;
     private int modCount;
@@ -52,7 +51,6 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         if (table[index] == null) {
             table[index] = new LinkedList<>();
         }
-
         for (Entry<K, V> entry : table[index]) {
             if (Objects.equals(entry.key, key)) {
                 entry.value = value;
@@ -60,11 +58,9 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
                 return;
             }
         }
-
         table[index].add(new Entry<>(key, value));
         ++size;
         ++modCount;
-
         if (size >= table.length * LOAD_FACTOR) {
             resize();
         }
@@ -81,7 +77,6 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         if (table[index] == null) {
             return null;
         }
-
         Iterator<Entry<K, V>> iterator = table[index].iterator();
         while (iterator.hasNext()) {
             Entry<K, V> entry = iterator.next();
@@ -107,7 +102,6 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         if (table[index] == null) {
             return null;
         }
-
         for (Entry<K, V> entry : table[index]) {
             if (Objects.equals(entry.key, key)) {
                 return entry.value;
@@ -158,7 +152,6 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         table = new LinkedList[oldTable.length * 2];
         size = 0;
         ++modCount;
-
         for (LinkedList<?> bucket : oldTable) {
             if (bucket != null) {
                 for (Entry<K, V> entry : (LinkedList<Entry<K, V>>) bucket) {
@@ -180,13 +173,13 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
             private final int expectedModCount = modCount;
             private int index = 0;
             private Iterator<Entry<K, V>> bucketIterator = null;
+            private Entry<K, V> lastReturned = null;
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-
                 while (index < table.length) {
                     if (bucketIterator != null && bucketIterator.hasNext()) {
                         return true;
@@ -207,7 +200,20 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return bucketIterator.next();
+                lastReturned = bucketIterator.next();
+                return lastReturned;
+            }
+
+            @Override
+            public void remove() {
+                if (lastReturned == null) {
+                    throw new IllegalStateException("The next method has not yet been called,"
+                                                    + " or the remove method has already been "
+                                                    + "called after the last call"
+                                                    + " to the next method");
+                }
+                HashTable.this.remove(lastReturned.getKey());
+                lastReturned = null;
             }
         };
     }
@@ -232,7 +238,6 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         }
         for (Map.Entry<K, V> entry : this) {
             boolean found = false;
-
             for (LinkedList<? extends Entry<?, ?>> bucket : that.table) {
                 if (bucket != null) {
                     for (Entry<?, ?> otherEntry : bucket) {
@@ -259,7 +264,7 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     /**
      * Returns a string representation of the hash table.
      *
-     * @return a string representing
+     * @return a string representing the hash table
      */
     @Override
     public String toString() {
