@@ -86,10 +86,10 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         while (iterator.hasNext()) {
             Entry<K, V> entry = iterator.next();
             if (Objects.equals(entry.key, key)) {
-                V oldValue = entry.value;
-                iterator.remove();
                 --size;
                 ++modCount;
+                V oldValue = entry.value;
+                iterator.remove();
                 return oldValue;
             }
         }
