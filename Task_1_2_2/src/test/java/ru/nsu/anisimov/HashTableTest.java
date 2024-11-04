@@ -1,11 +1,10 @@
 package ru.nsu.anisimov;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.Iterator;
 import java.util.Map;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class HashTableTest {
     private HashTable<String, Integer> hashTable;
@@ -19,7 +18,7 @@ class HashTableTest {
     void testPutGet() {
         hashTable.put("one", 1);
         hashTable.put("two", 2);
-        
+
         Assertions.assertEquals(1, hashTable.get("one"));
         Assertions.assertEquals(2, hashTable.get("two"));
     }
