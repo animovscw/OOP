@@ -1,7 +1,19 @@
 package ru.nsu.anisimov;
 
-import java.util.*;
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
+/**
+ * Hash table implementation supporting operations like put, remove, get, update,
+ * containsKey, equality check, iteration, and resizing.
+ *
+ * @param <K> the type of keys
+ * @param <V> the type of mapped values
+ */
 public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     private static final int DEFAULT_CAPACITY = 11;
     private static final float LOAD_FACTOR = 0.75f;
@@ -10,70 +22,31 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     private int size;
     private int modCount;
 
+    /**
+     * Constructs an empty hash table with the default initial capacity.
+     */
     public HashTable() {
         this(DEFAULT_CAPACITY);
     }
 
+    /**
+     * Constructs an empty hash table with the specified initial capacity.
+     *
+     * @param initialCapacity the initial capacity of the hash table
+     */
     public HashTable(int initialCapacity) {
         table = new LinkedList[initialCapacity];
         size = 0;
         modCount = 0;
     }
 
-    private static class Entry<K, V> implements Map.Entry<K, V> {
-        K key;
-        V value;
-
-        Entry(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        @Override
-        public K getKey() {
-            return key;
-        }
-
-        @Override
-        public V getValue() {
-            return value;
-        }
-
-        @Override
-        public V setValue(V value) {
-            this.value = value;
-            return value;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            ;
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            Entry<?, ?> entry = (Entry<?, ?>) o;
-            return Objects.equals(key, entry.key) &&
-                   Objects.equals(value, entry.value);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(key, value);
-        }
-
-        @Override
-        public String toString() {
-            return key + "=" + value;
-        }
-    }
-
-    private int hash(K key) {
-        return (key == null) ? 0 : Math.abs(key.hashCode()) % table.length;
-    }
-
+    /**
+     * Stores a key-value pair in the hash table.
+     * If the key already exists, updates the existing value.
+     *
+     * @param key   the key
+     * @param value the value
+     */
     public void put(K key, V value) {
         int index = hash(key);
         if (table[index] == null) {
@@ -81,7 +54,7 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         }
 
         for (Entry<K, V> entry : table[index]) {
-            if (entry.key.equals(key)) {
+            if (Objects.equals(entry.key, key)) {
                 entry.value = value;
                 ++modCount;
                 return;
@@ -97,24 +70,38 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         }
     }
 
-    public void remove(K key) {
+    /**
+     * Removes the entry associated with the specified key.
+     *
+     * @param key the key
+     * @return the value, or null if the key was not found
+     */
+    public V remove(K key) {
         int index = hash(key);
         if (table[index] == null) {
-            return;
+            return null;
         }
 
         Iterator<Entry<K, V>> iterator = table[index].iterator();
         while (iterator.hasNext()) {
             Entry<K, V> entry = iterator.next();
-            if (entry.key.equals(key)) {
+            if (Objects.equals(entry.key, key)) {
+                V oldValue = entry.value;
                 iterator.remove();
                 --size;
                 ++modCount;
-                return;
+                return oldValue;
             }
         }
+        return null;
     }
 
+    /**
+     * Retrieves the value associated with the specified key.
+     *
+     * @param key the key
+     * @return the value, or null if the key was not found
+     */
     public V get(K key) {
         int index = hash(key);
         if (table[index] == null) {
@@ -122,21 +109,71 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         }
 
         for (Entry<K, V> entry : table[index]) {
-            if (entry.key.equals(key)) {
+            if (Objects.equals(entry.key, key)) {
                 return entry.value;
             }
         }
         return null;
     }
 
-    public boolean containsKey(K key) {
-        return get(key) != null;
-    }
-
+    /**
+     * Updates the value for the specified key.
+     * Adds the key-value pair if the key does not exist.
+     *
+     * @param key   the key
+     * @param value the new value
+     */
     public void update(K key, V value) {
         put(key, value);
     }
 
+    /**
+     * Checks if the specified key exists in the hash table.
+     *
+     * @param key the key
+     * @return true if the key exists, false otherwise
+     */
+    public boolean containsKey(K key) {
+        return get(key) != null;
+    }
+
+    /**
+     * Computes the hash code for a given key.
+     *
+     * @param key the key
+     * @return the hash code index
+     */
+    private int hash(K key) {
+        if (key == null) {
+            return 0;
+        }
+        return Math.abs(key.hashCode()) % table.length;
+    }
+
+    /**
+     * Resizes the hash table.
+     */
+    private void resize() {
+        LinkedList<?>[] oldTable = table;
+        table = new LinkedList[oldTable.length * 2];
+        size = 0;
+        ++modCount;
+
+        for (LinkedList<?> bucket : oldTable) {
+            if (bucket != null) {
+                for (Entry<K, V> entry : (LinkedList<Entry<K, V>>) bucket) {
+                    put(entry.key, entry.value);
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns an iterator for iterating over the entries in the hash table.
+     * Throws ConcurrentModificationException if the hash table is modified during iteration.
+     *
+     * @return an iterator
+     */
     @Override
     public Iterator<Map.Entry<K, V>> iterator() {
         return new Iterator<>() {
@@ -175,6 +212,12 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         };
     }
 
+    /**
+     * Checks if this hash table is equal to another hash table.
+     *
+     * @param o the object
+     * @return true if the tables are equal, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -183,12 +226,10 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         HashTable<?, ?> that = (HashTable<?, ?>) o;
         if (size != that.size) {
             return false;
         }
-
         for (Map.Entry<K, V> entry : this) {
             boolean found = false;
 
@@ -212,10 +253,14 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
                 return false;
             }
         }
-
         return true;
     }
 
+    /**
+     * Returns a string representation of the hash table.
+     *
+     * @return a string representing
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -234,36 +279,56 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
         return sb.toString();
     }
 
-    private void resize() {
-        LinkedList<Entry<K, V>>[] oldTable = table;
-        table = new LinkedList[oldTable.length * 2];
-        size = 0;
-        ++modCount;
+    /**
+     * Inner class for representing key-value pairs.
+     */
+    private static class Entry<K, V> implements Map.Entry<K, V> {
+        private final K key;
+        private V value;
 
-        for (LinkedList<Entry<K, V>> bucket : oldTable) {
-            if (bucket != null) {
-                for (Entry<K, V> entry : bucket) {
-                    put(entry.key, entry.value);
-                }
-            }
+        Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
         }
-    }
 
-    public int size() {
-        return size;
-    }
+        @Override
+        public K getKey() {
+            return key;
+        }
 
-    public void clear() {
-        Arrays.fill(table, null);
-        size = 0;
-        ++modCount;
-    }
+        @Override
+        public V getValue() {
+            return value;
+        }
 
-    public static void main(String[] args) {
-        HashTable<String, Number> hashTable = new HashTable<>();
+        @Override
+        public V setValue(V value) {
+            V oldValue = this.value;
+            this.value = value;
+            return oldValue;
+        }
 
-        hashTable.put("one", 1);
-        hashTable.update("one", 1.0);
-        System.out.println(hashTable.get("one"));
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            Entry<?, ?> entry = (Entry<?, ?>) o;
+            return Objects.equals(key, entry.key)
+                   && Objects.equals(value, entry.value);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(key, value);
+        }
+
+        @Override
+        public String toString() {
+            return key + "=" + value;
+        }
     }
 }

@@ -4,21 +4,80 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
-public class HashTableTest {
-
-    private HashTable<String, Integer> table;
+class HashTableTest {
+    private HashTable<String, Integer> hashTable;
 
     @BeforeEach
-    public void setUp() {
-        table = new HashTable<>();
+    void setUp() {
+        hashTable = new HashTable<>();
     }
 
     @Test
-    public void testToString() {
-        table.put("one", 1);
-        table.put("two", 2);
-        String expected = "{one=1, two=2}";
-        Assertions.assertEquals(expected, table.toString());
+    void testPutGet() {
+        hashTable.put("one", 1);
+        hashTable.put("two", 2);
+
+        Assertions.assertEquals(1, hashTable.get("one"));
+        Assertions.assertEquals(2, hashTable.get("two"));
+    }
+
+    @Test
+    void testRemove() {
+        hashTable.put("one", 1);
+        hashTable.put("two", 2);
+
+        Assertions.assertEquals(1, hashTable.remove("one"));
+        Assertions.assertNull(hashTable.get("one"));
+        Assertions.assertEquals(2, hashTable.get("two"));
+    }
+
+    @Test
+    void testUpdate() {
+        hashTable.put("one", 1);
+        hashTable.put("two", 2);
+        hashTable.update("one", 3);
+
+        Assertions.assertEquals(3, hashTable.get("one"));
+    }
+
+    @Test
+    void testContainsKey() {
+        hashTable.put("one", 1);
+
+        Assertions.assertTrue(hashTable.containsKey("one"));
+        Assertions.assertFalse(hashTable.containsKey("two"));
+    }
+
+    @Test
+    void testResize() {
+        for (int i = 0; i < 20; ++i) {
+            hashTable.put("key" + i, i);
+        }
+        for (int i = 0; i < 20; ++i) {
+            Assertions.assertEquals(i, hashTable.get("key" + i));
+        }
+    }
+
+    @Test
+    void testEquality() {
+        HashTable<String, Integer> anotherTable = new HashTable<>();
+        hashTable.put("one", 1);
+        anotherTable.put("one", 1);
+
+        Assertions.assertEquals(hashTable, anotherTable);
+
+        anotherTable.put("two", 2);
+
+        Assertions.assertNotEquals(hashTable, anotherTable);
+    }
+
+    @Test
+    void testToString() {
+        hashTable.put("one", 1);
+        hashTable.put("two", 2);
+        String result = hashTable.toString();
+
+        Assertions.assertTrue(result.contains("one=1"));
+        Assertions.assertTrue(result.contains("two=2"));
     }
 }
