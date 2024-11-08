@@ -262,6 +262,24 @@ public class HashTable<K, V> implements Iterable<Map.Entry<K, V>> {
     }
 
     /**
+     * Computes the hash code for this hash table based on the entries it contains.
+     *
+     * @return the computed hash code for this hash table
+     */
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        for (LinkedList<Entry<K, V>> bucket : table) {
+            if (bucket != null) {
+                for (Entry<K, V> entry : bucket) {
+                    hash += entry.hashCode();
+                }
+            }
+        }
+        return hash;
+    }
+
+    /**
      * Returns a string representation of the hash table.
      *
      * @return a string representing the hash table
