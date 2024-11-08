@@ -2,6 +2,7 @@ package ru.nsu.anisimov;
 
 import java.util.Iterator;
 import java.util.Map;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -134,5 +135,23 @@ class HashTableTest {
     void testNullValue() {
         hashTable.put("one", null);
         Assertions.assertNull(hashTable.get("one"));
+    }
+
+    @Test
+    void testHashCodeConsistency() {
+        hashTable.put("one", 1);
+        hashTable.put("two", 2);
+        int initialHash = hashTable.hashCode();
+
+        Assertions.assertEquals(initialHash, hashTable.hashCode());
+
+        hashTable.put("one", 1);
+
+        Assertions.assertEquals(initialHash, hashTable.hashCode());
+
+        hashTable.remove("one");
+        hashTable.put("one", 1);
+
+        Assertions.assertEquals(initialHash, hashTable.hashCode());
     }
 }
