@@ -8,7 +8,18 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.io.Reader;
 
+/**
+ * Class for searching substring.
+ */
 public class SubstringSearch {
+    /**
+     * The method reads the content by character, sliding through the text's length.
+     * All starting indices of matches saves in a list.
+     *
+     * @param resourceName the name of the resource
+     * @param subName      the substring
+     * @return a list of starting indices
+     */
     public static ArrayList<Long> resourceSearch(String resourceName, String subName) {
         ArrayList<Long> indexes = new ArrayList<>();
         int subLength = subName.length();
@@ -16,8 +27,10 @@ public class SubstringSearch {
         long globalIndex = 0;
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(SubstringSearch.class.getClassLoader().getResourceAsStream(resourceName)), StandardCharsets.UTF_8))) {
-
+                Objects.requireNonNull(
+                        SubstringSearch.class.getClassLoader().getResourceAsStream(resourceName)),
+                StandardCharsets.UTF_8))
+        ) {
             char[] buffer = new char[subLength];
             int readChars = reader.read(buffer);
 
@@ -35,7 +48,7 @@ public class SubstringSearch {
             while ((nextChar = reader.read()) != -1) {
                 current.deleteCharAt(0);
                 current.append((char) nextChar);
-                
+
                 if (current.toString().equals(subName)) {
                     indexes.add(globalIndex);
                 }
@@ -49,7 +62,17 @@ public class SubstringSearch {
         return indexes;
     }
 
-    public static ArrayList<Long> searchInReader(Reader reader, String subName) {
+    /**
+     * The method is the same as previous, but with only difference that it used to handle with large
+     * file that generates in the process.
+     *
+     * @param reader  providing the text content
+     * @param subName the substring
+     * @return a list of starting indices
+     * @throws IOException if an I/O error occurs while reading from the reader
+     */
+    public static ArrayList<Long> searchInReader(Reader reader, String subName)
+            throws IOException {
         ArrayList<Long> indexes = new ArrayList<>();
         int subLength = subName.length();
         StringBuilder current = new StringBuilder();
@@ -79,10 +102,6 @@ public class SubstringSearch {
                 }
                 ++globalIndex;
             }
-        } catch (IOException e) {
-            throw new RuntimeException("Fail to read the resource");
-        } catch (NullPointerException e) {
-            throw new RuntimeException("Resource not found");
         }
         return indexes;
     }
