@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.anisimov","l":"SubstringSearch"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.anisimov","l":"ResourceReadException"},{"p":"ru.nsu.anisimov","l":"SubstringSearch"}]
