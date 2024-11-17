@@ -1,13 +1,11 @@
 package ru.nsu.anisimov;
 
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -58,9 +56,17 @@ class SubstringSearchTest {
             result = SubstringSearch.searchInReader(fileReader, "aaaab");
         }
         try {
-            Assertions.assertEquals(List.of(8_999_995L), result);
+            Assertions.assertEquals(List.of(8_999_996L), result);
         } finally {
             Files.delete(tempFile);
         }
+    }
+
+    @Test
+    void testResourceSearch() {
+        String resourceName = "test.txt";
+        String subName = "ааааааааа";
+        ArrayList<Long> result = SubstringSearch.resourceSearch(resourceName, subName);
+        Assertions.assertEquals(result, List.of(0L, 1L, 2L, 3L, 4L, 5L, 6L, 7L, 8L, 9L));
     }
 }

@@ -71,8 +71,7 @@ public class SubstringSearch {
      * @return a list of starting indices
      * @throws IOException if an I/O error occurs while reading from the reader
      */
-    public static ArrayList<Long> searchInReader(Reader reader, String subName)
-            throws IOException {
+    public static ArrayList<Long> searchInReader(Reader reader, String subName) throws IOException {
         ArrayList<Long> indexes = new ArrayList<>();
         int subLength = subName.length();
         StringBuilder current = new StringBuilder();
@@ -94,13 +93,14 @@ public class SubstringSearch {
 
             int nextChar;
             while ((nextChar = bufferedReader.read()) != -1) {
+                ++globalIndex;
+
                 current.deleteCharAt(0);
                 current.append((char) nextChar);
 
                 if (current.toString().equals(subName)) {
                     indexes.add(globalIndex - subLength + 1);
                 }
-                ++globalIndex;
             }
         }
         return indexes;
