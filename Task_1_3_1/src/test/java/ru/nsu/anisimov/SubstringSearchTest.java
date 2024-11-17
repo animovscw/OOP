@@ -1,41 +1,43 @@
 package ru.nsu.anisimov;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class SubstringSearchTest {
     @Test
-    void testMultipleOccurrences() throws RuntimeException {
+    void testMultipleOccurrences() throws ResourceReadException {
         ArrayList<Long> result = SubstringSearch.resourceSearch("text.txt", "бра");
         Assertions.assertEquals(result, new ArrayList<>(List.of(1L, 8L)));
     }
 
     @Test
-    void testNoOccurrences() throws RuntimeException {
+    void testNoOccurrences() throws ResourceReadException {
         ArrayList<Long> result = SubstringSearch.resourceSearch("text.txt", "bra");
         Assertions.assertEquals(new ArrayList<>(), result);
     }
 
     @Test
-    void testEmptyFile() throws RuntimeException {
+    void testEmptyFile() throws ResourceReadException {
         ArrayList<Long> result = SubstringSearch.resourceSearch("textEmpty.txt", "abra");
         Assertions.assertEquals(new ArrayList<>(), result);
     }
 
     @Test
-    void testSubstringLongerThanFile() throws RuntimeException {
+    void testSubstringLongerThanFile() throws ResourceReadException {
         ArrayList<Long> result = SubstringSearch.resourceSearch("textShortFile.txt", "абракадабра");
         Assertions.assertEquals(new ArrayList<>(), result);
     }
 
     @Test
-    void testSingleCharacterSubstring() throws RuntimeException {
+    void testSingleCharacterSubstring() throws ResourceReadException {
         ArrayList<Long> result = SubstringSearch.resourceSearch("text.txt", "а");
         Assertions.assertEquals(result, new ArrayList<>(List.of(0L, 3L, 5L, 7L, 10L)));
     }
@@ -63,7 +65,7 @@ class SubstringSearchTest {
     }
 
     @Test
-    void testResourceSearch() {
+    void testResourceSearch() throws ResourceReadException {
         String resourceName = "test.txt";
         String subName = "ааааааааа";
         ArrayList<Long> result = SubstringSearch.resourceSearch(resourceName, subName);
