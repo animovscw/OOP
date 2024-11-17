@@ -28,8 +28,10 @@ public class SubstringSearch {
         long globalIndex = 0;
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                Objects.requireNonNull(SubstringSearch.class.getClassLoader().getResourceAsStream(resourceName)),
-                StandardCharsets.UTF_8))) {
+                Objects.requireNonNull(
+                        SubstringSearch.class.getClassLoader().getResourceAsStream(resourceName)),
+                StandardCharsets.UTF_8))
+        ) {
 
             char[] buffer = new char[subLength];
             int readChars = reader.read(buffer);
