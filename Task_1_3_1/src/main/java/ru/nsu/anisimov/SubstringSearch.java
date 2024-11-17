@@ -20,7 +20,8 @@ public class SubstringSearch {
      * @param subName      the substring
      * @return a list of starting indices
      */
-    public static ArrayList<Long> resourceSearch(String resourceName, String subName) throws ResourceReadException {
+    public static ArrayList<Long> resourceSearch(String resourceName, String subName)
+            throws ResourceReadException {
         ArrayList<Long> indexes = new ArrayList<>();
         int subLength = subName.length();
         StringBuilder current = new StringBuilder();
@@ -71,7 +72,8 @@ public class SubstringSearch {
      * @return a list of starting indices
      * @throws IOException if an I/O error occurs while reading from the reader
      */
-    public static ArrayList<Long> searchInReader(Reader reader, String subName) throws IOException {
+    public static ArrayList<Long> searchInReader(Reader reader, String subName)
+            throws IOException {
         ArrayList<Long> indexes = new ArrayList<>();
         int subLength = subName.length();
         StringBuilder current = new StringBuilder();
