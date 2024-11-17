@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.io.Reader;
+import java.util.Objects;
 
 /**
  * Class for searching substring.
@@ -63,8 +63,8 @@ public class SubstringSearch {
     }
 
     /**
-     * The method is the same as previous, but with only difference that it used to handle with large
-     * file that generates in the process.
+     * The method is the same as previous, but with only difference that it used to handle with
+     * large file that generates in the process.
      *
      * @param reader  providing the text content
      * @param subName the substring
