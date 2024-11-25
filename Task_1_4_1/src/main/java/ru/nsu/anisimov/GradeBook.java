@@ -73,12 +73,11 @@ public class GradeBook {
     private Map<String, Grade> getLastGradeForEachSubject() {
         return semesters.stream() // создает поток семестров
                 .flatMap(List::stream) // объединяет потоки всех семестров в единый поток записей
-                .collect(Collectors.toMap( // собирает элементы потока в Map
+                .collect(Collectors.toMap(// собирает элементы потока в Map
                         GradeRecord::getSubjectName, // КЛЮЧ - название предмета
                         GradeRecord::getGrade, // ЗНАЧЕНИЕ - оценка за предмет
-                        (existing, replacement) -> replacement// если несколько
-                        // записей, записывается последняя
-                ));
+                        (existing, replacement) -> replacement
+                )); // если несколько записей, записывается последняя
     }
 
     /**

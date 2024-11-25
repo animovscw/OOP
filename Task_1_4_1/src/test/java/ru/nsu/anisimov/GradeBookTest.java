@@ -41,7 +41,8 @@ class GradeBookTest {
 
         List<GradeRecord> sem2 = List.of(
                 new GradeRecord("Введение в операционные системы", Grade.GOOD, false),
-                new GradeRecord("Объектно ориентированное программирование", Grade.EXCELLENT, false),
+                new GradeRecord("Объектно ориентированное программирование",
+                        Grade.EXCELLENT, false),
                 new GradeRecord("Теория вероятности", Grade.EXCELLENT, false)
         );
         gradeBook.addSemesterGrades(sem2);
@@ -104,7 +105,8 @@ class GradeBookTest {
 
         List<GradeRecord> sem2 = List.of(
                 new GradeRecord("Введение в операционные системы", Grade.EXCELLENT, false),
-                new GradeRecord("Объектно ориентированное программирование", Grade.SATISFACTORY, false),
+                new GradeRecord("Объектно ориентированное программирование",
+                        Grade.SATISFACTORY, false),
                 new GradeRecord("Теория вероятности", Grade.EXCELLENT, false)
         );
         gradeBook.addSemesterGrades(sem2);

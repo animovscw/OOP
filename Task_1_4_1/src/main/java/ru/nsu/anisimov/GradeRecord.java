@@ -10,6 +10,7 @@ public class GradeRecord {
 
     /**
      * Constructs a GradeRecord.
+     *
      * @param subjectName the name of the subject
      * @param grade the grade for the subject
      * @param isDifferentiated subject is graded with a differentiated grade
