@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.anisimov","l":"GradeBook"},{"p":"ru.nsu.anisimov","l":"GradeRecord"},{"p":"ru.nsu.anisimov","l":"Main"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ru.nsu.anisimov","l":"Grade"},{"p":"ru.nsu.anisimov","l":"GradeBook"},{"p":"ru.nsu.anisimov","l":"GradeRecord"}]

@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
+var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -132,6 +132,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">GradeRecord</span>
 extends java.lang.Object</pre>
+<div class="block">Record of a student's grade in a subject for a semester.</div>
 </li>
 </ul>
 </div>
@@ -152,10 +153,12 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,int,boolean)">GradeRecord</a></span>&#8203;(java.lang.String&nbsp;subjectName,
-           int&nbsp;grade,
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.lang.String,ru.nsu.anisimov.Grade,boolean)">GradeRecord</a></span>&#8203;(java.lang.String&nbsp;subjectName,
+           <a href="Grade.html" title="enum in ru.nsu.anisimov">Grade</a>&nbsp;grade,
            boolean&nbsp;isDifferentiated)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructs a GradeRecord.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -176,14 +179,25 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>int</code></td>
+<td class="colFirst"><code><a href="Grade.html" title="enum in ru.nsu.anisimov">Grade</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getGrade()">getGrade</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Gets the grade for the subject.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getSubjectName()">getSubjectName</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Gets the name of the subject.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isDifferentiated()">isDifferentiated</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Checks if subject is graded with a differentiated grade.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -209,15 +223,22 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(java.lang.String,int,boolean)">
+<a id="&lt;init&gt;(java.lang.String,ru.nsu.anisimov.Grade,boolean)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>GradeRecord</h4>
 <pre>public&nbsp;GradeRecord&#8203;(java.lang.String&nbsp;subjectName,
-                   int&nbsp;grade,
+                   <a href="Grade.html" title="enum in ru.nsu.anisimov">Grade</a>&nbsp;grade,
                    boolean&nbsp;isDifferentiated)</pre>
+<div class="block">Constructs a GradeRecord.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>subjectName</code> - the name of the subject</dd>
+<dd><code>grade</code> - the grade for the subject</dd>
+<dd><code>isDifferentiated</code> - subject is graded with a differentiated grade</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -236,16 +257,40 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getGrade</h4>
-<pre class="methodSignature">public&nbsp;int&nbsp;getGrade()</pre>
+<pre class="methodSignature">public&nbsp;<a href="Grade.html" title="enum in ru.nsu.anisimov">Grade</a>&nbsp;getGrade()</pre>
+<div class="block">Gets the grade for the subject.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the grade</dd>
+</dl>
 </li>
 </ul>
 <a id="isDifferentiated()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>isDifferentiated</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;isDifferentiated()</pre>
+<div class="block">Checks if subject is graded with a differentiated grade.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if is differentiated, false otherwise</dd>
+</dl>
+</li>
+</ul>
+<a id="getSubjectName()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getSubjectName</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getSubjectName()</pre>
+<div class="block">Gets the name of the subject.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the name</dd>
+</dl>
 </li>
 </ul>
 </li>

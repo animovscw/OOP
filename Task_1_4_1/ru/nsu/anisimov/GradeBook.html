@@ -132,6 +132,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">GradeBook</span>
 extends java.lang.Object</pre>
+<div class="block">A grade book for a student, contains whatever he might want.</div>
 </li>
 </ul>
 </div>
@@ -153,7 +154,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(boolean)">GradeBook</a></span>&#8203;(boolean&nbsp;isOnBudget)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Constructs a GradeBook with the budget status.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -176,32 +179,44 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addSemesterGrades(java.util.List)">addSemesterGrades</a></span>&#8203;(java.util.List&lt;<a href="GradeRecord.html" title="class in ru.nsu.anisimov">GradeRecord</a>&gt;&nbsp;semesterGrades)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Adds grades for a specific semester to the grade book.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>double</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#calculateAverage()">calculateAverage</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Calculates the average grade from the last recorded grade for each subject.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canBeReplacedToBudget()">canBeReplacedToBudget</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canBeTransferredToBudget()">canBeTransferredToBudget</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Determines if the student can transfer to budget.</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canGetIncreasedScholarship()">canGetIncreasedScholarship</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Determines if the student can receive an increased scholarship.</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#canGetRedDiploma()">canGetRedDiploma</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Determines if the student is eligible for a red diploma in the future.</div>
+</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setQualificationGrade(int)">setQualificationGrade</a></span>&#8203;(int&nbsp;grade)</code></th>
-<td class="colLast">&nbsp;</td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setQualificationGrade(ru.nsu.anisimov.Grade)">setQualificationGrade</a></span>&#8203;(<a href="Grade.html" title="enum in ru.nsu.anisimov">Grade</a>&nbsp;grade)</code></th>
+<td class="colLast">
+<div class="block">Sets the qualification grade for the student.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -234,6 +249,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>GradeBook</h4>
 <pre>public&nbsp;GradeBook&#8203;(boolean&nbsp;isOnBudget)</pre>
+<div class="block">Constructs a GradeBook with the budget status.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>isOnBudget</code> - whether the student is studying on a budget</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -253,15 +273,25 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>addSemesterGrades</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;addSemesterGrades&#8203;(java.util.List&lt;<a href="GradeRecord.html" title="class in ru.nsu.anisimov">GradeRecord</a>&gt;&nbsp;semesterGrades)</pre>
+<div class="block">Adds grades for a specific semester to the grade book.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>semesterGrades</code> - the list of grades for the semester</dd>
+</dl>
 </li>
 </ul>
-<a id="setQualificationGrade(int)">
+<a id="setQualificationGrade(ru.nsu.anisimov.Grade)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>setQualificationGrade</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;setQualificationGrade&#8203;(int&nbsp;grade)</pre>
+<pre class="methodSignature">public&nbsp;void&nbsp;setQualificationGrade&#8203;(<a href="Grade.html" title="enum in ru.nsu.anisimov">Grade</a>&nbsp;grade)</pre>
+<div class="block">Sets the qualification grade for the student.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>grade</code> - the qualification grade</dd>
+</dl>
 </li>
 </ul>
 <a id="calculateAverage()">
@@ -271,15 +301,25 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>calculateAverage</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;calculateAverage()</pre>
+<div class="block">Calculates the average grade from the last recorded grade for each subject.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the average grade, or 0</dd>
+</dl>
 </li>
 </ul>
-<a id="canBeReplacedToBudget()">
+<a id="canBeTransferredToBudget()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>canBeReplacedToBudget</h4>
-<pre class="methodSignature">public&nbsp;boolean&nbsp;canBeReplacedToBudget()</pre>
+<h4>canBeTransferredToBudget</h4>
+<pre class="methodSignature">public&nbsp;boolean&nbsp;canBeTransferredToBudget()</pre>
+<div class="block">Determines if the student can transfer to budget.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if possible, false otherwise</dd>
+</dl>
 </li>
 </ul>
 <a id="canGetRedDiploma()">
@@ -289,6 +329,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>canGetRedDiploma</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;canGetRedDiploma()</pre>
+<div class="block">Determines if the student is eligible for a red diploma in the future.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if possible, false otherwise</dd>
+</dl>
 </li>
 </ul>
 <a id="canGetIncreasedScholarship()">
@@ -298,6 +343,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>canGetIncreasedScholarship</h4>
 <pre class="methodSignature">public&nbsp;boolean&nbsp;canGetIncreasedScholarship()</pre>
+<div class="block">Determines if the student can receive an increased scholarship.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if required all types, false otherwise</dd>
+</dl>
 </li>
 </ul>
 </li>
