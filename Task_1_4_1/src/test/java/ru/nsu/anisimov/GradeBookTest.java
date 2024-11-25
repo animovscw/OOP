@@ -143,7 +143,7 @@ class GradeBookTest {
         Assertions.assertTrue(gradeBook.canGetIncreasedScholarship());
     }
 
-    @Testx
+    @Test
     void testCanGetRedDiplomaFuture() {
         GradeBook gradeBook = new GradeBook(true);
 
