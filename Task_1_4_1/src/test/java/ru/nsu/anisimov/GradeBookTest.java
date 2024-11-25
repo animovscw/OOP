@@ -1,7 +1,6 @@
 package ru.nsu.anisimov;
 
 import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -144,7 +143,7 @@ class GradeBookTest {
         Assertions.assertTrue(gradeBook.canGetIncreasedScholarship());
     }
 
-    @Test
+    @Testx
     void testCanGetRedDiplomaFuture() {
         GradeBook gradeBook = new GradeBook(true);
 
