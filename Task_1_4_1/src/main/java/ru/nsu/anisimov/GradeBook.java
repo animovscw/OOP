@@ -109,21 +109,27 @@ public class GradeBook {
             return false;
         }
 
-        Map<String, Grade> latestGrades = getLastGradeForEachSubject();
+        Map<String, Grade> latest = getLastGradeForEachSubject();
 
-        long totalSubjects = latestGrades.size();
-        long excellentMarks = latestGrades.values().stream()
-                .filter(grade -> grade == Grade.EXCELLENT)
-                .count();
+        long totalSubjects = latest.size();
 
-        boolean hasSatisfactoryGrade = latestGrades.values().stream()
+        boolean hasSatisfactoryGrade = latest.values().stream()
                 .anyMatch(grade -> grade == Grade.SATISFACTORY);
-
         if (hasSatisfactoryGrade) {
             return false;
         }
 
-        return (double) (excellentMarks + (totalSubjects - excellentMarks)) / totalSubjects >= 0.75;
+        long excellentMarks = latest.values().stream()
+                .filter(grade -> grade == Grade.EXCELLENT)
+                .count();
+
+        int totalMarks = latest.values().stream()
+                .mapToInt(Grade::getValue)
+                .sum();
+
+        double averageGrade = (double) totalMarks / totalSubjects;
+
+        return (double) excellentMarks / totalSubjects >= 0.75 && averageGrade >= 4.5;
     }
 
     /**
