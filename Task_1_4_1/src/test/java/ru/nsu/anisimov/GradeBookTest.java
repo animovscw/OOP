@@ -153,6 +153,12 @@ class GradeBookTest {
                 new GradeRecord("Разработка ПАК", Grade.GOOD, true)
         );
         gradeBook.addSemesterGrades(sem1);
+
+        List<GradeRecord> sem2 = List.of(
+                new GradeRecord("Введение в ОС", Grade.EXCELLENT, true),
+                new GradeRecord("Prolog", Grade.EXCELLENT, true)
+        );
+        gradeBook.addSemesterGrades(sem2);
         gradeBook.setQualificationGrade(Grade.EXCELLENT);
 
         Assertions.assertTrue(gradeBook.canGetRedDiploma());
