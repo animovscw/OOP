@@ -1,10 +1,9 @@
 package ru.nsu.anisimov;
 
 import java.util.List;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.Assertions;
 
 class GradeBookTest {
     @Test
@@ -20,7 +19,8 @@ class GradeBookTest {
 
         List<GradeRecord> sem2 = List.of(
                 new GradeRecord("Введение в операционные системы", Grade.GOOD, false),
-                new GradeRecord("Объектно ориентированное программирование", Grade.EXCELLENT, false),
+                new GradeRecord("Объектно ориентированное программирование",
+                        Grade.EXCELLENT, false),
                 new GradeRecord("Теория вероятности", Grade.EXCELLENT, false)
         );
         gradeBook.addSemesterGrades(sem2);
