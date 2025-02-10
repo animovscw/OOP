@@ -1,6 +1,6 @@
 package ru.nsu.anisimov;
 
-public class PrimeNumberCheck {
+public class SequentialPrimeNumberCheck {
 
     public static boolean isPrime(int number) {
         if (number <= 1) {
