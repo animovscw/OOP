@@ -2,6 +2,7 @@ package ru.nsu.anisimov;
 
 public class SequentialPrimeNumberCheck {
 
+    //O(sqrt(n))
     public static boolean isPrime(int number) {
         if (number <= 1) {
             return false;
