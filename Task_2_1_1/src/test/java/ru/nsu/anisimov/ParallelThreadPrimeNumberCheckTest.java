@@ -11,8 +11,7 @@ class ParallelThreadPrimeNumberCheckTest {
         int[] arr3 = {49, 6, 8, 7, 13, 5, 9, 4};
         Assertions.assertTrue(ParallelThreadPrimeNumberCheck.NonPrimeParallelThread(arr1, 5));
         Assertions.assertTrue(ParallelThreadPrimeNumberCheck.NonPrimeParallelThread(arr2, 4));
-        Assertions.assertTrue(ParallelThreadPrimeNumberCheck.NonPrimeParallelThread(arr3, 4));
-
+        Assertions.assertTrue(ParallelThreadPrimeNumberCheck.NonPrimeParallelThread(arr3, 6));
     }
 
     @Test
