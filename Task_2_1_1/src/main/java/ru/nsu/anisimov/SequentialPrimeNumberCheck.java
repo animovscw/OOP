@@ -1,6 +1,8 @@
 package ru.nsu.anisimov;
 
-public class SequentialPrimeNumberCheck {
+import java.util.Arrays;
+
+public class SequentialPrimeNumberCheck implements PrimeNumberCheck {
 
     //O(sqrt(n))
     public static boolean isPrime(int number) {
@@ -21,12 +23,8 @@ public class SequentialPrimeNumberCheck {
         return true;
     }
 
-    public static boolean NonPrimeSequential(int[] array) {
-        for (int num : array) {
-            if (!isPrime(num)) {
-                return true;
-            }
-        }
-        return false;
+    @Override
+    public boolean hasNonPrime(int[] numbers) {
+        return Arrays.stream(numbers).anyMatch(num -> !isPrime(num));
     }
 }

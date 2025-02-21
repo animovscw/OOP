@@ -1,10 +1,10 @@
 package ru.nsu.anisimov;
 
-public class ParallelThreadPrimeNumberCheck {
-    private static class ThreadPrimeNumberCheck extends Thread {
+public class ParallelThreadPrimeNumberCheck implements PrimeNumberCheck {
+    private static class ThreadPrimeNumberCheck implements Runnable {
         private final int[] array;
         private final int start, end;
-        public boolean NonPrime = false;
+        public boolean hasNonPrime = false;
 
         public ThreadPrimeNumberCheck(int[] array, int start, int end) {
             this.array = array;
@@ -16,36 +16,42 @@ public class ParallelThreadPrimeNumberCheck {
         public void run() {
             for (int i = start; i < end; ++i) {
                 if (!SequentialPrimeNumberCheck.isPrime(array[i])) {
-                    NonPrime = true;
+                    hasNonPrime = true;
                     break;
                 }
             }
         }
 
         public boolean hasNonPrime() {
-            return NonPrime;
+            return hasNonPrime;
         }
     }
 
-    public static boolean NonPrimeParallelThread(int[] array, int threadCount) throws InterruptedException {
+    @Override
+    public boolean hasNonPrime(int[] array) throws InterruptedException {
+        int threadCount = Runtime.getRuntime().availableProcessors();
         int length = array.length;
-        ThreadPrimeNumberCheck[] threads = new ThreadPrimeNumberCheck[threadCount];
+        ThreadPrimeNumberCheck[] tasks = new ThreadPrimeNumberCheck[threadCount];
+        Thread[] threads = new Thread[threadCount];
         int chunkSize = (int) Math.ceil((double) length / threadCount); // round up
 
         for (int i = 0; i < threadCount; ++i) {
             int start = i * chunkSize;
             int end = Math.min(length, start + chunkSize);
-            threads[i] = new ThreadPrimeNumberCheck(array, start, end);
+            tasks[i] = new ThreadPrimeNumberCheck(array, start, end);
+            threads[i] = new Thread(tasks[i]);
             threads[i].start();
         }
 
-        for (ThreadPrimeNumberCheck thread : threads) {
-            thread.join();
-            if (thread.hasNonPrime()) {
-                return true;
+        boolean prime = false;
+
+        for (int i = 0; i < threadCount; ++i) {
+            threads[i].join();
+            if (tasks[i].hasNonPrime()) {
+                prime = true;
             }
         }
-        return false;
+        return prime;
     }
 
 
