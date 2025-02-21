@@ -20,7 +20,6 @@ public class PrimeNumberCheckTest {
         int[] arr3 = {49, 6, 8, 7, 13, 5, 9, 4};
 
         long startTime = System.nanoTime();
-
         Assertions.assertTrue(checker.hasNonPrime(arr1));
         Assertions.assertTrue(checker.hasNonPrime(arr2));
         Assertions.assertTrue(checker.hasNonPrime(arr3));
