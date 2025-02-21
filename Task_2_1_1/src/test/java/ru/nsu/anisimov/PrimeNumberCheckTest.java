@@ -19,9 +19,14 @@ public class PrimeNumberCheckTest {
         int[] arr2 = {1, 6, 8, 7, 13, 5, 9, 4};
         int[] arr3 = {49, 6, 8, 7, 13, 5, 9, 4};
 
+        long startTime = System.nanoTime();
+
         Assertions.assertTrue(checker.hasNonPrime(arr1));
         Assertions.assertTrue(checker.hasNonPrime(arr2));
         Assertions.assertTrue(checker.hasNonPrime(arr3));
+        long endTime = System.nanoTime();
+        System.out.println("Execution time (NonPrime test, "
+                + checker.getClass().getSimpleName() + "): " + (endTime - startTime) + " ns");
     }
 
     @ParameterizedTest
@@ -35,9 +40,12 @@ public class PrimeNumberCheckTest {
             2, 20319251, 6997901, 6997927, 6997937, 17858849,
             6997967, 6998009, 6998029, 6998039, 20165149, 6998051, 6998053
         };
-
+        long startTime = System.nanoTime();
         Assertions.assertFalse(checker.hasNonPrime(arr1));
         Assertions.assertFalse(checker.hasNonPrime(arr2));
+        long endTime = System.nanoTime();
+        System.out.println("Execution time (Prime test, "
+                + checker.getClass().getSimpleName() + "): " + (endTime - startTime) + " ns");
     }
 
     static class PrimeNumberCheckProvider implements ArgumentsProvider {
