@@ -6,7 +6,8 @@ package ru.nsu.anisimov;
 public class ParallelThreadPrimeNumberCheck implements PrimeNumberCheck {
     private static class ThreadPrimeNumberCheck implements Runnable {
         private final int[] array;
-        private final int start, end;
+        private final int start;
+        private final int end;
         public boolean hasNonPrime = false;
 
         public ThreadPrimeNumberCheck(int[] array, int start, int end) {

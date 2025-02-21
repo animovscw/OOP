@@ -10,7 +10,8 @@ public class SequentialPrimeNumberCheck implements PrimeNumberCheck {
     //O(sqrt(n))
 
     /**
-     * Check if the number is prime
+     * Check if the number is prime.
+     *
      * @param number number
      * @return true if prime, false otherwise
      */
