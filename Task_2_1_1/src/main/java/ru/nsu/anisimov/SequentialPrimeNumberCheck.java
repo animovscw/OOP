@@ -2,9 +2,18 @@ package ru.nsu.anisimov;
 
 import java.util.Arrays;
 
+/**
+ * Check for prime numbers in sequential.
+ */
 public class SequentialPrimeNumberCheck implements PrimeNumberCheck {
 
     //O(sqrt(n))
+
+    /**
+     * Check if the number is prime
+     * @param number number
+     * @return true if prime, false otherwise
+     */
     public static boolean isPrime(int number) {
         if (number <= 1) {
             return false;

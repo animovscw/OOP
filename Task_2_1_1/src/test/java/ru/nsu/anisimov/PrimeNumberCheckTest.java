@@ -1,5 +1,6 @@
 package ru.nsu.anisimov;
 
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -7,8 +8,9 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsProvider;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 
-import java.util.stream.Stream;
-
+/**
+ * General test to check different realizations.
+ */
 public class PrimeNumberCheckTest {
     @ParameterizedTest
     @ArgumentsSource(PrimeNumberCheckProvider.class)
@@ -25,8 +27,14 @@ public class PrimeNumberCheckTest {
     @ParameterizedTest
     @ArgumentsSource(PrimeNumberCheckProvider.class)
     void testPrimeNumbers(PrimeNumberCheck checker) throws InterruptedException {
-        int[] arr1 = {20319251, 6997901, 6997927, 6997937, 17858849, 6997967, 6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
-        int[] arr2 = {2, 20319251, 6997901, 6997927, 6997937, 17858849, 6997967, 6998009, 6998029, 6998039, 20165149, 6998051, 6998053};
+        int[] arr1 = {
+                20319251, 6997901, 6997927, 6997937, 17858849,
+                6997967, 6998009, 6998029, 6998039, 20165149, 6998051, 6998053
+        };
+        int[] arr2 = {
+                2, 20319251, 6997901, 6997927, 6997937, 17858849,
+                6997967, 6998009, 6998029, 6998039, 20165149, 6998051, 6998053
+        };
 
         Assertions.assertFalse(checker.hasNonPrime(arr1));
         Assertions.assertFalse(checker.hasNonPrime(arr2));

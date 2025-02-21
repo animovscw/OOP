@@ -1,5 +1,8 @@
 package ru.nsu.anisimov;
 
+/**
+ * Check for prime numbers in parallel using threads.
+ */
 public class ParallelThreadPrimeNumberCheck implements PrimeNumberCheck {
     private static class ThreadPrimeNumberCheck implements Runnable {
         private final int[] array;
