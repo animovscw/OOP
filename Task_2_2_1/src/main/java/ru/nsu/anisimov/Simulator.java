@@ -13,7 +13,7 @@ public class Simulator {
             Thread.sleep(300);
         }
 
-        Thread.sleep(9000);
+        Thread.sleep(900);
         pizzeria.shutdown();
         System.out.println();
         System.out.println("Рабочий день закончился, иди готовь рис.");
