@@ -1,7 +1,5 @@
 package ru.nsu.anisimov;
 
-import java.util.List;
-
 public class Courier implements Runnable {
     private final int id;
     private final int capacity;

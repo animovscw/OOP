@@ -1,14 +1,7 @@
 package ru.nsu.anisimov;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import javax.naming.InsufficientResourcesException;
-import java.io.File;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
-import java.util.concurrent.*;
 
 public class Pizzeria {
     private final Queue<Order> orderQueue = new LinkedList<>();
@@ -40,6 +33,9 @@ public class Pizzeria {
 
     public synchronized Order takeOrder() throws InterruptedException {
         while (orderQueue.isEmpty()) {
+            if (Thread.interrupted()) {
+                throw new InterruptedException();
+            }
             wait();
         }
         return orderQueue.poll();
@@ -47,6 +43,9 @@ public class Pizzeria {
 
     public synchronized void storePizza(Order order) throws InterruptedException {
         while (getStorageSize() >= storageCapacity) {
+            if (Thread.interrupted()) {
+                throw new InterruptedException();
+            }
             wait();
         }
         storage.add(order);
@@ -56,6 +55,9 @@ public class Pizzeria {
 
     public synchronized void deliverPizza(int courierId, int capacity) throws InterruptedException {
         while (storage.isEmpty()) {
+            if (Thread.interrupted()) {
+                throw new InterruptedException();
+            }
             wait();
         }
         int count = Math.min(capacity, storage.size());
@@ -65,6 +67,7 @@ public class Pizzeria {
         }
         notifyAll();
     }
+
 
     public synchronized int getStorageSize() {
         return storage.size();
