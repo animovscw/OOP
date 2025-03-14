@@ -1,8 +1,7 @@
 package ru.nsu.anisimov;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Assertions;
 
 class PizzeriaTest {
 
@@ -17,15 +16,15 @@ class PizzeriaTest {
 
         Thread.sleep(5000);
 
-        assertTrue(pizzeria.getStorage().getStorageSize() > 0);
+        Assertions.assertTrue(pizzeria.getStorage().getStorageSize() > 0);
 
         pizzeria.shutdown();
         for (Thread baker : pizzeria.getBakers()) {
             baker.join();
-            assertFalse(baker.isAlive());
+            Assertions.assertFalse(baker.isAlive());
         }
         for (Thread courier : pizzeria.getCouriers()) {
-            assertFalse(courier.isAlive());
+            Assertions.assertFalse(courier.isAlive());
         }
     }
 }
