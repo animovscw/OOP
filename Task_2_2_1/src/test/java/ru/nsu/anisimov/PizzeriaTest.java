@@ -1,8 +1,8 @@
 package ru.nsu.anisimov;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import java.io.IOException;
+import org.junit.jupiter.api.Test;
 
 class PizzeriaTest {
     @Test
