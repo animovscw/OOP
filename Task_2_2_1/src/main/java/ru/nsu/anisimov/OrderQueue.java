@@ -1,13 +1,10 @@
 package ru.nsu.anisimov;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-
 /**
  * Represents order queue.
  */
 public class OrderQueue {
-    private final BlockingQueue<Order> orders = new LinkedBlockingQueue<>();
+    private final BlockingQueue<Order> orders = new BlockingQueue<>(100);
 
     /**
      * Adding order to the list.
@@ -15,8 +12,12 @@ public class OrderQueue {
      * @param order order
      */
     public void addOrder(Order order) {
-        orders.add(order);
-        System.out.println("[Принят] " + order);
+        try {
+            orders.put(order);
+            System.out.println("[Принят] " + order);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**

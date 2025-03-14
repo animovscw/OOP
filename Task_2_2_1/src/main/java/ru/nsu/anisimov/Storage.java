@@ -1,8 +1,5 @@
 package ru.nsu.anisimov;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-
 /**
  * Represents storage of pizzeria.
  */
@@ -15,7 +12,7 @@ public class Storage {
      * @param capacity storage capacity
      */
     public Storage(int capacity) {
-        this.storage = new LinkedBlockingQueue<>(capacity);
+        this.storage = new BlockingQueue<>(capacity);
     }
 
     /**
