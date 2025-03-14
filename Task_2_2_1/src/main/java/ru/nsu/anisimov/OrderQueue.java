@@ -11,7 +11,11 @@ public class OrderQueue {
         System.out.println("[Принят] " + order);
     }
 
-    public Order takeOrder() throws InterruptedException{
+    public Order takeOrder() throws InterruptedException {
         return orders.take();
+    }
+
+    public int getQueueSize() {
+        return orders.size();
     }
 }

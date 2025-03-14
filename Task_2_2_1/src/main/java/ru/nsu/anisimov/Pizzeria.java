@@ -1,8 +1,5 @@
 package ru.nsu.anisimov;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class Pizzeria {
     private final OrderQueue orderQueue;
     private final Storage storage;
@@ -16,7 +13,7 @@ public class Pizzeria {
         this.couriers = new Thread[courierCount];
 
         for (int i = 0; i < bakerCount; ++i) {
-            bakers[i] = new Thread(new Baker(i + 1, bakerSpeed[i],orderQueue,storage));
+            bakers[i] = new Thread(new Baker(i + 1, bakerSpeed[i], orderQueue, storage));
             bakers[i].start();
         }
 
@@ -38,5 +35,17 @@ public class Pizzeria {
             courier.interrupt();
         }
         System.out.println("Пиццерия закрывается...");
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
+    public Thread[] getBakers() {
+        return bakers;
+    }
+
+    public Thread[] getCouriers() {
+        return couriers;
     }
 }

@@ -8,10 +8,6 @@ public class Order {
 
     }
 
-    public int getId() {
-        return id;
-    }
-
     @Override
     public String toString() {
         return "Заказ " + id;
