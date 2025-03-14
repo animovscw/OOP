@@ -30,7 +30,7 @@ public class Storage {
     }
 
     /**
-     * Picks the order
+     * Picks the order.
      *
      * @return taken order
      * @throws InterruptedException exception

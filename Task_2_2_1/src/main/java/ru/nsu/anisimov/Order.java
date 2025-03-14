@@ -8,6 +8,7 @@ public class Order {
 
     /**
      * Creates a new order.
+     *
      * @param id identification
      */
     public Order(int id) {
