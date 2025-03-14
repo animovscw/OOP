@@ -76,6 +76,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">Storage</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Represents storage of pizzeria.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -88,7 +89,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">Storage</a><wbr>(int&nbsp;capacity)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates storage.</div>
+</div>
 </div>
 </section>
 </li>
@@ -105,13 +108,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#getStorageSize()" class="member-name-link">getStorageSize</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Gets the size of the storage.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#storeOrder(ru.nsu.anisimov.Order)" class="member-name-link">storeOrder</a><wbr>(<a href="Order.html" title="class in ru.nsu.anisimov">Order</a>&nbsp;order)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Stores the order in storage.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="Order.html" title="class in ru.nsu.anisimov">Order</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#takeOrder()" class="member-name-link">takeOrder</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Picks the order</div>
+</div>
 </div>
 </div>
 </div>
@@ -133,6 +142,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(int)">
 <h3>Storage</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">Storage</span><wbr><span class="parameters">(int&nbsp;capacity)</span></div>
+<div class="block">Creates storage.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>capacity</code> - storage capacity</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -148,9 +162,12 @@ loadScripts(document, 'script');</script>
 <h3>storeOrder</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">storeOrder</span><wbr><span class="parameters">(<a href="Order.html" title="class in ru.nsu.anisimov">Order</a>&nbsp;order)</span>
                 throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></span></div>
+<div class="block">Stores the order in storage.</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>order</code> - order</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - exception</dd>
 </dl>
 </section>
 </li>
@@ -159,9 +176,12 @@ loadScripts(document, 'script');</script>
 <h3>takeOrder</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="Order.html" title="class in ru.nsu.anisimov">Order</a></span>&nbsp;<span class="element-name">takeOrder</span>()
                 throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></span></div>
+<div class="block">Picks the order</div>
 <dl class="notes">
+<dt>Returns:</dt>
+<dd>taken order</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - exception</dd>
 </dl>
 </section>
 </li>
@@ -169,6 +189,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="getStorageSize()">
 <h3>getStorageSize</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">getStorageSize</span>()</div>
+<div class="block">Gets the size of the storage.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>size</dd>
+</dl>
 </section>
 </li>
 </ul>
