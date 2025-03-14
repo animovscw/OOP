@@ -2,11 +2,12 @@ package ru.nsu.anisimov;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import java.io.IOException;
 
 class PizzeriaTest {
     @Test
-    void testOrderQueueHandling() throws InterruptedException {
-        Pizzeria pizzeria = new Pizzeria(1, new int[]{2}, 1, new int[]{1}, 2); // Склад вмещает 2 заказа
+    void testOrderQueueHandling() throws InterruptedException, IOException {
+        Pizzeria pizzeria = new Pizzeria("config.json");
         Order order1 = new Order(1);
         Order order2 = new Order(2);
         Order order3 = new Order(3);
@@ -23,8 +24,8 @@ class PizzeriaTest {
     }
 
     @Test
-    void testStorageOverflowAndRelease() throws InterruptedException {
-        Pizzeria pizzeria = new Pizzeria(1, new int[]{2}, 1, new int[]{2}, 2); // Курьер забирает 2 заказа за раз
+    void testStorageOverflowAndRelease() throws InterruptedException, IOException {
+        Pizzeria pizzeria = new Pizzeria("config.json");
         Order order1 = new Order(1);
         Order order2 = new Order(2);
         Order order3 = new Order(3);
@@ -35,14 +36,14 @@ class PizzeriaTest {
 
         Thread.sleep(5000);
 
-        Assertions.assertEquals(1, pizzeria.getStorage().getStorageSize());
+        Assertions.assertEquals(2, pizzeria.getStorage().getStorageSize());
 
         pizzeria.shutdown();
     }
 
     @Test
-    void testShutdownStopsAllThreads() throws InterruptedException {
-        Pizzeria pizzeria = new Pizzeria(2, new int[]{1, 1}, 2, new int[]{1, 1}, 3);
+    void testShutdownStopsAllThreads() throws InterruptedException, IOException {
+        Pizzeria pizzeria = new Pizzeria("config.json");
         Order order1 = new Order(1);
         Order order2 = new Order(2);
 
