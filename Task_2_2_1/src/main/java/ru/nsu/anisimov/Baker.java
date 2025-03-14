@@ -1,32 +1,30 @@
 package ru.nsu.anisimov;
 
-import java.util.Queue;
-
 class Baker implements Runnable {
     private final int id;
     private final int speed;
-    private final Pizzeria pizzeria;
+    private final OrderQueue orderQueue;
+    private final Storage storage;
 
-    public Baker(int id, int speed, Pizzeria pizzeria) {
+    public Baker(int id, int speed, OrderQueue orderQueue, Storage storage) {
         this.id = id;
         this.speed = speed;
-        this.pizzeria = pizzeria;
+        this.orderQueue = orderQueue;
+        this.storage = storage;
     }
 
     @Override
     public void run() {
         try {
             while (!Thread.currentThread().isInterrupted()) {
-                Order order = pizzeria.takeOrder();
-                if (order == null) {
-                    break;
-                }
-                System.out.println("[Заказ " + order.getId() + "] Готовится пекарем " + id);
+                Order order = orderQueue.takeOrder();
+                System.out.println("[Пекарь #" + id + "] Готовит " + order);
                 Thread.sleep(speed * 1000L);
-                pizzeria.storePizza(order);
+                storage.storeOrder(order);
             }
 
         } catch (InterruptedException e) {
+            System.out.println("[Пекарь #" + id + "] Завершает работу");
             Thread.currentThread().interrupt();
         }
     }
