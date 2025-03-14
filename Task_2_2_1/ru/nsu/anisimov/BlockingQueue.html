@@ -89,7 +89,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Constructor</div>
 <div class="table-header col-last">Description</div>
 <div class="col-constructor-name even-row-color"><code><a href="#%3Cinit%3E(int)" class="member-name-link">BlockingQueue</a><wbr>(int&nbsp;capacity)</code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Creates blocking queue.</div>
+</div>
 </div>
 </section>
 </li>
@@ -106,13 +108,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#put(T)" class="member-name-link">put</a><wbr>(<a href="BlockingQueue.html" title="type parameter in BlockingQueue">T</a>&nbsp;item)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Inserts an element into the queue.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>int</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#size()" class="member-name-link">size</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Returns the size of the queue.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="BlockingQueue.html" title="type parameter in BlockingQueue">T</a></code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#take()" class="member-name-link">take</a>()</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">
+<div class="block">Removes and returns the first element from the queue.</div>
+</div>
 </div>
 </div>
 </div>
@@ -134,6 +142,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="&lt;init&gt;(int)">
 <h3>BlockingQueue</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="element-name">BlockingQueue</span><wbr><span class="parameters">(int&nbsp;capacity)</span></div>
+<div class="block">Creates blocking queue.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>capacity</code> - capacity</dd>
+</dl>
 </section>
 </li>
 </ul>
@@ -149,9 +162,12 @@ loadScripts(document, 'script');</script>
 <h3 id="put(java.lang.Object)">put</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">put</span><wbr><span class="parameters">(<a href="BlockingQueue.html" title="type parameter in BlockingQueue">T</a>&nbsp;item)</span>
          throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></span></div>
+<div class="block">Inserts an element into the queue.</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>item</code> - the element</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - exception</dd>
 </dl>
 </section>
 </li>
@@ -160,9 +176,12 @@ loadScripts(document, 'script');</script>
 <h3>take</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="BlockingQueue.html" title="type parameter in BlockingQueue">T</a></span>&nbsp;<span class="element-name">take</span>()
        throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></span></div>
+<div class="block">Removes and returns the first element from the queue.</div>
 <dl class="notes">
+<dt>Returns:</dt>
+<dd>element</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - exception</dd>
 </dl>
 </section>
 </li>
@@ -170,6 +189,11 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="size()">
 <h3>size</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">size</span>()</div>
+<div class="block">Returns the size of the queue.</div>
+<dl class="notes">
+<dt>Returns:</dt>
+<dd>queue size</dd>
+</dl>
 </section>
 </li>
 </ul>
