@@ -1,0 +1,12 @@
+{
+  "bakers": 2,
+  "bakerSpeeds": [
+    2,
+    3
+  ],
+  "couriers": 1,
+  "courierCapacities": [
+    2
+  ],
+  "storageSize": 5
+}
