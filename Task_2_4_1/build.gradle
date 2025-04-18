@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'application'
+}
+
+group = 'ru.nsu.anisimov'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:3.0.21'
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/main/groovy', 'src/main/java']
+        }
+        java {
+            srcDirs()
+        }
+    }
+}
+
+application {
+    mainClass = 'ru.nsu.anisimov.Main'
+}
+
+tasks.withType(Jar) {
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+}
