@@ -76,11 +76,8 @@ jacocoTestReport {
 
 javadoc {
     destinationDir = file("$buildDir/docs/javadoc")
-    source = sourceSets.main.allSource
+    source = sourceSets.main.java
     classpath = sourceSets.main.compileClasspath
-    options {
-        windowTitle = 'OOP Checker API'
-    }
 }
 
 tasks.build {
