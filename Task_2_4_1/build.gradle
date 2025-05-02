@@ -12,11 +12,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.jsoup:jsoup:1.17.2'
     implementation 'org.codehaus.groovy:groovy-all:3.0.21'
-
-    // Для тестов - достаточно spock-core (тянет за собой groovy)
+    implementation 'org.jsoup:jsoup:1.17.2'
     testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
+}
+
+application {
+    mainClass = 'ru.nsu.anisimov.Main'
 }
 
 sourceSets {
@@ -35,12 +37,40 @@ sourceSets {
     }
 }
 
-application {
-    mainClass = 'ru.nsu.anisimov.Main'
-}
-
 tasks.withType(GroovyCompile).configureEach {
     groovyOptions.optimizationOptions.indy = true
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        xml.required = true
+        xml.outputLocation = file("$buildDir/reports/jacoco/test/jacocoTestReport.xml")
+
+        html.required = true
+        html.outputLocation = file("$buildDir/reports/jacoco/html")
+    }
+
+    def javaClasses = fileTree(dir: "$buildDir/classes/java/main", excludes: ['**/SomeExcluded*'])
+    def groovyClasses = fileTree(dir: "$buildDir/classes/groovy/main")
+    classDirectories.setFrom(javaClasses + groovyClasses)
+
+    sourceDirectories.setFrom(files('src/main/java', 'src/main/groovy'))
+
+    executionData.setFrom(fileTree(dir: buildDir, includes: [
+            'jacoco/test.exec',
+            'jacoco/*.exec'
+    ]))
 }
 
 tasks.withType(Jar).configureEach {
@@ -51,8 +81,4 @@ tasks.withType(Jar).configureEach {
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
-}
-
-test {
-    useJUnitPlatform()
 }
