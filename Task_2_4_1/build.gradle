@@ -1,6 +1,7 @@
 plugins {
     id 'groovy'
     id 'application'
+    id 'jacoco'
 }
 
 group = 'ru.nsu.anisimov'
@@ -42,7 +43,7 @@ tasks.withType(GroovyCompile).configureEach {
     groovyOptions.optimizationOptions.indy = true
 }
 
-tasks.withType(Jar) {
+tasks.withType(Jar).configureEach {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes 'Main-Class': application.mainClass
