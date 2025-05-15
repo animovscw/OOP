@@ -1,0 +1,95 @@
+plugins {
+    id 'groovy'
+    id 'application'
+    id 'jacoco'
+    id 'java'
+}
+
+group = 'ru.nsu.anisimov'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:3.0.21'
+    implementation 'org.jsoup:jsoup:1.17.2'
+
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
+}
+
+application {
+    mainClass = 'ru.nsu.anisimov.Main'
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/main/groovy']
+        }
+    }
+    test {
+        groovy {
+            srcDirs = ['src/test/groovy']
+        }
+        java {
+            srcDirs = ['src/test/java']
+        }
+    }
+}
+
+tasks.withType(GroovyCompile).configureEach {
+    groovyOptions.optimizationOptions.indy = true
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacoco {
+    toolVersion = '0.8.8'
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        xml.required = true
+        xml.outputLocation = file("$buildDir/reports/jacoco/test/jacocoTestReport.xml")
+
+        html.required = true
+        html.outputLocation = file("$buildDir/reports/jacoco/html")
+    }
+
+    def javaClasses = fileTree(dir: "$buildDir/classes/java/main", excludes: ['**/SomeExcluded*'])
+    def groovyClasses = fileTree(dir: "$buildDir/classes/groovy/main")
+    classDirectories.setFrom(javaClasses + groovyClasses)
+
+    sourceDirectories.setFrom(files('src/main/java', 'src/main/groovy'))
+    executionData.setFrom(fileTree(dir: buildDir, includes: [
+            'jacoco/test.exec',
+            'jacoco/*.exec'
+    ]))
+}
+
+javadoc {
+    destinationDir = file("$buildDir/docs/javadoc")
+    source = sourceSets.main.java
+    classpath = sourceSets.main.compileClasspath
+}
+
+tasks.build {
+    dependsOn javadoc
+}
+
+tasks.withType(Jar).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes 'Main-Class': application.mainClass
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
