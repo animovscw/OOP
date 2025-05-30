@@ -47,7 +47,7 @@ public class PrimeWorker {
         }
     }
 
-    private static boolean checkForNonPrimes(int[] numbers) {
+    static boolean checkForNonPrimes(int[] numbers) {
         for (int number : numbers) {
             if (!isPrime(number)) {
                 return true;
@@ -56,7 +56,7 @@ public class PrimeWorker {
         return false;
     }
 
-    private static boolean isPrime(int number) {
+    static boolean isPrime(int number) {
         if (number <= 1) return false;
         if (number == 2 || number == 3) return true;
         if (number % 2 == 0 || number % 3 == 0) return false;
