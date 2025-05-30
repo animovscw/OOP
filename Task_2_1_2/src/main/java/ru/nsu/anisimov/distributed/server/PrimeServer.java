@@ -20,6 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+
 import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.common.Task;
 import ru.nsu.anisimov.distributed.worker.PrimeWorker;
@@ -37,6 +38,7 @@ public class PrimeServer {
      * Waits for worker connections within specified timeout.
      *
      * @return list of connected worker sockets
+     * @throws IOException if server socket operations fail
      */
     public static List<Socket> waitForWorkers() throws IOException {
         ServerSocket serverSocket = new ServerSocket(PORT);
@@ -61,9 +63,9 @@ public class PrimeServer {
     }
 
     /**
-     * Be ready.
+     * Prepares test array with random numbers.
      *
-     * @return toto
+     * @return generated array
      */
     private static int[] prepareArray() {
         int size = 20;
@@ -74,9 +76,14 @@ public class PrimeServer {
     /**
      * Processes sub-task by sending it to worker and receiving result.
      *
+     * @param worker socket connection to worker
+     * @param task task to process
      * @return true if subarray contains non-prime numbers
+     * @throws IOException if communication fails
+     * @throws ClassNotFoundException if protocol error occurs
      */
-    public static boolean processSubTask(Socket worker, Task task) throws IOException, ClassNotFoundException {
+    public static boolean processSubTask(Socket worker, Task task)
+            throws IOException, ClassNotFoundException {
         try (ObjectOutputStream out = new ObjectOutputStream(worker.getOutputStream());
              ObjectInputStream in = new ObjectInputStream(worker.getInputStream())) {
             out.writeObject(task);
@@ -92,8 +99,10 @@ public class PrimeServer {
      * @param array numbers to check
      * @param workers available worker connections
      * @return true if array contains non-prime numbers
+     * @throws InterruptedException if execution is interrupted
      */
-    public static boolean processArray(int[] array, List<Socket> workers) throws InterruptedException {
+    public static boolean processArray(int[] array, List<Socket> workers)
+            throws InterruptedException {
         int n = array.length;
         int w = workers.size();
         int chunk = (n + w - 1) / w;
@@ -105,7 +114,9 @@ public class PrimeServer {
         for (int i = 0; i < w; i++) {
             int start = i * chunk;
             int end = Math.min(n, start + chunk);
-            if (start >= end) break;
+            if (start >= end) {
+                break;
+            }
 
             int[] subArray = Arrays.copyOfRange(array, start, end);
             Task subtask = new Task(subArray);
@@ -115,7 +126,8 @@ public class PrimeServer {
                 try {
                     return processSubTask(sock, subtask);
                 } catch (Exception e) {
-                    System.err.println("Worker failed, master processes subtask: " + e.getMessage());
+                    System.err.println("Worker failed, master processes subtask: "
+                            + e.getMessage());
                     return PrimeWorker.checkForNonPrimes(subArray);
                 }
             }));
@@ -138,14 +150,16 @@ public class PrimeServer {
         workers.forEach(socket -> {
             try {
                 socket.close();
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+                // Ignore close exception
+            }
         });
 
         return hasNonPrime.get();
     }
 
     /**
-     * Discovery.
+     * Broadcasts server discovery message.
      */
     private static void broadcastDiscovery() {
         try (DatagramSocket ds = new DatagramSocket()) {
@@ -166,8 +180,9 @@ public class PrimeServer {
     }
 
     /**
-     * Main.
-     * @param args arg
+     * Main server entry point.
+     *
+     * @param args command line arguments (unused)
      */
     public static void main(String[] args) {
         try {
@@ -180,8 +195,8 @@ public class PrimeServer {
 
             boolean hasNonPrime = processArray(array, workers);
 
-            System.out.printf("Final result: %s%n", hasNonPrime
-                    ? "Contains non-prime numbers" : "All numbers are prime");
+            System.out.printf("Final result: %s%n",
+                    hasNonPrime ? "Contains non-prime numbers" : "All numbers are prime");
 
         } catch (Exception e) {
             System.err.println("Server error: " + e.getMessage());
