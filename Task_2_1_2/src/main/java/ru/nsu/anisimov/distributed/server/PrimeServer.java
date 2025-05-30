@@ -106,4 +106,32 @@ public class PrimeServer {
         }
         return hasNonPrime.get();
     }
+
+    public static void main(String[] args) {
+        try {
+            Random random = new Random();
+            int size = 20;
+            int maxValue = 1000000;
+            int[] array = new int[size];
+            for (int i = 0; i < size; i++) {
+                array[i] = random.nextInt(maxValue) + 1;
+            }
+            array[0] = 2;
+            array[1] = 982451653;
+            array[2] = 2147483647;
+            array[3] = 4;
+            array[4] = 1000000000;
+            array[5] = 123456789;
+            List<Socket> workers = waitForWorkers();
+            if (workers.isEmpty()) {
+                System.out.println("No workers connected. Exiting.");
+                return;
+            }
+            boolean result = processArray(array, workers);
+            System.out.println("Result: " + (result ? "Contains non-prime" : "All primes"));
+        } catch (Exception e) {
+            System.err.println("Server error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 }
