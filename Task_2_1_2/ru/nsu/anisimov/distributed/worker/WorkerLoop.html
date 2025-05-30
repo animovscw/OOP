@@ -77,6 +77,7 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">WorkerLoop</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Worker loop implementation that handles reconnection logic and error handling.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -91,13 +92,19 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color"><code>static interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="WorkerLoop.Connector.html" class="type-name-link" title="interface in ru.nsu.anisimov.distributed.worker">WorkerLoop.Connector</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Functional interface for establishing connection and processing tasks.</div>
+</div>
 <div class="col-first odd-row-color"><code>static interface&nbsp;</code></div>
 <div class="col-second odd-row-color"><code><a href="WorkerLoop.Continuator.html" class="type-name-link" title="interface in ru.nsu.anisimov.distributed.worker">WorkerLoop.Continuator</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
+<div class="col-last odd-row-color">
+<div class="block">Functional interface for continuation condition checking.</div>
+</div>
 <div class="col-first even-row-color"><code>static interface&nbsp;</code></div>
 <div class="col-second even-row-color"><code><a href="WorkerLoop.Sleeper.html" class="type-name-link" title="interface in ru.nsu.anisimov.distributed.worker">WorkerLoop.Sleeper</a></code></div>
-<div class="col-last even-row-color">&nbsp;</div>
+<div class="col-last even-row-color">
+<div class="block">Functional interface for sleep operations.</div>
+</div>
 </div>
 </section>
 </li>
@@ -130,7 +137,9 @@ loadScripts(document, 'script');</script>
  <a href="WorkerLoop.Sleeper.html" title="interface in ru.nsu.anisimov.distributed.worker">WorkerLoop.Sleeper</a>&nbsp;sleeper,
  <a href="WorkerLoop.Continuator.html" title="interface in ru.nsu.anisimov.distributed.worker">WorkerLoop.Continuator</a>&nbsp;continuator,
  long&nbsp;delayMs)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Runs worker loop with specified components.</div>
+</div>
 </div>
 </div>
 </div>
@@ -169,6 +178,14 @@ loadScripts(document, 'script');</script>
  <a href="WorkerLoop.Sleeper.html" title="interface in ru.nsu.anisimov.distributed.worker">WorkerLoop.Sleeper</a>&nbsp;sleeper,
  <a href="WorkerLoop.Continuator.html" title="interface in ru.nsu.anisimov.distributed.worker">WorkerLoop.Continuator</a>&nbsp;continuator,
  long&nbsp;delayMs)</span></div>
+<div class="block">Runs worker loop with specified components.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>connector</code> - connection and task processor</dd>
+<dd><code>sleeper</code> - sleep implementation</dd>
+<dd><code>continuator</code> - continuation condition checker</dd>
+<dd><code>delayMs</code> - delay between attempts in milliseconds</dd>
+</dl>
 </section>
 </li>
 </ul>

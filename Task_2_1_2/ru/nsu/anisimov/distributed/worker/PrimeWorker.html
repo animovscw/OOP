@@ -77,6 +77,8 @@ loadScripts(document, 'script');</script>
 <hr>
 <div class="type-signature"><span class="modifiers">public class </span><span class="element-name type-name-label">PrimeWorker</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a></span></div>
+<div class="block">Worker node for distributed prime number checking.
+ Connects to the server, receives tasks, processes them, and sends results back.</div>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -124,16 +126,24 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#checkForNonPrimes(int%5B%5D)" class="member-name-link">checkForNonPrimes</a><wbr>(int[]&nbsp;numbers)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Checks if any number in the given array is non-prime.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#connectAndProcess()" class="member-name-link">connectAndProcess</a>()</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Connects to the server, receives a task, processes it, and sends the result back.</div>
+</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#isPrime(int)" class="member-name-link">isPrime</a><wbr>(int&nbsp;n)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Checks if a number is prime.</div>
+</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#main(java.lang.String%5B%5D)" class="member-name-link">main</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;args)</code></div>
-<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">&nbsp;</div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
+<div class="block">Main entry point for the worker.</div>
+</div>
 </div>
 </div>
 </div>
@@ -189,6 +199,12 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="main(java.lang.String[])">
 <h3>main</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">main</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;args)</span></div>
+<div class="block">Main entry point for the worker.
+ Runs an infinite loop trying to connect and process tasks.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>args</code> - command-line arguments (unused)</dd>
+</dl>
 </section>
 </li>
 <li>
@@ -196,9 +212,10 @@ loadScripts(document, 'script');</script>
 <h3>connectAndProcess</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">connectAndProcess</span>()
                               throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
+<div class="block">Connects to the server, receives a task, processes it, and sends the result back.</div>
 <dl class="notes">
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - if connection or communication fails</dd>
 </dl>
 </section>
 </li>
@@ -206,12 +223,26 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="checkForNonPrimes(int[])">
 <h3>checkForNonPrimes</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">checkForNonPrimes</span><wbr><span class="parameters">(int[]&nbsp;numbers)</span></div>
+<div class="block">Checks if any number in the given array is non-prime.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>numbers</code> - array of integers to check</dd>
+<dt>Returns:</dt>
+<dd><code>true</code> if at least one non-prime is found, <code>false</code> otherwise</dd>
+</dl>
 </section>
 </li>
 <li>
 <section class="detail" id="isPrime(int)">
 <h3>isPrime</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">isPrime</span><wbr><span class="parameters">(int&nbsp;n)</span></div>
+<div class="block">Checks if a number is prime.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>n</code> - the number to check</dd>
+<dt>Returns:</dt>
+<dd><code>true</code> if the number is prime, <code>false</code> otherwise</dd>
+</dl>
 </section>
 </li>
 </ul>
