@@ -36,7 +36,6 @@ public class PrimeServer {
      * Waits for worker connections within specified timeout.
      *
      * @return list of connected worker sockets
-     * @throws IOException if server socket error occurs
      */
     public static List<Socket> waitForWorkers() throws IOException {
         ServerSocket serverSocket = new ServerSocket(PORT);
@@ -72,7 +71,6 @@ public class PrimeServer {
      * Processes sub-task by sending it to worker and receiving result.
      *
      * @return true if subarray contains non-prime numbers
-     * @throws IOException if communication error occurs
      */
     public static boolean processSubTask(Socket worker, Task task) {
         try (ObjectOutputStream out = new ObjectOutputStream(worker.getOutputStream());
@@ -138,6 +136,9 @@ public class PrimeServer {
         return hasNonPrime.get();
     }
 
+    /**
+     * Discovery.
+     */
     private static void broadcastDiscovery() {
         try (DatagramSocket ds = new DatagramSocket()) {
             ds.setBroadcast(true);

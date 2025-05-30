@@ -19,7 +19,7 @@ import ru.nsu.anisimov.distributed.common.Task;
 public class PrimeWorker {
     private static long RECONNECT_DELAY_MS = 5000;
     private static String SERVER_HOST = "localhost";
-    private static int SERVER_PORT = 9999;
+    public static int SERVER_PORT = 9999;
     private static final int DISCOVERY_PORT = 8888;
     private static final int DISCOVERY_TIMEOUT = 3000;
 

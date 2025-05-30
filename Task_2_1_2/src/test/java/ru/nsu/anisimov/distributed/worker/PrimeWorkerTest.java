@@ -100,4 +100,60 @@ public class PrimeWorkerTest {
         boolean result = PrimeWorker.connectAndProcess();
         Assertions.assertFalse(result);
     }
+    @Test
+    public void testConnectAndProcess_ConnectExceptionHandled() {
+        boolean result = PrimeWorker.connectAndProcess();
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void testConnectAndProcess_ClassNotFoundExceptionHandled() throws Exception {
+        try (ServerSocket server = new ServerSocket(PrimeWorker.SERVER_PORT)) {
+            Thread serverThread = new Thread(() -> {
+                try (Socket client = server.accept();
+                     ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream())) {
+                    // Отправим объект неизвестного типа (мусор)
+                    out.writeObject(new Object() {
+                        private void writeObject(ObjectOutputStream oos) throws IOException {
+                            oos.writeUTF("junk");
+                        }
+                    });
+                    out.flush();
+                } catch (IOException ignored) {}
+            });
+            serverThread.start();
+
+            boolean result = PrimeWorker.connectAndProcess();
+            Assertions.assertFalse(result);
+        }
+    }
+
+    @Test
+    public void testConnectAndProcess_IOExceptionHandled() throws Exception {
+        try (ServerSocket server = new ServerSocket(PrimeWorker.SERVER_PORT)) {
+            Thread serverThread = new Thread(() -> {
+                try (Socket socket = server.accept()) {
+                    socket.close();
+                } catch (IOException ignored) {}
+            });
+            serverThread.start();
+
+            boolean result = PrimeWorker.connectAndProcess();
+            Assertions.assertFalse(result);
+        }
+    }
+
+    @Test
+    public void testDiscoveryMessageParsing() {
+        String discovery = "SERVER:10.0.0.5:12345";
+        byte[] buf = discovery.getBytes();
+        DatagramPacket pkt = new DatagramPacket(buf, buf.length);
+
+        String msg = new String(pkt.getData(), 0, pkt.getLength()).trim();
+        Assertions.assertTrue(msg.startsWith("SERVER:"));
+
+        String[] parts = msg.split(":");
+        Assertions.assertEquals("10.0.0.5", parts[1]);
+        Assertions.assertEquals("12345", parts[2]);
+    }
 }
