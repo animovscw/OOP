@@ -3,8 +3,8 @@ package ru.nsu.anisimov.distributed.worker;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ConnectException;
 import java.net.Socket;
+import java.net.ConnectException;
 import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.common.Task;
 import ru.nsu.anisimov.distributed.server.PrimeServer;
@@ -14,8 +14,8 @@ import ru.nsu.anisimov.distributed.server.PrimeServer;
  * Connects to the server, receives tasks, processes them, and sends results back.
  */
 public class PrimeWorker {
-    public static final long RECONNECT_DELAY_MS = 5000;
-    public static final String SERVER_HOST = "localhost";
+    public static long RECONNECT_DELAY_MS = 5000;
+    public static String SERVER_HOST = "localhost";
 
     /**
      * Main entry point for the worker.
