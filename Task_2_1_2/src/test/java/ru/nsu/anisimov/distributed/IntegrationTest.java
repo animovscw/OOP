@@ -1,19 +1,23 @@
 package ru.nsu.anisimov.distributed;
 
-import org.junit.jupiter.api.Tag;
-import org.junit.jupiter.api.Test;
-import ru.nsu.anisimov.distributed.server.PrimeServer;
-import ru.nsu.anisimov.distributed.worker.PrimeWorker;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.lang.reflect.Field;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
+import ru.nsu.anisimov.distributed.server.PrimeServer;
+import ru.nsu.anisimov.distributed.worker.PrimeWorker;
+
+/**
+ * Integration tests for distributed prime number checking system.
+ */
 @Tag("integration")
 public class IntegrationTest {
-
     @Test
     public void testFullSystemWorkflow() throws Exception {
         Field delayField = PrimeWorker.class.getDeclaredField("RECONNECT_DELAY_MS");

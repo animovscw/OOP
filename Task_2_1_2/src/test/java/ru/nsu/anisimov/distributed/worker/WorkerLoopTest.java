@@ -1,6 +1,7 @@
 package ru.nsu.anisimov.distributed.worker;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.net.ConnectException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;

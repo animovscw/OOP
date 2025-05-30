@@ -1,14 +1,17 @@
 package ru.nsu.anisimov.distributed.common;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test for class Task.
+ */
 public class TestTask {
     @Test
     public void testTaskCreation() {
         int[] array = {1, 2, 3};
         Task task = new Task(array);
 
-        assertArrayEquals(array, task.getSubArray());
+        Assertions.assertArrayEquals(array, task.getSubArray());
     }
 }
