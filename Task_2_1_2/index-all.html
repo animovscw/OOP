@@ -49,31 +49,28 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:C">C</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="constant-values.html">Constant&nbsp;Field&nbsp;Values</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
+<a href="#I:C">C</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="constant-values.html">Constant&nbsp;Field&nbsp;Values</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a>
 <h2 class="title" id="I:C">C</h2>
 <dl class="index">
 <dt><a href="ru/nsu/anisimov/distributed/worker/PrimeWorker.html#checkForNonPrimes(int%5B%5D)" class="member-name-link">checkForNonPrimes(int[])</a> - Static method in class ru.nsu.anisimov.distributed.worker.<a href="ru/nsu/anisimov/distributed/worker/PrimeWorker.html" title="class in ru.nsu.anisimov.distributed.worker">PrimeWorker</a></dt>
 <dd>
 <div class="block">Checks if any number in the given array is non-prime.</div>
 </dd>
-<dt><a href="ru/nsu/anisimov/distributed/server/PrimeServer.html#closeAllConnections(java.util.List)" class="member-name-link">closeAllConnections(List&lt;Socket&gt;)</a> - Static method in class ru.nsu.anisimov.distributed.server.<a href="ru/nsu/anisimov/distributed/server/PrimeServer.html" title="class in ru.nsu.anisimov.distributed.server">PrimeServer</a></dt>
-<dd>
-<div class="block">Closes all worker connections.</div>
-</dd>
 <dt><a href="ru/nsu/anisimov/distributed/worker/PrimeWorker.html#connectAndProcess()" class="member-name-link">connectAndProcess()</a> - Static method in class ru.nsu.anisimov.distributed.worker.<a href="ru/nsu/anisimov/distributed/worker/PrimeWorker.html" title="class in ru.nsu.anisimov.distributed.worker">PrimeWorker</a></dt>
 <dd>
 <div class="block">Connects to the server, receives a task, processes it, and sends the result back.</div>
 </dd>
 <dt><a href="ru/nsu/anisimov/distributed/worker/WorkerLoop.Connector.html#connectAndProcess()" class="member-name-link">connectAndProcess()</a> - Method in interface ru.nsu.anisimov.distributed.worker.<a href="ru/nsu/anisimov/distributed/worker/WorkerLoop.Connector.html" title="interface in ru.nsu.anisimov.distributed.worker">WorkerLoop.Connector</a></dt>
-<dd>
-<div class="block">Establishes connection and processes tasks.</div>
-</dd>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:G">G</h2>
 <dl class="index">
-<dt><a href="ru/nsu/anisimov/distributed/common/Result.html#getHasNonPrime()" class="member-name-link">getHasNonPrime()</a> - Method in class ru.nsu.anisimov.distributed.common.<a href="ru/nsu/anisimov/distributed/common/Result.html" title="class in ru.nsu.anisimov.distributed.common">Result</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="ru/nsu/anisimov/distributed/common/Task.html#getSubArray()" class="member-name-link">getSubArray()</a> - Method in class ru.nsu.anisimov.distributed.common.<a href="ru/nsu/anisimov/distributed/common/Task.html" title="class in ru.nsu.anisimov.distributed.common">Task</a></dt>
+<dd>&nbsp;</dd>
+</dl>
+<h2 class="title" id="I:H">H</h2>
+<dl class="index">
+<dt><a href="ru/nsu/anisimov/distributed/common/Result.html#hasNonPrime()" class="member-name-link">hasNonPrime()</a> - Method in class ru.nsu.anisimov.distributed.common.<a href="ru/nsu/anisimov/distributed/common/Result.html" title="class in ru.nsu.anisimov.distributed.common">Result</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:I">I</h2>
@@ -114,15 +111,13 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Distributes array checking across workers.</div>
 </dd>
-<dt><a href="ru/nsu/anisimov/distributed/server/PrimeServer.html#processSubTask(java.net.Socket,int%5B%5D)" class="member-name-link">processSubTask(Socket, int[])</a> - Static method in class ru.nsu.anisimov.distributed.server.<a href="ru/nsu/anisimov/distributed/server/PrimeServer.html" title="class in ru.nsu.anisimov.distributed.server">PrimeServer</a></dt>
+<dt><a href="ru/nsu/anisimov/distributed/server/PrimeServer.html#processSubTask(java.net.Socket,ru.nsu.anisimov.distributed.common.Task)" class="member-name-link">processSubTask(Socket, Task)</a> - Static method in class ru.nsu.anisimov.distributed.server.<a href="ru/nsu/anisimov/distributed/server/PrimeServer.html" title="class in ru.nsu.anisimov.distributed.server">PrimeServer</a></dt>
 <dd>
 <div class="block">Processes sub-task by sending it to worker and receiving result.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
-<dt><a href="ru/nsu/anisimov/distributed/worker/PrimeWorker.html#RECONNECT_DELAY_MS" class="member-name-link">RECONNECT_DELAY_MS</a> - Static variable in class ru.nsu.anisimov.distributed.worker.<a href="ru/nsu/anisimov/distributed/worker/PrimeWorker.html" title="class in ru.nsu.anisimov.distributed.worker">PrimeWorker</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="ru/nsu/anisimov/distributed/common/Result.html" class="type-name-link" title="class in ru.nsu.anisimov.distributed.common">Result</a> - Class in <a href="ru/nsu/anisimov/distributed/common/package-summary.html">ru.nsu.anisimov.distributed.common</a></dt>
 <dd>
 <div class="block">Represents the result of checking a subarray for non-prime numbers.</div>
@@ -142,16 +137,12 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:S">S</h2>
 <dl class="index">
-<dt><a href="ru/nsu/anisimov/distributed/worker/PrimeWorker.html#SERVER_HOST" class="member-name-link">SERVER_HOST</a> - Static variable in class ru.nsu.anisimov.distributed.worker.<a href="ru/nsu/anisimov/distributed/worker/PrimeWorker.html" title="class in ru.nsu.anisimov.distributed.worker">PrimeWorker</a></dt>
+<dt><a href="ru/nsu/anisimov/distributed/worker/PrimeWorker.html#SERVER_PORT" class="member-name-link">SERVER_PORT</a> - Static variable in class ru.nsu.anisimov.distributed.worker.<a href="ru/nsu/anisimov/distributed/worker/PrimeWorker.html" title="class in ru.nsu.anisimov.distributed.worker">PrimeWorker</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/anisimov/distributed/worker/WorkerLoop.Continuator.html#shouldContinue()" class="member-name-link">shouldContinue()</a> - Method in interface ru.nsu.anisimov.distributed.worker.<a href="ru/nsu/anisimov/distributed/worker/WorkerLoop.Continuator.html" title="interface in ru.nsu.anisimov.distributed.worker">WorkerLoop.Continuator</a></dt>
-<dd>
-<div class="block">Checks if worker should continue running.</div>
-</dd>
+<dd>&nbsp;</dd>
 <dt><a href="ru/nsu/anisimov/distributed/worker/WorkerLoop.Sleeper.html#sleep(long)" class="member-name-link">sleep(long)</a> - Method in interface ru.nsu.anisimov.distributed.worker.<a href="ru/nsu/anisimov/distributed/worker/WorkerLoop.Sleeper.html" title="interface in ru.nsu.anisimov.distributed.worker">WorkerLoop.Sleeper</a></dt>
-<dd>
-<div class="block">Sleeps for specified time.</div>
-</dd>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:T">T</h2>
 <dl class="index">
@@ -191,7 +182,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Functional interface for sleep operations.</div>
 </dd>
 </dl>
-<a href="#I:C">C</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="constant-values.html">Constant&nbsp;Field&nbsp;Values</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
+<a href="#I:C">C</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:W">W</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a><span class="vertical-separator">|</span><a href="constant-values.html">Constant&nbsp;Field&nbsp;Values</a><span class="vertical-separator">|</span><a href="serialized-form.html">Serialized&nbsp;Form</a></main>
 </div>
 </div>
 </body>

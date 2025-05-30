@@ -91,12 +91,9 @@ loadScripts(document, 'script');</script>
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Field</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color"><code>static long</code></div>
-<div class="col-second even-row-color"><code><a href="#RECONNECT_DELAY_MS" class="member-name-link">RECONNECT_DELAY_MS</a></code></div>
+<div class="col-first even-row-color"><code>static int</code></div>
+<div class="col-second even-row-color"><code><a href="#SERVER_PORT" class="member-name-link">SERVER_PORT</a></code></div>
 <div class="col-last even-row-color">&nbsp;</div>
-<div class="col-first odd-row-color"><code>static <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
-<div class="col-second odd-row-color"><code><a href="#SERVER_HOST" class="member-name-link">SERVER_HOST</a></code></div>
-<div class="col-last odd-row-color">&nbsp;</div>
 </div>
 </section>
 </li>
@@ -129,7 +126,7 @@ loadScripts(document, 'script');</script>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Checks if any number in the given array is non-prime.</div>
 </div>
-<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#connectAndProcess()" class="member-name-link">connectAndProcess</a>()</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
 <div class="block">Connects to the server, receives a task, processes it, and sends the result back.</div>
@@ -162,15 +159,9 @@ loadScripts(document, 'script');</script>
 <h2>Field Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="RECONNECT_DELAY_MS">
-<h3>RECONNECT_DELAY_MS</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">long</span>&nbsp;<span class="element-name">RECONNECT_DELAY_MS</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="SERVER_HOST">
-<h3>SERVER_HOST</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">SERVER_HOST</span></div>
+<section class="detail" id="SERVER_PORT">
+<h3>SERVER_PORT</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="element-name">SERVER_PORT</span></div>
 </section>
 </li>
 </ul>
@@ -210,12 +201,11 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="detail" id="connectAndProcess()">
 <h3>connectAndProcess</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">connectAndProcess</span>()
-                              throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="element-name">connectAndProcess</span>()</div>
 <div class="block">Connects to the server, receives a task, processes it, and sends the result back.</div>
 <dl class="notes">
-<dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - if connection or communication fails</dd>
+<dt>Returns:</dt>
+<dd>true if processing was successful, false otherwise</dd>
 </dl>
 </section>
 </li>
