@@ -36,7 +36,6 @@ public class PrimeWorker {
         } catch (ClassNotFoundException e) {
             throw new IOException("Protocol error", e);
         } catch (ConnectException e) {
-            // propagate so WorkerLoop handles retry
             throw e;
         }
     }
