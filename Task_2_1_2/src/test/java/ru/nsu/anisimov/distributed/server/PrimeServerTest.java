@@ -1,10 +1,10 @@
 package ru.nsu.anisimov.distributed.server;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,7 +38,7 @@ public class PrimeServerTest {
         when(mockSocket.getOutputStream()).thenReturn(outStream);
 
         boolean result = PrimeServer.processSubTask(mockSocket, new int[]{4, 6, 8});
-        assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class PrimeServerTest {
         when(mockSocket.getOutputStream()).thenReturn(outStream);
 
         boolean result = PrimeServer.processSubTask(mockSocket, new int[]{2, 3, 5});
-        assertFalse(result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -64,11 +64,11 @@ public class PrimeServerTest {
             when(mockSocket.getInputStream()).thenReturn(inStream);
             when(mockSocket.getOutputStream()).thenReturn(outStream);
 
-            assertThrows(IOException.class, () -> {
+            Assertions.assertThrows(IOException.class, () -> {
                 PrimeServer.processSubTask(mockSocket, new int[]{2, 3});
             });
         } catch (IOException e) {
-            fail("Unexpected IOException");
+            Assertions.fail("Unexpected IOException");
         }
     }
 
@@ -98,7 +98,7 @@ public class PrimeServerTest {
         int[] inputArray = {2, 3, 5, 7};
         boolean result = PrimeServer.processArray(inputArray, List.of(mockSocket));
 
-        assertFalse(result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -113,7 +113,7 @@ public class PrimeServerTest {
         int[] inputArray = {2, 3, 4, 5};
         boolean result = PrimeServer.processArray(inputArray, List.of(mockSocket));
 
-        assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -124,6 +124,6 @@ public class PrimeServerTest {
         int[] inputArray = {2, 3, 5};
         boolean result = PrimeServer.processArray(inputArray, List.of(mockSocket));
 
-        assertTrue(result);
+        Assertions.assertTrue(result);
     }
 }

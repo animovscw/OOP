@@ -1,12 +1,14 @@
 package ru.nsu.anisimov.distributed.worker;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.net.ConnectException;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Test.
+ */
 class WorkerLoopTest {
 
     @Test
@@ -14,7 +16,9 @@ class WorkerLoopTest {
         AtomicInteger called = new AtomicInteger();
 
         WorkerLoop.run(
-                () -> { throw new InterruptedException(); },
+                () -> {
+                    throw new InterruptedException();
+                },
                 ms -> called.incrementAndGet(),
                 () -> true,
                 1
@@ -30,10 +34,11 @@ class WorkerLoopTest {
 
         WorkerLoop.run(
                 () -> {
-                    if (tries.incrementAndGet() == 1)
+                    if (tries.incrementAndGet() == 1) {
                         throw new ConnectException();
-                    else
+                    } else {
                         throw new InterruptedException();
+                    }
                 },
                 ms -> sleepCalls.incrementAndGet(),
                 () -> true,
@@ -50,10 +55,11 @@ class WorkerLoopTest {
 
         WorkerLoop.run(
                 () -> {
-                    if (tries.incrementAndGet() == 1)
+                    if (tries.incrementAndGet() == 1) {
                         throw new RuntimeException("Failure");
-                    else
+                    } else {
                         throw new InterruptedException();
+                    }
                 },
                 ms -> sleepCalls.incrementAndGet(),
                 () -> true,
