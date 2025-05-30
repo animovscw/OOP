@@ -3,10 +3,13 @@ package ru.nsu.anisimov.distributed.worker;
 import ru.nsu.anisimov.distributed.common.Task;
 import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.server.PrimeServer;
-
 import java.io.*;
 import java.net.*;
 
+/**
+ * Worker node that processes array segments for prime numbers.
+ * Connects to server and performs computations.
+ */
 public class PrimeWorker {
     private static final String SERVER_HOST = "localhost";
     private static final int RECONNECT_DELAY_MS = 5000;

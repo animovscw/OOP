@@ -8,9 +8,9 @@ public class TestResult {
     @Test
     public void testResultCreation() {
         Result result1 = new Result(true);
-        assertTrue(result1.hasNonPrime);
+        assertTrue(result1.getHasNonPrime());
 
         Result result2 = new Result(false);
-        assertFalse(result2.hasNonPrime);
+        assertFalse(result2.getHasNonPrime());
     }
 }

@@ -8,6 +8,10 @@ import java.net.*;
 import java.util.*;
 import java.util.concurrent.*;
 
+/**
+ * Main server class that coordinates prime number checking across worker nodes.
+ * Distributes workload and aggregates results.
+ */
 public class PrimeServer {
     public static final int PORT = 9999;
     public static final int TIMEOUT_MS = 5000;
@@ -45,7 +49,7 @@ public class PrimeServer {
 
             workerSocket.setSoTimeout(WORKER_TIMEOUT_MS);
             Result result = (Result) in.readObject();
-            return result.hasNonPrime;
+            return result.getHasNonPrime();
         } catch (ClassNotFoundException | SocketTimeoutException e) {
             throw new IOException("Worker communication error", e);
         }
@@ -103,6 +107,8 @@ public class PrimeServer {
         }
 
         boolean result = processArray(array, workers);
-        System.out.println("Final result: " + (result ? "Contains non-prime" : "All primes"));
+        System.out.println("Final result: " + (
+                result ? "Contains non-prime" : "All primes")
+        );
     }
 }
