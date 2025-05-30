@@ -1,14 +1,22 @@
 package ru.nsu.anisimov.distributed.server;
 
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.times;
 import org.junit.jupiter.api.Test;
-import ru.nsu.anisimov.distributed.common.Result;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
+import ru.nsu.anisimov.distributed.common.Result;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
+/**
+ * Tests for server.
+ */
 public class PrimeServerTest {
 
     private byte[] serialize(Object obj) throws IOException {
@@ -50,7 +58,7 @@ public class PrimeServerTest {
     public void testProcessSubTask_throwsOnInvalidClass() {
         Socket mockSocket = mock(Socket.class);
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        ByteArrayInputStream inStream = new ByteArrayInputStream(new byte[]{1, 2, 3}); // corrupted
+        ByteArrayInputStream inStream = new ByteArrayInputStream(new byte[]{1, 2, 3});
 
         try {
             when(mockSocket.getInputStream()).thenReturn(inStream);
