@@ -15,14 +15,23 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicBoolean;
-import ru.nsu.anisimov.distributed.common.Task;
 import ru.nsu.anisimov.distributed.common.Result;
+import ru.nsu.anisimov.distributed.common.Task;
 
+/**
+ * Prime number checking server that distributes work across multiple worker nodes.
+ */
 public class PrimeServer {
     public static final int PORT = 9999;
     public static final int TIMEOUT_MS = 5000;
     public static final int WORKER_TIMEOUT_MS = 3000;
 
+    /**
+     * Waits for worker connections within specified timeout.
+     *
+     * @return list of connected worker sockets
+     * @throws IOException if server socket error occurs
+     */
     public static List<Socket> waitForWorkers() throws IOException {
         ServerSocket serverSocket = new ServerSocket(PORT);
         serverSocket.setSoTimeout(TIMEOUT_MS);
@@ -38,13 +47,21 @@ public class PrimeServer {
                 client.setSoTimeout(WORKER_TIMEOUT_MS);
                 workers.add(client);
             } catch (SocketTimeoutException ignored) {
-                
+                // Expected during waiting period
             }
         }
         serverSocket.close();
         return workers;
     }
 
+    /**
+     * Processes sub-task by sending it to worker and receiving result.
+     *
+     * @param workerSocket worker connection socket
+     * @param subArray array slice to check
+     * @return true if subarray contains non-prime numbers
+     * @throws IOException if communication error occurs
+     */
     public static Boolean processSubTask(Socket workerSocket, int[] subArray) throws IOException {
         try {
             ObjectOutputStream out = new ObjectOutputStream(workerSocket.getOutputStream());
@@ -62,6 +79,11 @@ public class PrimeServer {
         }
     }
 
+    /**
+     * Closes all worker connections.
+     *
+     * @param workers list of worker sockets to close
+     */
     public static void closeAllConnections(List<Socket> workers) {
         for (Socket worker : workers) {
             try {
@@ -74,6 +96,13 @@ public class PrimeServer {
         }
     }
 
+    /**
+     * Distributes array checking across workers.
+     *
+     * @param array numbers to check
+     * @param workers available worker connections
+     * @return true if array contains non-prime numbers
+     */
     public static boolean processArray(int[] array, List<Socket> workers) {
         ExecutorService pool = Executors.newFixedThreadPool(workers.size());
         List<Future<Boolean>> futures = new ArrayList<>();
@@ -116,6 +145,11 @@ public class PrimeServer {
         return hasNonPrime.get();
     }
 
+    /**
+     * Main server entry point.
+     *
+     * @param args command line arguments (not used)
+     */
     public static void main(String[] args) {
         try {
             Random random = new Random();
@@ -137,8 +171,8 @@ public class PrimeServer {
                 return;
             }
             boolean result = processArray(array, workers);
-            System.out.println("Result: " +
-                    (result ? "Contains non-prime" : "All primes"));
+            System.out.println("Result: "
+                    + (result ? "Contains non-prime" : "All primes"));
         } catch (Exception e) {
             System.err.println("Server error: " + e.getMessage());
             e.printStackTrace();

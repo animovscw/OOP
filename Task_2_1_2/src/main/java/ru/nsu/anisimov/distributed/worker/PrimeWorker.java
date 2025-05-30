@@ -1,11 +1,13 @@
 package ru.nsu.anisimov.distributed.worker;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.ConnectException;
 import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.common.Task;
 import ru.nsu.anisimov.distributed.server.PrimeServer;
-import java.io.*;
-import java.net.Socket;
-import java.net.ConnectException;
 
 public class PrimeWorker {
 
