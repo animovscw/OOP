@@ -129,7 +129,7 @@ loadScripts(document, 'script');</script>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static void</code></div>
 <div class="col-second even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#main(java.lang.String%5B%5D)" class="member-name-link">main</a><wbr>(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;args)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4">
-<div class="block">Main.</div>
+<div class="block">Main server entry point.</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code>static boolean</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab1 method-summary-table-tab4"><code><a href="#processArray(int%5B%5D,java.util.List)" class="member-name-link">processArray</a><wbr>(int[]&nbsp;array,
@@ -239,7 +239,7 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>list of connected worker sockets</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - if server socket operations fail</dd>
 </dl>
 </section>
 </li>
@@ -252,11 +252,14 @@ loadScripts(document, 'script');</script>
 <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ClassNotFoundException.html" title="class or interface in java.lang" class="external-link">ClassNotFoundException</a></span></div>
 <div class="block">Processes sub-task by sending it to worker and receiving result.</div>
 <dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>worker</code> - socket connection to worker</dd>
+<dd><code>task</code> - task to process</dd>
 <dt>Returns:</dt>
 <dd>true if subarray contains non-prime numbers</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code></dd>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ClassNotFoundException.html" title="class or interface in java.lang" class="external-link">ClassNotFoundException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/IOException.html" title="class or interface in java.io" class="external-link">IOException</a></code> - if communication fails</dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/ClassNotFoundException.html" title="class or interface in java.lang" class="external-link">ClassNotFoundException</a></code> - if protocol error occurs</dd>
 </dl>
 </section>
 </li>
@@ -274,7 +277,7 @@ loadScripts(document, 'script');</script>
 <dt>Returns:</dt>
 <dd>true if array contains non-prime numbers</dd>
 <dt>Throws:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/InterruptedException.html" title="class or interface in java.lang" class="external-link">InterruptedException</a></code> - if execution is interrupted</dd>
 </dl>
 </section>
 </li>
@@ -282,10 +285,10 @@ loadScripts(document, 'script');</script>
 <section class="detail" id="main(java.lang.String[])">
 <h3>main</h3>
 <div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">main</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>[]&nbsp;args)</span></div>
-<div class="block">Main.</div>
+<div class="block">Main server entry point.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>args</code> - arg</dd>
+<dd><code>args</code> - command line arguments (unused)</dd>
 </dl>
 </section>
 </li>
