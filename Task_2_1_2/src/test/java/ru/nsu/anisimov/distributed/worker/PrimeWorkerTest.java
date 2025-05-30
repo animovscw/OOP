@@ -21,7 +21,7 @@ import ru.nsu.anisimov.distributed.server.PrimeServer;
 public class PrimeWorkerTest {
 
     @Test
-    public void testIsPrime_basicCases() {
+    public void testIsPrimeBasicCases() {
         Assertions.assertFalse(PrimeWorker.isPrime(-1));
         Assertions.assertFalse(PrimeWorker.isPrime(0));
         Assertions.assertFalse(PrimeWorker.isPrime(1));
@@ -32,29 +32,29 @@ public class PrimeWorkerTest {
     }
 
     @Test
-    public void testIsPrime_largePrime() {
+    public void testIsPrimeLargePrime() {
         Assertions.assertTrue(PrimeWorker.isPrime(982451653));
     }
 
     @Test
-    public void testIsPrime_largeNonPrime() {
+    public void testIsPrimeLargeNonPrime() {
         Assertions.assertFalse(PrimeWorker.isPrime(1_000_000_000));
     }
 
     @Test
-    public void testCheckForNonPrimes_allPrimes() {
+    public void testCheckForNonPrimesAllPrimes() {
         int[] primes = {2, 3, 5, 7, 11};
         Assertions.assertFalse(PrimeWorker.checkForNonPrimes(primes));
     }
 
     @Test
-    public void testCheckForNonPrimes_withNonPrime() {
+    public void testCheckForNonPrimesWithNonPrime() {
         int[] array = {2, 4, 6};
         Assertions.assertTrue(PrimeWorker.checkForNonPrimes(array));
     }
 
     @Test
-    public void testConnectAndProcess_successful() throws Exception {
+    public void testConnectAndProcessSuccessful() throws Exception {
         try (ServerSocket fakeServer = new ServerSocket(PrimeServer.PORT)) {
             ExecutorService executor = Executors.newSingleThreadExecutor();
             executor.submit(() -> {
@@ -96,30 +96,33 @@ public class PrimeWorkerTest {
     }
 
     @Test
-    public void testConnectAndProcess_ConnectionRefusedHandled() {
-        boolean result = PrimeWorker.connectAndProcess();
-        Assertions.assertFalse(result);
-    }
-    @Test
-    public void testConnectAndProcess_ConnectExceptionHandled() {
+    public void testConnectAndProcessConnectionRefusedHandled() {
         boolean result = PrimeWorker.connectAndProcess();
         Assertions.assertFalse(result);
     }
 
     @Test
-    public void testConnectAndProcess_ClassNotFoundExceptionHandled() throws Exception {
+    public void testConnectAndProcessConnectExceptionHandled() {
+        boolean result = PrimeWorker.connectAndProcess();
+        Assertions.assertFalse(result);
+    }
+
+    @Test
+    public void testConnectAndProcessClassNotFoundExceptionHandled() throws Exception {
         try (ServerSocket server = new ServerSocket(PrimeWorker.SERVER_PORT)) {
             Thread serverThread = new Thread(() -> {
                 try (Socket client = server.accept();
                      ObjectOutputStream out = new ObjectOutputStream(client.getOutputStream())) {
-                    // Отправим объект неизвестного типа (мусор)
+                    // Send unknown type object (garbage)
                     out.writeObject(new Object() {
                         private void writeObject(ObjectOutputStream oos) throws IOException {
                             oos.writeUTF("junk");
                         }
                     });
                     out.flush();
-                } catch (IOException ignored) {}
+                } catch (IOException e) {
+                    // Expected during test
+                }
             });
             serverThread.start();
 
@@ -129,12 +132,14 @@ public class PrimeWorkerTest {
     }
 
     @Test
-    public void testConnectAndProcess_IOExceptionHandled() throws Exception {
+    public void testConnectAndProcessIoExceptionHandled() throws Exception {
         try (ServerSocket server = new ServerSocket(PrimeWorker.SERVER_PORT)) {
             Thread serverThread = new Thread(() -> {
                 try (Socket socket = server.accept()) {
                     socket.close();
-                } catch (IOException ignored) {}
+                } catch (IOException e) {
+                    // Expected during test
+                }
             });
             serverThread.start();
 
