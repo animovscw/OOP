@@ -13,7 +13,7 @@ public class Result implements Serializable {
         this.hasNonPrime = hasNonPrime;
     }
 
-    public boolean getHasNonPrime() {
+    public boolean hasNonPrime() {
         return hasNonPrime;
     }
 }

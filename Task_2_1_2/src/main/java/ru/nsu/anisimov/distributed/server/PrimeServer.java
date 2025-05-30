@@ -3,17 +3,13 @@ package ru.nsu.anisimov.distributed.server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.common.Task;
@@ -25,6 +21,7 @@ public class PrimeServer {
     public static final int PORT = 9999;
     public static final int TIMEOUT_MS = 5000;
     public static final int WORKER_TIMEOUT_MS = 3000;
+    private static final int DISCOVERY_PORT   = 8888;
 
     /**
      * Waits for worker connections within specified timeout.
@@ -54,45 +51,31 @@ public class PrimeServer {
         return workers;
     }
 
-    /**
-     * Processes sub-task by sending it to worker and receiving result.
-     *
-     * @param workerSocket worker connection socket
-     * @param subArray array slice to check
-     * @return true if subarray contains non-prime numbers
-     * @throws IOException if communication error occurs
-     */
-    public static Boolean processSubTask(Socket workerSocket, int[] subArray) throws IOException {
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(workerSocket.getOutputStream());
-            ObjectInputStream in = new ObjectInputStream(workerSocket.getInputStream());
-
-            out.writeObject(new Task(subArray));
-            out.flush();
-
-            Result result = (Result) in.readObject();
-            return result.getHasNonPrime();
-        } catch (ClassNotFoundException e) {
-            throw new IOException("Protocol error", e);
-        } catch (SocketTimeoutException e) {
-            throw new IOException("Worker timeout", e);
-        }
+    private static int[] prepareArray() {
+        int size = 20, maxVal = 1000000;
+        Random rnd = new Random();
+        int[] arr = rnd.ints(size, 1, maxVal).toArray();
+        return arr;
     }
 
     /**
-     * Closes all worker connections.
+     * Processes sub-task by sending it to worker and receiving result.
      *
-     * @param workers list of worker sockets to close
+     * @return true if subarray contains non-prime numbers
+     * @throws IOException if communication error occurs
      */
-    public static void closeAllConnections(List<Socket> workers) {
-        for (Socket worker : workers) {
-            try {
-                if (!worker.isClosed()) {
-                    worker.close();
-                }
-            } catch (IOException e) {
-                System.err.println("Error closing worker connection: " + e.getMessage());
-            }
+    public static boolean processSubTask(Socket worker, Task task) {
+        try (ObjectOutputStream out = new ObjectOutputStream(worker.getOutputStream());
+             ObjectInputStream in = new ObjectInputStream(worker.getInputStream())) {
+
+            out.writeObject(task);
+            out.flush();
+
+            Result r = (Result) in.readObject();
+            return r.hasNonPrime();
+        } catch (IOException | ClassNotFoundException e) {
+            System.err.println("Worker comms error: " + e.getMessage());
+            return true;
         }
     }
 
@@ -103,46 +86,57 @@ public class PrimeServer {
      * @param workers available worker connections
      * @return true if array contains non-prime numbers
      */
-    public static boolean processArray(int[] array, List<Socket> workers) {
-        ExecutorService pool = Executors.newFixedThreadPool(workers.size());
+    public static boolean processArray(int[] array, List<Socket> workers)
+            throws InterruptedException {
+        int n = array.length, w = workers.size();
+        int chunk = (n + w - 1) / w;
+
+        ExecutorService pool = Executors.newFixedThreadPool(w);
         List<Future<Boolean>> futures = new ArrayList<>();
         AtomicBoolean hasNonPrime = new AtomicBoolean(false);
 
-        try {
-            int chunkSize = (int) Math.ceil((double) array.length / workers.size());
-
-            for (int i = 0; i < workers.size(); i++) {
-                int start = i * chunkSize;
-                int end = Math.min(array.length, start + chunkSize);
-                int[] subArray = Arrays.copyOfRange(array, start, end);
-                Socket workerSocket = workers.get(i);
-
-                futures.add(pool.submit(() -> {
-                    try {
-                        return processSubTask(workerSocket, subArray);
-                    } catch (IOException e) {
-                        System.err.println("Worker error: " + e.getMessage());
-                        return true;
-                    }
-                }));
-            }
-
-            for (Future<Boolean> f : futures) {
-                try {
-                    if (f.get()) {
-                        hasNonPrime.set(true);
-                    }
-                } catch (ExecutionException | InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    hasNonPrime.set(true);
-                    System.err.println("Task execution error: " + e.getMessage());
-                }
-            }
-        } finally {
-            pool.shutdown();
-            closeAllConnections(workers);
+        for (int i = 0; i < w; i++) {
+            int start = i * chunk;
+            int end   = Math.min(n, start + chunk);
+            Task subtask = new Task(Arrays.copyOfRange(array, start, end));
+            Socket sock = workers.get(i);
+            futures.add(pool.submit(() -> processSubTask(sock, subtask)));
         }
+
+        for (Future<Boolean> f : futures) {
+            try {
+                if (f.get()) {
+                    hasNonPrime.set(true);
+                }
+            } catch (ExecutionException ee) {
+                System.err.println("Execution error: " + ee.getMessage());
+                hasNonPrime.set(true);
+            }
+        }
+
+        pool.shutdown();
+        pool.awaitTermination(5, TimeUnit.SECONDS);
+        workers.forEach(s -> {
+            try { s.close(); } catch (IOException ignored) {}
+        });
+
         return hasNonPrime.get();
+    }
+
+    private static void broadcastDiscovery() {
+        try(DatagramSocket ds = new DatagramSocket()){
+            ds.setBroadcast(true);
+            String msg = "SERVER:" + InetAddress.getLocalHost().getHostAddress() + ":" + PORT;
+            byte[] data = msg.getBytes(StandardCharsets.UTF_8);
+            DatagramPacket packet = new DatagramPacket(
+                    data, data.length,
+                    InetAddress.getByName("255.255.255.255"), DISCOVERY_PORT
+            );
+            ds.send(packet);
+            System.out.println("Discovery broadcast sent: " + msg);
+        } catch (IOException e) {
+            System.err.println("Failed to send discovery broadcast: " + e.getMessage());
+        }
     }
 
     /**
@@ -152,27 +146,17 @@ public class PrimeServer {
      */
     public static void main(String[] args) {
         try {
-            Random random = new Random();
-            int size = 20;
-            int maxValue = 1000000;
-            int[] array = new int[size];
-            for (int i = 0; i < size; i++) {
-                array[i] = random.nextInt(maxValue) + 1;
-            }
-            array[0] = 2;
-            array[1] = 982451653;
-            array[2] = 2147483647;
-            array[3] = 4;
-            array[4] = 1000000000;
-            array[5] = 123456789;
+            broadcastDiscovery();
+            System.out.println("Waiting for workers...");
             List<Socket> workers = waitForWorkers();
             if (workers.isEmpty()) {
                 System.out.println("No workers connected. Exiting.");
                 return;
             }
-            boolean result = processArray(array, workers);
-            System.out.println("Result: "
-                    + (result ? "Contains non-prime" : "All primes"));
+            int[] array = prepareArray();
+            boolean hasNonPrime = processArray(array,workers);
+            System.out.printf("Final result: %s%n", hasNonPrime
+                    ? "Contains non-prime" : "All primes");
         } catch (Exception e) {
             System.err.println("Server error: " + e.getMessage());
             e.printStackTrace();

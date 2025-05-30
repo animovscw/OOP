@@ -3,19 +3,22 @@ package ru.nsu.anisimov.distributed.worker;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.ConnectException;
+import java.net.*;
+import java.util.Arrays;
+
 import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.common.Task;
-import ru.nsu.anisimov.distributed.server.PrimeServer;
 
 /**
  * Worker node for distributed prime number checking.
  * Connects to the server, receives tasks, processes them, and sends results back.
  */
 public class PrimeWorker {
-    public static long RECONNECT_DELAY_MS = 5000;
-    public static String SERVER_HOST = "localhost";
+    private static long RECONNECT_DELAY_MS = 5000;
+    private static String SERVER_HOST = "localhost";
+    private static int    SERVER_PORT = 9999;
+    private static final int DISCOVERY_PORT    = 8888;
+    private static final int DISCOVERY_TIMEOUT = 3000;
 
     /**
      * Main entry point for the worker.
@@ -24,12 +27,37 @@ public class PrimeWorker {
      * @param args command-line arguments (unused)
      */
     public static void main(String[] args) {
+        discoverServer();
+
         WorkerLoop.run(
-                PrimeWorker::connectAndProcess,
+                () -> connectAndProcess(),
                 Thread::sleep,
                 () -> !Thread.currentThread().isInterrupted(),
                 RECONNECT_DELAY_MS
         );
+    }
+
+    private static void discoverServer() {
+        try(DatagramSocket ds = new DatagramSocket(DISCOVERY_PORT)) {
+            ds.setSoTimeout(DISCOVERY_TIMEOUT);
+            byte[] buf = new byte[256];
+            DatagramPacket pkt = new DatagramPacket(buf,buf.length);
+            System.out.println("Waiting for server broadcast on UDP port " + DISCOVERY_PORT);
+            ds.receive(pkt);
+
+            String msg = new String(pkt.getData(), 0, pkt.getLength()).trim();
+            if (msg.startsWith("SERVER:")){
+                String[] parts = msg.split(":");
+                SERVER_HOST = parts[1];
+                SERVER_PORT = Integer.parseInt(parts[2]);
+                System.out.printf("Discovered server at %s:%d%n", SERVER_HOST, SERVER_PORT);
+                return;
+            }
+        }catch(SocketTimeoutException e) {
+            System.err.println("Discovery timeout, defaulting to " + SERVER_HOST + ":" + SERVER_PORT);
+        } catch (IOException e) {
+            System.err.println("Discovery error: " + e.getMessage());
+        }
     }
 
     /**
@@ -37,23 +65,29 @@ public class PrimeWorker {
      *
      * @throws IOException if connection or communication fails
      */
-    public static void connectAndProcess() throws IOException {
-        try (Socket socket = new Socket(SERVER_HOST, PrimeServer.PORT);
+    public static boolean connectAndProcess(){
+        try (Socket socket = new Socket(SERVER_HOST, SERVER_PORT);
              ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
              ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
-
-            socket.setSoTimeout(PrimeServer.WORKER_TIMEOUT_MS);
 
             Task task = (Task) in.readObject();
             boolean hasNonPrime = checkForNonPrimes(task.getSubArray());
 
             out.writeObject(new Result(hasNonPrime));
             out.flush();
-        } catch (ClassNotFoundException e) {
-            throw new IOException("Protocol error", e);
+            System.out.println("Processed task, hasNonPrime = " + hasNonPrime);
+            return true;
         } catch (ConnectException e) {
-            throw e;
+            System.err.println("Connection refused: " + e.getMessage());
+        } catch (SocketTimeoutException e) {
+            System.err.println("Read timeout: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println("Protocol error: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("I/O error: " + e.getMessage());
         }
+        return false;
+
     }
 
     /**
@@ -63,12 +97,7 @@ public class PrimeWorker {
      * @return {@code true} if at least one non-prime is found, {@code false} otherwise
      */
     public static boolean checkForNonPrimes(int[] numbers) {
-        for (int num : numbers) {
-            if (!isPrime(num)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(numbers).anyMatch(n -> !isPrime(n));
     }
 
     /**

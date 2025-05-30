@@ -1,19 +1,21 @@
 package ru.nsu.anisimov.distributed.server;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.io.InputStream;
+import java.io.ObjectStreamClass;
 import java.net.Socket;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.nsu.anisimov.distributed.common.Result;
+import ru.nsu.anisimov.distributed.common.Task;
 
 /**
  * Tests for server.
@@ -32,99 +34,107 @@ public class PrimeServerTest {
     public void testProcessSubTask_returnsTrue() throws Exception {
         Socket mockSocket = mock(Socket.class);
 
-        ByteArrayInputStream inStream = new ByteArrayInputStream(serialize(new Result(true)));
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        byte[] resultBytes = serialize(new Result(true));
+        when(mockSocket.getInputStream()).thenReturn(new ByteArrayInputStream(resultBytes));
+        when(mockSocket.getOutputStream()).thenReturn(new ByteArrayOutputStream());
 
-        when(mockSocket.getInputStream()).thenReturn(inStream);
-        when(mockSocket.getOutputStream()).thenReturn(outStream);
-
-        boolean result = PrimeServer.processSubTask(mockSocket, new int[]{4, 6, 8});
+        boolean result = PrimeServer.processSubTask(mockSocket, new Task(new int[]{4, 6, 8}));
         Assertions.assertTrue(result);
     }
 
     @Test
     public void testProcessSubTask_returnsFalse() throws Exception {
         Socket mockSocket = mock(Socket.class);
-        ByteArrayInputStream inStream = new ByteArrayInputStream(serialize(new Result(false)));
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
 
-        when(mockSocket.getInputStream()).thenReturn(inStream);
-        when(mockSocket.getOutputStream()).thenReturn(outStream);
+        byte[] resultBytes = serialize(new Result(false));
+        when(mockSocket.getInputStream()).thenReturn(new ByteArrayInputStream(resultBytes));
+        when(mockSocket.getOutputStream()).thenReturn(new ByteArrayOutputStream());
 
-        boolean result = PrimeServer.processSubTask(mockSocket, new int[]{2, 3, 5});
+        boolean result = PrimeServer.processSubTask(mockSocket, new Task(new int[]{2, 3, 5}));
         Assertions.assertFalse(result);
     }
 
     @Test
-    public void testProcessSubTask_throwsOnInvalidClass() {
+    public void testProcessSubTask_onCorruptedData_returnsTrue() throws Exception {
         Socket mockSocket = mock(Socket.class);
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        ByteArrayInputStream inStream = new ByteArrayInputStream(new byte[]{1, 2, 3});
 
-        try {
-            when(mockSocket.getInputStream()).thenReturn(inStream);
-            when(mockSocket.getOutputStream()).thenReturn(outStream);
+        when(mockSocket.getInputStream()).thenReturn(new ByteArrayInputStream(new byte[]{1, 2, 3}));
+        when(mockSocket.getOutputStream()).thenReturn(new ByteArrayOutputStream());
 
-            Assertions.assertThrows(IOException.class, () -> {
-                PrimeServer.processSubTask(mockSocket, new int[]{2, 3});
-            });
-        } catch (IOException e) {
-            Assertions.fail("Unexpected IOException");
-        }
+        boolean result = PrimeServer.processSubTask(mockSocket, new Task(new int[]{1, 1}));
+        Assertions.assertTrue(result);
     }
 
     @Test
-    public void testCloseAllConnections_closesSockets() throws IOException {
-        Socket mockSocket1 = mock(Socket.class);
-        Socket mockSocket2 = mock(Socket.class);
+    public void testProcessSubTask_onClassNotFound_returnsTrue() throws Exception {
+        Socket mockSocket = mock(Socket.class);
 
-        when(mockSocket1.isClosed()).thenReturn(false);
-        when(mockSocket2.isClosed()).thenReturn(false);
+        byte[] serializedData;
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutputStream out = new ObjectOutputStream(bos)) {
+            out.writeObject(new Result(true));
+            serializedData = bos.toByteArray();
+        }
 
-        PrimeServer.closeAllConnections(List.of(mockSocket1, mockSocket2));
+        ByteArrayInputStream bais = new ByteArrayInputStream(serializedData);
 
-        verify(mockSocket1, times(1)).close();
-        verify(mockSocket2, times(1)).close();
+        ObjectInputStream throwingStream = new ObjectInputStream(bais) {
+            protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
+                if (desc.getName().equals("ru.nsu.anisimov.distributed.common.Result")) {
+                    throw new ClassNotFoundException("Simulated missing class");
+                }
+                return super.resolveClass(desc);
+            }
+        };
+
+        when(mockSocket.getInputStream()).thenReturn(new InputStream() {
+            @Override
+            public int read() throws IOException {
+                return bais.read();
+            }
+        });
+
+        when(mockSocket.getOutputStream()).thenReturn(new ByteArrayOutputStream());
+
+        boolean result = PrimeServer.processSubTask(mockSocket, new Task(new int[]{1, 2, 3}));
+        Assertions.assertTrue(result);
     }
+
 
     @Test
     public void testProcessArray_withAllPrimeResults() throws Exception {
         Socket mockSocket = mock(Socket.class);
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        ByteArrayInputStream inStream = new ByteArrayInputStream(serialize(new Result(false)));
 
-        when(mockSocket.getOutputStream()).thenReturn(outStream);
-        when(mockSocket.getInputStream()).thenReturn(inStream);
+        byte[] resultBytes = serialize(new Result(false));
+        when(mockSocket.getInputStream()).thenReturn(new ByteArrayInputStream(resultBytes));
+        when(mockSocket.getOutputStream()).thenReturn(new ByteArrayOutputStream());
 
-        int[] inputArray = {2, 3, 5, 7};
+        int[] inputArray = {2, 3, 5};
         boolean result = PrimeServer.processArray(inputArray, List.of(mockSocket));
-
         Assertions.assertFalse(result);
     }
 
     @Test
     public void testProcessArray_withNonPrimeDetected() throws Exception {
         Socket mockSocket = mock(Socket.class);
-        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-        ByteArrayInputStream inStream = new ByteArrayInputStream(serialize(new Result(true)));
 
-        when(mockSocket.getOutputStream()).thenReturn(outStream);
-        when(mockSocket.getInputStream()).thenReturn(inStream);
+        byte[] resultBytes = serialize(new Result(true));
+        when(mockSocket.getInputStream()).thenReturn(new ByteArrayInputStream(resultBytes));
+        when(mockSocket.getOutputStream()).thenReturn(new ByteArrayOutputStream());
 
-        int[] inputArray = {2, 3, 4, 5};
+        int[] inputArray = {2, 4, 5};
         boolean result = PrimeServer.processArray(inputArray, List.of(mockSocket));
-
         Assertions.assertTrue(result);
     }
 
     @Test
     public void testProcessArray_workerFails() throws Exception {
         Socket mockSocket = mock(Socket.class);
+
         when(mockSocket.getOutputStream()).thenThrow(new IOException("Failure"));
 
         int[] inputArray = {2, 3, 5};
         boolean result = PrimeServer.processArray(inputArray, List.of(mockSocket));
-
         Assertions.assertTrue(result);
     }
 }

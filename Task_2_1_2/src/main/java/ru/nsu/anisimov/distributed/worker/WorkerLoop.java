@@ -11,24 +11,13 @@ public class WorkerLoop {
      * Functional interface for establishing connection and processing tasks.
      */
     public interface Connector {
-        /**
-         * Establishes connection and processes tasks.
-         *
-         * @throws Exception if any error occurs during connection or processing
-         */
-        void connectAndProcess() throws Exception;
+        boolean connectAndProcess() throws Exception;
     }
 
     /**
      * Functional interface for sleep operations.
      */
     public interface Sleeper {
-        /**
-         * Sleeps for specified time.
-         *
-         * @param ms milliseconds to sleep
-         * @throws InterruptedException if sleep is interrupted
-         */
         void sleep(long ms) throws InterruptedException;
     }
 
@@ -36,11 +25,6 @@ public class WorkerLoop {
      * Functional interface for continuation condition checking.
      */
     public interface Continuator {
-        /**
-         * Checks if worker should continue running.
-         *
-         * @return true if worker should continue, false otherwise
-         */
         boolean shouldContinue();
     }
 
@@ -58,7 +42,7 @@ public class WorkerLoop {
                            long delayMs) {
         while (continuator.shouldContinue()) {
             try {
-                connector.connectAndProcess();
+                boolean ok = connector.connectAndProcess();
                 System.out.println("Task completed. Waiting before reconnect...");
                 sleeper.sleep(delayMs);
             } catch (InterruptedException e) {

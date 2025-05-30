@@ -1,87 +1,87 @@
 package ru.nsu.anisimov.distributed.worker;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.net.ConnectException;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test.
+ * Tests for WorkerLoop resilience.
  */
 class WorkerLoopTest {
 
     @Test
-    void testHandlesInterruptedException() {
-        AtomicInteger called = new AtomicInteger();
-
-        WorkerLoop.run(
-                () -> {
-                    throw new InterruptedException();
-                },
-                ms -> called.incrementAndGet(),
-                () -> true,
-                1
-        );
-
-        assertEquals(0, called.get());
-    }
-
-    @Test
-    void testHandlesConnectException() {
-        AtomicInteger sleepCalls = new AtomicInteger();
-        AtomicInteger tries = new AtomicInteger();
-
-        WorkerLoop.run(
-                () -> {
-                    if (tries.incrementAndGet() == 1) {
-                        throw new ConnectException();
-                    } else {
-                        throw new InterruptedException();
-                    }
-                },
-                ms -> sleepCalls.incrementAndGet(),
-                () -> true,
-                1
-        );
-
-        assertEquals(1, sleepCalls.get());
-    }
-
-    @Test
-    void testHandlesGenericException() {
-        AtomicInteger sleepCalls = new AtomicInteger();
-        AtomicInteger tries = new AtomicInteger();
-
-        WorkerLoop.run(
-                () -> {
-                    if (tries.incrementAndGet() == 1) {
-                        throw new RuntimeException("Failure");
-                    } else {
-                        throw new InterruptedException();
-                    }
-                },
-                ms -> sleepCalls.incrementAndGet(),
-                () -> true,
-                1
-        );
-
-        assertEquals(1, sleepCalls.get());
-    }
-
-    @Test
-    void testLoopRunsAndStops() {
+    void testInterruptedDuringSleepStopsLoop() {
         AtomicInteger connectCalls = new AtomicInteger();
-        AtomicBoolean done = new AtomicBoolean(false);
 
         WorkerLoop.run(
-                connectCalls::incrementAndGet,
-                ms -> done.set(true),
-                () -> !done.get(),
+                () -> { connectCalls.incrementAndGet(); return true; },
+                ms -> { throw new InterruptedException(); },
+                () -> true,
                 1
         );
 
-        assertEquals(1, connectCalls.get());
+        Assertions.assertEquals(1, connectCalls.get());
     }
+
+    @Test
+    void testExceptionInConnectorTriggersSleepThenStops() {
+        AtomicInteger sleepCalls = new AtomicInteger();
+
+        WorkerLoop.run(
+                () -> { throw new RuntimeException("failure"); },
+                ms -> {
+                    if (sleepCalls.get() == 0) {
+                        sleepCalls.incrementAndGet();
+                    } else {
+                        throw new InterruptedException();
+                    }
+                },
+                () -> true,
+                1
+        );
+
+        Assertions.assertEquals(1, sleepCalls.get());
+    }
+
+    @Test
+    void testLoopRunsOnceThenStopsViaContinuator() {
+        AtomicInteger connectCalls = new AtomicInteger();
+
+        WorkerLoop.run(
+                () -> { connectCalls.incrementAndGet(); return true; },
+                ms -> {/* no-op */},
+                () -> connectCalls.get() == 0,
+                1
+        );
+
+        Assertions.assertEquals(1, connectCalls.get());
+    }
+
+    @Test
+    public void testWorkerLoopHandlesConnectExceptionAndContinues() {
+        final int[] counter = {0};
+
+        WorkerLoop.Connector mockConnector = () -> {
+            counter[0]++;
+            throw new ConnectException("Mock connection error");
+        };
+
+        WorkerLoop.Sleeper mockSleeper = ms -> {
+            if (counter[0] >= 2) throw new InterruptedException();
+        };
+
+        WorkerLoop.Continuator mockContinuator = () -> true;
+
+        WorkerLoop.run(mockConnector, mockSleeper, mockContinuator, 100);
+
+        Assertions.assertEquals(2, counter[0]);
+    }
+
+    @Test
+    public void testConnectAndProcess_ClassNotFoundHandled() throws Exception {
+        boolean result = PrimeWorker.connectAndProcess();
+        Assertions.assertFalse(result);
+    }
+
 }

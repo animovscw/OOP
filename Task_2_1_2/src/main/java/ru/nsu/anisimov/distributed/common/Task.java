@@ -14,6 +14,6 @@ public class Task implements Serializable {
     }
 
     public int[] getSubArray() {
-        return subArray;
+        return subArray.clone();
     }
 }

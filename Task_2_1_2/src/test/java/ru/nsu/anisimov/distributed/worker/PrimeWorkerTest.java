@@ -3,6 +3,7 @@ package ru.nsu.anisimov.distributed.worker;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.DatagramPacket;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -15,9 +16,9 @@ import ru.nsu.anisimov.distributed.common.Task;
 import ru.nsu.anisimov.distributed.server.PrimeServer;
 
 /**
- * Test for class PrimeWorker.
+ * Tests for PrimeWorker.
  */
-public class TestPrimeWorker {
+public class PrimeWorkerTest {
 
     @Test
     public void testIsPrime_basicCases() {
@@ -37,7 +38,7 @@ public class TestPrimeWorker {
 
     @Test
     public void testIsPrime_largeNonPrime() {
-        Assertions.assertFalse(PrimeWorker.isPrime(1000000000));
+        Assertions.assertFalse(PrimeWorker.isPrime(1_000_000_000));
     }
 
     @Test
@@ -53,7 +54,7 @@ public class TestPrimeWorker {
     }
 
     @Test
-    void testConnectAndProcess_successful() throws Exception {
+    public void testConnectAndProcess_successful() throws Exception {
         try (ServerSocket fakeServer = new ServerSocket(PrimeServer.PORT)) {
             ExecutorService executor = Executors.newSingleThreadExecutor();
             executor.submit(() -> {
@@ -66,16 +67,37 @@ public class TestPrimeWorker {
                     out.flush();
 
                     Result result = (Result) in.readObject();
-                    Assertions.assertFalse(result.getHasNonPrime());
+                    Assertions.assertFalse(result.hasNonPrime());
                 } catch (IOException | ClassNotFoundException e) {
                     Assertions.fail("Server simulation failed: " + e.getMessage());
                 }
             });
 
-            PrimeWorker.connectAndProcess();
+            boolean success = PrimeWorker.connectAndProcess();
+            Assertions.assertTrue(success);
 
             executor.shutdown();
             Assertions.assertTrue(executor.awaitTermination(1, TimeUnit.SECONDS));
         }
+    }
+
+    @Test
+    public void testServerDiscoveryParsing() throws Exception {
+        String serverMessage = "SERVER:192.168.1.100:5555";
+        byte[] data = serverMessage.getBytes();
+        DatagramPacket packet = new DatagramPacket(data, data.length);
+
+        String msg = new String(packet.getData(), 0, packet.getLength()).trim();
+        Assertions.assertTrue(msg.startsWith("SERVER:"));
+
+        String[] parts = msg.split(":");
+        Assertions.assertEquals("192.168.1.100", parts[1]);
+        Assertions.assertEquals("5555", parts[2]);
+    }
+
+    @Test
+    public void testConnectAndProcess_ConnectionRefusedHandled() {
+        boolean result = PrimeWorker.connectAndProcess();
+        Assertions.assertFalse(result);
     }
 }
