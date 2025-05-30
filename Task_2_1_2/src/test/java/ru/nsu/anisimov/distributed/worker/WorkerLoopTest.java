@@ -15,8 +15,13 @@ class WorkerLoopTest {
         AtomicInteger connectCalls = new AtomicInteger();
 
         WorkerLoop.run(
-                () -> { connectCalls.incrementAndGet(); return true; },
-                ms -> { throw new InterruptedException(); },
+                () -> {
+                    connectCalls.incrementAndGet();
+                    return true;
+                },
+                ms -> {
+                    throw new InterruptedException();
+                },
                 () -> true,
                 1
         );
@@ -29,7 +34,9 @@ class WorkerLoopTest {
         AtomicInteger sleepCalls = new AtomicInteger();
 
         WorkerLoop.run(
-                () -> { throw new RuntimeException("failure"); },
+                () -> {
+                    throw new RuntimeException("failure");
+                },
                 ms -> {
                     if (sleepCalls.get() == 0) {
                         sleepCalls.incrementAndGet();
@@ -49,8 +56,13 @@ class WorkerLoopTest {
         AtomicInteger connectCalls = new AtomicInteger();
 
         WorkerLoop.run(
-                () -> { connectCalls.incrementAndGet(); return true; },
-                ms -> {/* no-op */},
+                () -> {
+                    connectCalls.incrementAndGet();
+                    return true;
+                },
+                ms -> {
+                    /* no-op */
+                },
                 () -> connectCalls.get() == 0,
                 1
         );
@@ -68,7 +80,9 @@ class WorkerLoopTest {
         };
 
         WorkerLoop.Sleeper mockSleeper = ms -> {
-            if (counter[0] >= 2) throw new InterruptedException();
+            if (counter[0] >= 2) {
+                throw new InterruptedException();
+            }
         };
 
         WorkerLoop.Continuator mockContinuator = () -> true;
@@ -83,5 +97,4 @@ class WorkerLoopTest {
         boolean result = PrimeWorker.connectAndProcess();
         Assertions.assertFalse(result);
     }
-
 }

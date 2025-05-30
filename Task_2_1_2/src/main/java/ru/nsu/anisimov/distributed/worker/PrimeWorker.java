@@ -3,7 +3,11 @@ package ru.nsu.anisimov.distributed.worker;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.*;
+import java.net.ConnectException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.util.Arrays;
 
 import ru.nsu.anisimov.distributed.common.Result;
@@ -16,8 +20,8 @@ import ru.nsu.anisimov.distributed.common.Task;
 public class PrimeWorker {
     private static long RECONNECT_DELAY_MS = 5000;
     private static String SERVER_HOST = "localhost";
-    private static int    SERVER_PORT = 9999;
-    private static final int DISCOVERY_PORT    = 8888;
+    private static int SERVER_PORT = 9999;
+    private static final int DISCOVERY_PORT = 8888;
     private static final int DISCOVERY_TIMEOUT = 3000;
 
     /**
@@ -38,23 +42,24 @@ public class PrimeWorker {
     }
 
     private static void discoverServer() {
-        try(DatagramSocket ds = new DatagramSocket(DISCOVERY_PORT)) {
+        try (DatagramSocket ds = new DatagramSocket(DISCOVERY_PORT)) {
             ds.setSoTimeout(DISCOVERY_TIMEOUT);
             byte[] buf = new byte[256];
-            DatagramPacket pkt = new DatagramPacket(buf,buf.length);
+            DatagramPacket pkt = new DatagramPacket(buf, buf.length);
             System.out.println("Waiting for server broadcast on UDP port " + DISCOVERY_PORT);
             ds.receive(pkt);
 
             String msg = new String(pkt.getData(), 0, pkt.getLength()).trim();
-            if (msg.startsWith("SERVER:")){
+            if (msg.startsWith("SERVER:")) {
                 String[] parts = msg.split(":");
                 SERVER_HOST = parts[1];
                 SERVER_PORT = Integer.parseInt(parts[2]);
                 System.out.printf("Discovered server at %s:%d%n", SERVER_HOST, SERVER_PORT);
                 return;
             }
-        }catch(SocketTimeoutException e) {
-            System.err.println("Discovery timeout, defaulting to " + SERVER_HOST + ":" + SERVER_PORT);
+        } catch (SocketTimeoutException e) {
+            System.err.println("Discovery timeout, defaulting to " + SERVER_HOST + ":"
+                    + SERVER_PORT);
         } catch (IOException e) {
             System.err.println("Discovery error: " + e.getMessage());
         }
@@ -63,9 +68,9 @@ public class PrimeWorker {
     /**
      * Connects to the server, receives a task, processes it, and sends the result back.
      *
-     * @throws IOException if connection or communication fails
+     * @return true if processing was successful, false otherwise
      */
-    public static boolean connectAndProcess(){
+    public static boolean connectAndProcess() {
         try (Socket socket = new Socket(SERVER_HOST, SERVER_PORT);
              ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
              ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
@@ -87,7 +92,6 @@ public class PrimeWorker {
             System.err.println("I/O error: " + e.getMessage());
         }
         return false;
-
     }
 
     /**

@@ -6,9 +6,9 @@ import static org.mockito.Mockito.when;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.io.ObjectStreamClass;
 import java.net.Socket;
 import java.util.List;
@@ -79,7 +79,8 @@ public class PrimeServerTest {
         ByteArrayInputStream bais = new ByteArrayInputStream(serializedData);
 
         ObjectInputStream throwingStream = new ObjectInputStream(bais) {
-            protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
+            protected Class<?> resolveClass(ObjectStreamClass desc)
+                    throws IOException, ClassNotFoundException {
                 if (desc.getName().equals("ru.nsu.anisimov.distributed.common.Result")) {
                     throw new ClassNotFoundException("Simulated missing class");
                 }

@@ -3,13 +3,22 @@ package ru.nsu.anisimov.distributed.server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.*;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.common.Task;
@@ -21,7 +30,7 @@ public class PrimeServer {
     public static final int PORT = 9999;
     public static final int TIMEOUT_MS = 5000;
     public static final int WORKER_TIMEOUT_MS = 3000;
-    private static final int DISCOVERY_PORT   = 8888;
+    private static final int DISCOVERY_PORT = 8888;
 
     /**
      * Waits for worker connections within specified timeout.
@@ -52,7 +61,8 @@ public class PrimeServer {
     }
 
     private static int[] prepareArray() {
-        int size = 20, maxVal = 1000000;
+        int size = 20;
+        int maxVal = 1000000;
         Random rnd = new Random();
         int[] arr = rnd.ints(size, 1, maxVal).toArray();
         return arr;
@@ -88,7 +98,8 @@ public class PrimeServer {
      */
     public static boolean processArray(int[] array, List<Socket> workers)
             throws InterruptedException {
-        int n = array.length, w = workers.size();
+        int n = array.length;
+        int w = workers.size();
         int chunk = (n + w - 1) / w;
 
         ExecutorService pool = Executors.newFixedThreadPool(w);
@@ -97,7 +108,7 @@ public class PrimeServer {
 
         for (int i = 0; i < w; i++) {
             int start = i * chunk;
-            int end   = Math.min(n, start + chunk);
+            int end = Math.min(n, start + chunk);
             Task subtask = new Task(Arrays.copyOfRange(array, start, end));
             Socket sock = workers.get(i);
             futures.add(pool.submit(() -> processSubTask(sock, subtask)));
@@ -117,20 +128,26 @@ public class PrimeServer {
         pool.shutdown();
         pool.awaitTermination(5, TimeUnit.SECONDS);
         workers.forEach(s -> {
-            try { s.close(); } catch (IOException ignored) {}
+            try {
+                s.close();
+            } catch (IOException ignored) {
+                // Ignore close exception
+            }
         });
 
         return hasNonPrime.get();
     }
 
     private static void broadcastDiscovery() {
-        try(DatagramSocket ds = new DatagramSocket()){
+        try (DatagramSocket ds = new DatagramSocket()) {
             ds.setBroadcast(true);
             String msg = "SERVER:" + InetAddress.getLocalHost().getHostAddress() + ":" + PORT;
             byte[] data = msg.getBytes(StandardCharsets.UTF_8);
             DatagramPacket packet = new DatagramPacket(
-                    data, data.length,
-                    InetAddress.getByName("255.255.255.255"), DISCOVERY_PORT
+                    data,
+                    data.length,
+                    InetAddress.getByName("255.255.255.255"),
+                    DISCOVERY_PORT
             );
             ds.send(packet);
             System.out.println("Discovery broadcast sent: " + msg);
@@ -154,7 +171,7 @@ public class PrimeServer {
                 return;
             }
             int[] array = prepareArray();
-            boolean hasNonPrime = processArray(array,workers);
+            boolean hasNonPrime = processArray(array, workers);
             System.out.printf("Final result: %s%n", hasNonPrime
                     ? "Contains non-prime" : "All primes");
         } catch (Exception e) {
