@@ -2,7 +2,6 @@ package ru.nsu.anisimov.distributed.server;
 
 import ru.nsu.anisimov.distributed.common.Task;
 import ru.nsu.anisimov.distributed.common.Result;
-
 import java.io.*;
 import java.net.*;
 import java.util.*;
@@ -84,7 +83,7 @@ public class PrimeServer {
                         return processSubTask(workerSocket, subArray);
                     } catch (IOException e) {
                         System.err.println("Worker error: " + e.getMessage());
-                        return true; // Treat worker failure as non-prime
+                        return true;
                     }
                 }));
             }
@@ -128,7 +127,8 @@ public class PrimeServer {
                 return;
             }
             boolean result = processArray(array, workers);
-            System.out.println("Result: " + (result ? "Contains non-prime" : "All primes"));
+            System.out.println("Result: " +
+                    (result ? "Contains non-prime" : "All primes"));
         } catch (Exception e) {
             System.err.println("Server error: " + e.getMessage());
             e.printStackTrace();
