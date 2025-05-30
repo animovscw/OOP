@@ -1,5 +1,8 @@
 package ru.nsu.anisimov.distributed.server;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -11,9 +14,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.common.Task;
-
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 
 /**
