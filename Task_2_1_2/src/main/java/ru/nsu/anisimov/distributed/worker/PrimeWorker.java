@@ -3,17 +3,26 @@ package ru.nsu.anisimov.distributed.worker;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.net.ConnectException;
+import java.net.Socket;
 import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.common.Task;
 import ru.nsu.anisimov.distributed.server.PrimeServer;
 
+/**
+ * Worker node for distributed prime number checking.
+ * Connects to the server, receives tasks, processes them, and sends results back.
+ */
 public class PrimeWorker {
+    public static final long RECONNECT_DELAY_MS = 5000;
+    public static final String SERVER_HOST = "localhost";
 
-    public static long RECONNECT_DELAY_MS = 5000;
-    public static String SERVER_HOST = "localhost";
-
+    /**
+     * Main entry point for the worker.
+     * Runs an infinite loop trying to connect and process tasks.
+     *
+     * @param args command-line arguments (unused)
+     */
     public static void main(String[] args) {
         WorkerLoop.run(
                 PrimeWorker::connectAndProcess,
@@ -23,6 +32,11 @@ public class PrimeWorker {
         );
     }
 
+    /**
+     * Connects to the server, receives a task, processes it, and sends the result back.
+     *
+     * @throws IOException if connection or communication fails
+     */
     public static void connectAndProcess() throws IOException {
         try (Socket socket = new Socket(SERVER_HOST, PrimeServer.PORT);
              ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -42,6 +56,12 @@ public class PrimeWorker {
         }
     }
 
+    /**
+     * Checks if any number in the given array is non-prime.
+     *
+     * @param numbers array of integers to check
+     * @return {@code true} if at least one non-prime is found, {@code false} otherwise
+     */
     public static boolean checkForNonPrimes(int[] numbers) {
         for (int num : numbers) {
             if (!isPrime(num)) {
@@ -51,6 +71,12 @@ public class PrimeWorker {
         return false;
     }
 
+    /**
+     * Checks if a number is prime.
+     *
+     * @param n the number to check
+     * @return {@code true} if the number is prime, {@code false} otherwise
+     */
     public static boolean isPrime(int n) {
         if (n <= 1) {
             return false;
