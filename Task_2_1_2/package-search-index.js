@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.anisimov.distributed.common"},{"l":"ru.nsu.anisimov.distributed.server"},{"l":"ru.nsu.anisimov.distributed.worker"}];updateSearchResults();

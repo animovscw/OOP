@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.anisimov.distributed.server","l":"PrimeServer"},{"p":"ru.nsu.anisimov.distributed.worker","l":"PrimeWorker"},{"p":"ru.nsu.anisimov.distributed.common","l":"Result"},{"p":"ru.nsu.anisimov.distributed.common","l":"Task"}];updateSearchResults();
