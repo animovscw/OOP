@@ -1,12 +1,22 @@
 package ru.nsu.anisimov.distributed.server;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicBoolean;
 import ru.nsu.anisimov.distributed.common.Task;
 import ru.nsu.anisimov.distributed.common.Result;
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PrimeServer {
     public static final int PORT = 9999;
@@ -28,7 +38,7 @@ public class PrimeServer {
                 client.setSoTimeout(WORKER_TIMEOUT_MS);
                 workers.add(client);
             } catch (SocketTimeoutException ignored) {
-
+                
             }
         }
         serverSocket.close();
@@ -64,7 +74,7 @@ public class PrimeServer {
         }
     }
 
-    public static boolean processArray(int[] array, List<Socket> workers) throws Exception {
+    public static boolean processArray(int[] array, List<Socket> workers) {
         ExecutorService pool = Executors.newFixedThreadPool(workers.size());
         List<Future<Boolean>> futures = new ArrayList<>();
         AtomicBoolean hasNonPrime = new AtomicBoolean(false);

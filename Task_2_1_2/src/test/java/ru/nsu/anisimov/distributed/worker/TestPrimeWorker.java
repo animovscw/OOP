@@ -1,6 +1,5 @@
 package ru.nsu.anisimov.distributed.worker;
 
-import org.junit.jupiter.api.Assertions;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -9,13 +8,15 @@ import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.common.Task;
 import ru.nsu.anisimov.distributed.server.PrimeServer;
 
+/**
+ * Test for class PrimeWorker.
+ */
 public class TestPrimeWorker {
 
     @Test
