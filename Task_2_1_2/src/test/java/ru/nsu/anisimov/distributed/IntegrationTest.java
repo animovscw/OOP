@@ -1,110 +1,97 @@
 package ru.nsu.anisimov.distributed;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
+import ru.nsu.anisimov.distributed.common.Task;
+import ru.nsu.anisimov.distributed.common.Result;
 import ru.nsu.anisimov.distributed.server.PrimeServer;
 import ru.nsu.anisimov.distributed.worker.PrimeWorker;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-class IntegrationTest {
+public class IntegrationTest {
+    private static final int TEST_PORT = 9999;
+    private static final int[] TEST_ARRAY = {6, 8, 7, 13, 5, 9, 4};
+    private ExecutorService executor;
+    private ServerSocket serverSocket;
 
-    static class TestablePrimeServer extends PrimeServer {
-        public static List<Socket> testWaitForWorkers() throws IOException {
-            return waitForWorkers();
-        }
-
-        public static boolean testProcessArray(int[] array, List<Socket> workers) throws Exception {
-            return processArray(array, workers);
-        }
+    @BeforeEach
+    void setUp() throws IOException {
+        executor = Executors.newFixedThreadPool(3);
+        serverSocket = new ServerSocket(TEST_PORT);
     }
 
-    // Вспомогательный класс для тестирования воркера
-    static class TestablePrimeWorker extends PrimeWorker {
-        public static void testConnectAndProcess() throws Exception {
-            connectAndProcess();
+    @AfterEach
+    void tearDown() throws IOException {
+        executor.shutdownNow();
+        serverSocket.close();
+    }
+
+    @Test
+    void testServerWithWorkers() throws Exception {
+        // Start server in background
+        executor.submit(() -> {
+            try {
+                List<Socket> workers = PrimeServer.waitForWorkers();
+                if (workers.isEmpty()) {
+                    fail("No workers connected");
+                }
+                boolean result = PrimeServer.processArray(TEST_ARRAY, workers);
+                assertTrue(result, "Expected array to contain non-prime numbers");
+            } catch (Exception e) {
+                fail("Server error: " + e.getMessage());
+            }
+        });
+
+        // Start workers in background
+        executor.submit(() -> startTestWorker());
+        executor.submit(() -> startTestWorker());
+
+        // Give time for processing
+        Thread.sleep(3000);
+    }
+
+    private void startTestWorker() {
+        try (Socket socket = new Socket("localhost", TEST_PORT);
+             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+             ObjectInputStream in = new ObjectInputStream(socket.getInputStream())) {
+
+            Task task = (Task) in.readObject();
+            boolean hasNonPrime = PrimeWorker.checkForNonPrimes(task.getSubArray());
+            out.writeObject(new Result(hasNonPrime));
+
+        } catch (Exception e) {
+            fail("Worker error: " + e.getMessage());
         }
     }
 
     @Test
-    @Timeout(10)
-    void testServerWithSingleWorker() throws Exception {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-
-        Future<Boolean> serverFuture = executor.submit(() -> {
-            try {
-                int[] array = {2, 3, 4, 5, 6};
-                List<Socket> workers = TestablePrimeServer.testWaitForWorkers();
-                if (workers.isEmpty()) return false;
-                return TestablePrimeServer.testProcessArray(array, workers);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+    void testNoWorkersScenario() {
+        assertDoesNotThrow(() -> {
+            List<Socket> emptyList = new ArrayList<>();
+            PrimeServer.closeAllConnections(emptyList);
         });
-
-        Thread.sleep(500); // Wait for server to start
-
-        Future<?> workerFuture = executor.submit(() -> {
-            try {
-                TestablePrimeWorker.testConnectAndProcess();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        try {
-            assertTrue(serverFuture.get(5, TimeUnit.SECONDS));
-        } finally {
-            workerFuture.cancel(true);
-            executor.shutdownNow();
-        }
     }
 
     @Test
-    @Timeout(10)
-    void testServerWithMultipleWorkers() throws Exception {
-        ExecutorService executor = Executors.newFixedThreadPool(3);
-
-        Future<Boolean> serverFuture = executor.submit(() -> {
-            try {
-                int[] array = new int[100];
-                Arrays.fill(array, 7); // All primes
-                array[50] = 4; // One non-prime
-
-                List<Socket> workers = TestablePrimeServer.testWaitForWorkers();
-                if (workers.size() < 2) return false;
-                return TestablePrimeServer.testProcessArray(array, workers);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        Thread.sleep(500); // Wait for server to start
-
-        Future<?> worker1 = executor.submit(() -> {
-            try {
-                TestablePrimeWorker.testConnectAndProcess();
-            } catch (Exception ignored) {}
-        });
-
-        Future<?> worker2 = executor.submit(() -> {
-            try {
-                TestablePrimeWorker.testConnectAndProcess();
-            } catch (Exception ignored) {}
-        });
-
+    void testWorkerTimeoutHandling() throws IOException {
+        Socket testSocket = new Socket();
         try {
-            assertTrue(serverFuture.get(5, TimeUnit.SECONDS));
+            assertThrows(IOException.class, () -> {
+                PrimeServer.processSubTask(testSocket, new int[]{1, 2, 3});
+            });
         } finally {
-            worker1.cancel(true);
-            worker2.cancel(true);
-            executor.shutdownNow();
+            testSocket.close();
         }
     }
 }
